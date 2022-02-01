@@ -4,25 +4,34 @@ import './level.css'
 
 const State = ['moveRight', 'moveLeft', 'stand'] as const;
 type StateType = typeof State[number];
+const LEVEL_CONFIG = {
+  borderRight: 1200,
+  borderLeft: 0,
+  scrollSpeed:10,
+}
 
 let state: StateType = 'stand'; 
 export const createLevel = (charater: HTMLElement) => {
-  const element = document.createElement('div');
-  element.className = 'forest';
-  element.style.backgroundPositionX = '0px'; // TODO 2022-01-27: change this init
+  const level = document.createElement('div');
+  initLevel(level)
   addListeners();
-  addGamingThread(() => checkCharacterPosition(charater, element));
-  return element;
+  addGamingThread(() => checkCharacterPosition(charater, level));
+  return level;
+}
+
+const initLevel = (element: HTMLElement): void => {
+  element.className = 'forest';
+  element.style.backgroundPositionX = '0px';
 }
 
 const checkCharacterPosition = (character: HTMLElement, level: HTMLElement) => {
   const characterPosition = getPosition(character);
   const levelPosition = getPosition(level, 'backgroundPositionX');
-  if(characterPosition === 1200 && state === 'moveRight' && levelPosition > -1200){ // TODO 2022-01-27: move this magic number
-    setPosition(level, levelPosition-5, 'backgroundPositionX');
+  if(characterPosition === 1200 && state === 'moveRight' && levelPosition > -LEVEL_CONFIG.borderRight){ // TODO 2022-01-27: move this magic number
+    setPosition(level, levelPosition-LEVEL_CONFIG.scrollSpeed, 'backgroundPositionX');
   }
-  if(characterPosition === 50 && state === 'moveLeft' && levelPosition < 0){ // TODO 2022-01-27: move this magic number
-    setPosition(level, levelPosition+5, 'backgroundPositionX');
+  if(characterPosition === 50 && state === 'moveLeft' && levelPosition < LEVEL_CONFIG.borderLeft){ // TODO 2022-01-27: move this magic number
+    setPosition(level, levelPosition+LEVEL_CONFIG.scrollSpeed, 'backgroundPositionX');
   }
 }
 
