@@ -1,0 +1,86 @@
+@keyframes stand {
+  from { background-position-x: 0px; }
+  to { background-position-x: -90px; }
+}
+
+@keyframes throw {
+  from { background-position-x: 0px; }
+  to { background-position-x: -137px; }
+}
+
+@keyframes run {
+  from { background-position-x: 0px; }
+  to { background-position-x: -64px; }
+}
+
+@keyframes jump {
+  from { background-position-x: 0px; }
+  to { background-position-x: -70px; }
+}
+
+@keyframes down {
+  from { background-position-x: 0px; }
+  to { background-position-x: -87px; }
+}
+
+
+:root{
+  --height: 37px;
+}
+
+
+.naruto-stand {
+  height: var(--height);
+  background: url('./assets/naruto-sprit-stand.png'); 
+  margin: auto;
+  width: 31px; 
+  transform: scale(2);
+  animation: stand 1000ms steps(3) infinite;
+}
+.naruto-run{
+  height: var(--height);
+  background: url('./assets/naruto-sprit-run.png'); 
+  margin: auto;
+  width: 30px; 
+  transform: scale(2);
+  animation: run 300ms steps(2) infinite;
+}
+
+.naruto-throw{
+  height: var(--height);
+  background: url('./assets/naruto-sprit-throw.png'); 
+  margin: auto;
+  width: 45px; 
+  transform: scale(2);
+  animation: throw 500ms steps(3) 1;
+}
+
+.naruto-jump{
+  height: 46px;
+  background: url('./assets/naruto-sprit-jump.png'); 
+  margin: auto;
+  width: 36px; 
+  transform: scale(2);
+  animation: jump 700ms steps(2) infinite;
+}
+
+.naruto-down{
+  height: var(--height);
+  background: url('./assets/naruto-sprit-down.png'); 
+  margin: auto;
+  width: 43px; 
+  transform: scale(2);
+  animation: down 700ms steps(2) infinite;
+}
+
+.left{
+  transform: scaleX(-2) scaleY(2);
+}
+
+
+.kunai{
+  height: 8px;
+  width: 18px;
+  transform: scale(2);
+  background: url('./assets/kunai.png');
+}
