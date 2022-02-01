@@ -75,6 +75,21 @@ const addListeners = (component: HTMLElement): void => {
             }
           },501)
           break;
+          
+       case 's':
+          state = 'throw';
+          createItem('shuriken', {
+            position: 'absolute',
+            left: `${getPosition(component) + OFFSET_CHARACTER.left}px`,
+            top: `${getPosition(component, 'top') + OFFSET_CHARACTER.top}px`,
+          });
+          setTimeout(() => {
+            if(state === 'throw'){
+              state = 'stand';
+            }
+          },501)
+          break;
+          
      }
   });
   window.addEventListener('keyup' , (event) => {

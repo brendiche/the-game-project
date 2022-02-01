@@ -84,3 +84,16 @@
   transform: scale(2);
   background: url('./assets/kunai.png');
 }
+
+
+@keyframes shuriken-spin {
+  from { background-position-x: 0px; }
+  to { background-position-x: -28px; }
+}
+.shuriken{
+  height: 12px;
+  width: 14px;
+  transform: scale(2);
+  background: url('./assets/shuriken.png');
+  animation: shuriken-spin 200ms steps(2) infinite;
+}
