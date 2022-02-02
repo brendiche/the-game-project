@@ -1,3 +1,4 @@
+console.log('launch commit script')
 const { HUSKY_GIT_PARAMS } = process.env;
 if (!HUSKY_GIT_PARAMS) {
   throw new Error('HUSKY_GIT_PARAMS is mandatory');
