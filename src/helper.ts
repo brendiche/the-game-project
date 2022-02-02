@@ -6,6 +6,7 @@ export const getPosition = (element: HTMLElement, prop: 'left'|'top'|'background
   return parseInt(poss.replace('px', ''));
 }
 
-export const setPosition = (element: HTMLElement, newPosition: number, axis: 'left'|'top'|'backgroundPositionX' = 'left'): void => {
+export const setPosition = (element: HTMLElement, newPosition: number, axis: 'left'|'top'|'backgroundPositionX' = 'left'): HTMLElement => {
   element.style[axis] = `${newPosition}px`;
+  return element;
 }
