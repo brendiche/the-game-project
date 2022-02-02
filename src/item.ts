@@ -9,10 +9,10 @@ export const createItem = (className: string, style:Partial<CSSStyleDeclaration>
   }
   const initialPosition = getPosition(element);
   addGamingThread(() => {
-    if(getPosition(element) >= initialPosition + 500){
+    if(getPosition(element) >= initialPosition + 500){ // TODO 2022-02-02: move this magic number
       element.remove();
     }else{
-      setPosition(element, getPosition(element)+10);
+      setPosition(element, getPosition(element)+10); // TODO 2022-02-02: move this magic number
     }
   });
   document.body.appendChild(element)
