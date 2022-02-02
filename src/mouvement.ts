@@ -7,7 +7,8 @@ const INITIAL_POSSITION = {
 }
 
 let state: 'moveRight' | 'moveLeft' | 'noMove' = 'noMove';
-let action: 'stand' | 'jump' | 'crawl' = 'stand';
+// TODO 2022-02-02 : investigate this action variable related to the commented code
+// const action: 'stand' | 'jump' | 'crawl' = 'stand';
 let jumpDirection: 'up' | 'down' = 'up';
 let jumpInProgress = false;
 
@@ -30,9 +31,9 @@ const addListeners = (): void  => {
           case 'ArrowUp':
             if(!jumpInProgress) jumpInProgress = true;
             break;
-          case 'ArrowDown':
-            action = 'crawl';
-            break;
+          // case 'ArrowDown':
+          //   action = 'crawl';
+          //   break;
           case ' ':
             state = 'noMove';
             break;
@@ -42,9 +43,9 @@ const addListeners = (): void  => {
     if(event.key === 'ArrowRight' || event.key === 'ArrowLeft'){
       state = 'noMove';
     }
-    if(event.key === 'ArrowUp' || event.key === 'ArrowDown'){
-      action = 'stand';
-    }
+    // if(event.key === 'ArrowUp' || event.key === 'ArrowDown'){
+    //   action = 'stand';
+    // }
   });
 }
 
@@ -67,7 +68,7 @@ const initElementStyle = (element: HTMLElement) => {
   element.style.top = `${INITIAL_POSSITION.top}px`;
 }
 
-const moveSide = (element: HTMLElement, side: SideType = 'right',step: number = 10) => {
+const moveSide = (element: HTMLElement, side: SideType = 'right',step = 10) => {
   let position = getPosition(element);
   position = side === 'right' ? position + step : position - step;
   if(position <= 1200 && side === 'right' || position >= INITIAL_POSSITION.left && side === 'left'){ // TODO 2022-01-27 : remove the magic number
@@ -75,7 +76,7 @@ const moveSide = (element: HTMLElement, side: SideType = 'right',step: number = 
   }
 }
 
-const doJump = (element: HTMLElement, direction: 'up'|'down' = 'up', step: number = 1) => {
+const doJump = (element: HTMLElement, direction: 'up'|'down' = 'up', step = 1) => {
   let position = getPosition(element, 'top');
   position = direction === 'up' ? position - step : position + step;
   setPosition(element, position, 'top');

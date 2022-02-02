@@ -2,10 +2,8 @@ type CallbackGameEngine = () => void
 
 const runnigThread: CallbackGameEngine[] = [];
 
-let engine: NodeJS.Timer;
-
 export const initEngine = ()=> {
-  engine = setInterval(() => {
+  setInterval(() => {
     for (const callback of runnigThread) {
       callback();
     }
