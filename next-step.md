@@ -1,2 +1,2 @@
 ### Next step
- - [ ] add hooks in order to lint automaticaly
+ - [x] add hooks in order to lint automaticaly
