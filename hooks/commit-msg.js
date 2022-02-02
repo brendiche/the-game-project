@@ -1,10 +1,10 @@
-console.log('launch commit script')
-const { HUSKY_GIT_PARAMS } = process.env;
-if (!HUSKY_GIT_PARAMS) {
-  throw new Error('HUSKY_GIT_PARAMS is mandatory');
+const commitMessageFile = process.argv[2];
+
+if (!commitMessageFile) {
+  throw new Error('Commit message is mandatory');
 }
 
-const PARAMS = require('fs').readFileSync(HUSKY_GIT_PARAMS);
+const PARAMS = require('fs').readFileSync(commitMessageFile);
 const commitMessage = PARAMS.toString();
 
 if (!require('./commit').validate(commitMessage)) {
