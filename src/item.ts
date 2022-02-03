@@ -1,14 +1,14 @@
-import { addGamingThread } from "./gameEngine";
+import { Engine } from "./gameEngine";
 import { getPosition, setPosition } from "./helper";
 
-export const createItem = (className: string, style:Partial<CSSStyleDeclaration>) => {
+export const createItem = (engine: Engine, className: string, style:Partial<CSSStyleDeclaration>) => {
   const element = document.createElement('div');
   element.className = className;
   for(const prop in style){
     element.style[prop] = style[prop];
   }
   const initialPosition = getPosition(element);
-  addGamingThread(() => {
+  engine.addGamingThread(() => {
     if(getPosition(element) >= initialPosition + 500){ // TODO 2022-02-02: move this magic number
       element.remove();
     }else{

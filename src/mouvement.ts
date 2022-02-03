@@ -1,4 +1,4 @@
-import { addGamingThread } from "./gameEngine";
+import { Engine } from "./gameEngine";
 import { getPosition, setPosition, SideType } from "./helper";
 
 const INITIAL_POSSITION = {
@@ -12,8 +12,8 @@ let state: 'moveRight' | 'moveLeft' | 'noMove' = 'noMove';
 let jumpDirection: 'up' | 'down' = 'up';
 let jumpInProgress = false;
 
-export const Move = (element: HTMLElement): void => {
-  addGamingThread(() => motion(element));
+export const Move = (engine: Engine, element: HTMLElement): void => {
+  engine.addGamingThread(() => motion(element));
   initElementStyle(element);
   addListeners();
 } 

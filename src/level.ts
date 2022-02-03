@@ -1,4 +1,4 @@
-import { addGamingThread } from './gameEngine';
+import { Engine } from './gameEngine';
 import { getPosition, setPosition } from './helper';
 import './level.css'
 
@@ -11,11 +11,11 @@ const LEVEL_CONFIG = {
 }
 
 let state: StateType = 'stand'; 
-export const createLevel = (charater: HTMLElement) => {
+export const createLevel = (engine: Engine, charater: HTMLElement) => {
   const level = document.createElement('div');
   initLevel(level)
   addListeners();
-  addGamingThread(() => checkCharacterPosition(charater, level));
+  engine.addGamingThread(() => checkCharacterPosition(charater, level));
   return level;
 }
 

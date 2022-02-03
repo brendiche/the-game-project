@@ -1,4 +1,4 @@
-import { addGamingThread } from './gameEngine';
+import { Engine } from './gameEngine';
 import { getPosition, SideType } from './helper';
 import { createItem } from './item';
 import './Naruto.css'
@@ -12,11 +12,11 @@ type StateType = typeof States[number];
 let state: StateType = 'stand';
 let side: SideType = 'right';
 
-export const Character = (): HTMLElement => {
+export const Character = (engine: Engine): HTMLElement => {
   const component = document.createElement('div');
   component.className = `naruto-${state}`;
-  addGamingThread(() => test(component));
-  addListeners(component);
+  engine.addGamingThread(() => test(component));
+  addListeners(engine, component);
   return component;
 }
 
@@ -39,7 +39,7 @@ const setSide = (component: HTMLElement, side: SideType): void => {
   }
 }
 
-const addListeners = (component: HTMLElement): void => {
+const addListeners = (engine: Engine, component: HTMLElement): void => {
   window.addEventListener('keydown' , (event) => {
     console.log('[character][addListeners] keydown: ', event.key);
      switch(event.key){
@@ -64,7 +64,7 @@ const addListeners = (component: HTMLElement): void => {
         break;
        case ' ':
           state = 'throw';
-          createItem('kunai', {
+          createItem(engine, 'kunai', {
             position: 'absolute',
             left: `${getPosition(component) + OFFSET_CHARACTER.left}px`,
             top: `${getPosition(component, 'top') + OFFSET_CHARACTER.top}px`,
@@ -78,7 +78,7 @@ const addListeners = (component: HTMLElement): void => {
           
        case 's':
           state = 'throw';
-          createItem('shuriken', {
+          createItem(engine, 'shuriken', {
             position: 'absolute',
             left: `${getPosition(component) + OFFSET_CHARACTER.left}px`,
             top: `${getPosition(component, 'top') + OFFSET_CHARACTER.top}px`,

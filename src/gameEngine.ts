@@ -1,17 +1,17 @@
 type CallbackGameEngine = () => void
+export class Engine {
+  private readonly runnigThread: CallbackGameEngine[];
+  
+  constructor(refreshTimer = 20){
+    this.runnigThread = [];
+    setInterval(() => {
+      for (const callback of this.runnigThread) {
+        callback();
+      }
+    }, refreshTimer)
+  }
 
-const runnigThread: CallbackGameEngine[] = [];
-
-// TODO 2022-02-02 create a class Engine that could be pass to all the game elements
-
-export const initEngine = ()=> {
-  setInterval(() => {
-    for (const callback of runnigThread) {
-      callback();
-    }
-  },20);
-}
-
-export const addGamingThread = (callback: CallbackGameEngine): void => {
-  runnigThread.push(callback);
+  public addGamingThread(callback: CallbackGameEngine): void {
+    this.runnigThread.push(callback);
+  }
 }
