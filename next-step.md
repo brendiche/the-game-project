@@ -5,4 +5,4 @@
  - [x] extract character logic in order to scale
  - [ ] add some button control
  - [ ] add character choice
- 
+ - [ ] add touch controles
