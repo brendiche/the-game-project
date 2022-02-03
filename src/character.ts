@@ -1,10 +1,11 @@
 import { Engine } from './gameEngine';
 import { getPosition, SideType } from './helper';
-import { createItem } from './item';
+import { createItem, ItemConfig } from './item';
 
 const OFFSET_CHARACTER = {
   top: 12,
-  left: 55,
+  right: 55,
+  left: -30,
 }
 const States = ['stand', 'run', 'jump', 'throw', 'down'] as const;
 type StateType = typeof States[number];
@@ -40,6 +41,15 @@ const setSide = (component: HTMLElement, side: SideType): void => {
 const addListeners = (engine: Engine, component: HTMLElement): void => {
   window.addEventListener('keydown' , (event) => {
     console.log('[character][addListeners] keydown: ', event.key);
+    const itemConfig: ItemConfig = {
+      className:'',
+      style:{
+        position: 'absolute',
+        left: `${getPosition(component) + OFFSET_CHARACTER[side]}px`,
+        top: `${getPosition(component, 'top') + OFFSET_CHARACTER.top}px`,
+      },
+      side,
+    };
      switch(event.key){
        case 'ArrowRight':
          state = 'run';
@@ -62,10 +72,9 @@ const addListeners = (engine: Engine, component: HTMLElement): void => {
         break;
        case ' ':
           state = 'throw';
-          createItem(engine, 'kunai', {
-            position: 'absolute',
-            left: `${getPosition(component) + OFFSET_CHARACTER.left}px`,
-            top: `${getPosition(component, 'top') + OFFSET_CHARACTER.top}px`,
+          createItem(engine, {
+            ...itemConfig,
+            className: `kunai${side === 'left' ? ' left' : ''}`
           });
           setTimeout(() => {
             if(state === 'throw'){
@@ -76,10 +85,9 @@ const addListeners = (engine: Engine, component: HTMLElement): void => {
           
        case 's':
           state = 'throw';
-          createItem(engine, 'shuriken', {
-            position: 'absolute',
-            left: `${getPosition(component) + OFFSET_CHARACTER.left}px`,
-            top: `${getPosition(component, 'top') + OFFSET_CHARACTER.top}px`,
+          createItem(engine, {
+            ...itemConfig,
+            className: `shuriken${side === 'left' ? ' left' : ''}`
           });
           setTimeout(() => {
             if(state === 'throw'){

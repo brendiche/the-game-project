@@ -74,7 +74,7 @@
 }
 
 .left{
-  transform: scaleX(-2) scaleY(2);
+  transform: scaleX(-2) scaleY(2)!important;
 }
 
 
