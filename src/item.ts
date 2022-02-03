@@ -1,6 +1,11 @@
 import { Engine } from "./gameEngine";
 import { getPosition, setPosition } from "./helper";
 
+const ITEM_CONFIG = {
+  movingStep: 10,
+  maxDistance: 500,
+}
+
 export const createItem = (engine: Engine, className: string, style:Partial<CSSStyleDeclaration>) => {
   const element = document.createElement('div');
   element.className = className;
@@ -9,10 +14,10 @@ export const createItem = (engine: Engine, className: string, style:Partial<CSSS
   }
   const initialPosition = getPosition(element);
   engine.addGamingThread(() => {
-    if(getPosition(element) >= initialPosition + 500){ // TODO 2022-02-02: move this magic number
+    if(getPosition(element) >= initialPosition + ITEM_CONFIG.maxDistance){
       element.remove();
     }else{
-      setPosition(element, getPosition(element)+10); // TODO 2022-02-02: move this magic number
+      setPosition(element, getPosition(element) + ITEM_CONFIG.movingStep);
     }
   });
   document.body.appendChild(element)
