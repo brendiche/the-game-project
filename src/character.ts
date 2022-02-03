@@ -12,6 +12,11 @@ type StateType = typeof States[number];
 let state: StateType = 'stand';
 let side: SideType = 'right';
 
+const touchCoord = {
+  x:0,
+  y:0,
+}
+
 export const Character = (engine: Engine, characterName: string): HTMLElement => {
   const component = document.createElement('div');
   component.className = `${characterName}-${state}`;
@@ -40,7 +45,6 @@ const setSide = (component: HTMLElement, side: SideType): void => {
 
 const addListeners = (engine: Engine, component: HTMLElement): void => {
   window.addEventListener('keydown' , (event) => {
-    console.log('[character][addListeners] keydown: ', event.key);
     const itemConfig: ItemConfig = {
       className:'',
       style:{
@@ -50,6 +54,7 @@ const addListeners = (engine: Engine, component: HTMLElement): void => {
       },
       side,
     };
+    console.log('[character][addListeners] keydown: ', event.key);
      switch(event.key){
        case 'ArrowRight':
          state = 'run';
@@ -108,4 +113,32 @@ const addListeners = (engine: Engine, component: HTMLElement): void => {
         break;
      }
   });
+
+  window.addEventListener("touchstart", (event) => {
+    const itemConfig: ItemConfig = {
+      className:'',
+      style:{
+        position: 'absolute',
+        left: `${getPosition(component) + OFFSET_CHARACTER[side]}px`,
+        top: `${getPosition(component, 'top') + OFFSET_CHARACTER.top}px`,
+      },
+      side,
+    };
+    console.log('[character][addListeners] touchstart:',event);
+    touchCoord.x = event.touches[0].clientX;
+    touchCoord.y = event.touches[0].clientY;
+    state = 'throw';
+    createItem(engine, {
+      ...itemConfig,
+      className: `kunai${side === 'left' ? ' left' : ''}`
+    });
+    setTimeout(() => {
+      if(state === 'throw'){
+        state = 'stand';
+      }
+    },501);
+  });
+  // window.addEventListener("touchmove", (event) => {
+  //   console.log('[character][addListeners] touchmove:',event);
+  // });
 }
