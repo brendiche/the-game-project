@@ -31,7 +31,7 @@
 
 .naruto-stand {
   height: var(--height);
-  background: url('./assets/naruto-sprit-stand.png'); 
+  background: url('./naruto-sprit-stand.png'); 
   margin: auto;
   width: 31px; 
   transform: scale(2);
@@ -39,7 +39,7 @@
 }
 .naruto-run{
   height: var(--height);
-  background: url('./assets/naruto-sprit-run.png'); 
+  background: url('./naruto-sprit-run.png'); 
   margin: auto;
   width: 30px; 
   transform: scale(2);
@@ -48,7 +48,7 @@
 
 .naruto-throw{
   height: var(--height);
-  background: url('./assets/naruto-sprit-throw.png'); 
+  background: url('./naruto-sprit-throw.png'); 
   margin: auto;
   width: 45px; 
   transform: scale(2);
@@ -57,7 +57,7 @@
 
 .naruto-jump{
   height: 46px;
-  background: url('./assets/naruto-sprit-jump.png'); 
+  background: url('./naruto-sprit-jump.png'); 
   margin: auto;
   width: 36px; 
   transform: scale(2);
@@ -66,7 +66,7 @@
 
 .naruto-down{
   height: var(--height);
-  background: url('./assets/naruto-sprit-down.png'); 
+  background: url('./naruto-sprit-down.png'); 
   margin: auto;
   width: 43px; 
   transform: scale(2);
@@ -82,7 +82,7 @@
   height: 8px;
   width: 18px;
   transform: scale(2);
-  background: url('./assets/kunai.png');
+  background: url('./kunai.png');
 }
 
 
@@ -94,6 +94,6 @@
   height: 12px;
   width: 14px;
   transform: scale(2);
-  background: url('./assets/shuriken.png');
+  background: url('./shuriken.png');
   animation: shuriken-spin 200ms steps(2) infinite;
 }

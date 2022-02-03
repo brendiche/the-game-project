@@ -1,6 +1,6 @@
 import { Engine } from './gameEngine';
 import { getPosition, setPosition } from './helper';
-import './level.css'
+import './assets/levels/level.css'
 
 const State = ['moveRight', 'moveLeft', 'stand'] as const;
 type StateType = typeof State[number];

@@ -1,6 +1,6 @@
 .forest {
   height: 425px;
   width: 1300px;
-  background: url('./assets/level-forest.png'); 
+  background: url('./level-forest.png'); 
   background-position-y: -20px;
 }

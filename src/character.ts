@@ -1,7 +1,6 @@
 import { Engine } from './gameEngine';
 import { getPosition, SideType } from './helper';
 import { createItem } from './item';
-import './Naruto.css'
 
 const OFFSET_CHARACTER = {
   top: 12,
@@ -12,23 +11,22 @@ type StateType = typeof States[number];
 let state: StateType = 'stand';
 let side: SideType = 'right';
 
-export const Character = (engine: Engine): HTMLElement => {
+export const Character = (engine: Engine, characterName: string): HTMLElement => {
   const component = document.createElement('div');
-  component.className = `naruto-${state}`;
-  engine.addGamingThread(() => test(component));
+  component.className = `${characterName}-${state}`;
+  engine.addGamingThread(() => engineCallback(component, characterName));
   addListeners(engine, component);
   return component;
 }
 
-const test = (component: HTMLElement) => {
-  setState(component, state);
+const engineCallback = (component: HTMLElement, characterName: string) => {
+  setState(component,characterName , state);
   setSide(component, side);
 }
 
-const setState = (component: HTMLElement, state: StateType): void => {
-  // console.log('[character][setState] class :', component.className);
-  const classRegex = new RegExp(`naruto-(${States.join('|')})`);
-  component.className = component.className.replace(classRegex, `naruto-${state}`);
+const setState = (component: HTMLElement,characterName: string, state: StateType): void => {
+  const classRegex = new RegExp(`${characterName}-(${States.join('|')})`);
+  component.className = component.className.replace(classRegex, `${characterName}-${state}`);
 }
 
 const setSide = (component: HTMLElement, side: SideType): void => {
