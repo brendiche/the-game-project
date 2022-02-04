@@ -147,7 +147,7 @@ const addListeners = (engine: Engine, component: HTMLElement): void => {
       side = 'left';
     }
   });
-  window.addEventListener('touchend', (event)=> {
+  window.addEventListener('touchend', ()=> {
     state = 'stand';
   })
 }

@@ -64,7 +64,7 @@ const addListeners = (): void  => {
       state = "moveLeft";
     }
   });
-  window.addEventListener('touchend', (event)=> {
+  window.addEventListener('touchend', ()=> {
     state = 'noMove';
   })
 }
