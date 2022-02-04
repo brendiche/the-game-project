@@ -4,6 +4,7 @@
  - [x] resolve the todo in the engine 
  - [x] extract character logic in order to scale
  - [x] add touch controles
- - [ ] add some button control
+ - [x] add some button control
+ - [ ] add interaction betwin components
  - [ ] add character choice
  - [ ] handle moblie screen
