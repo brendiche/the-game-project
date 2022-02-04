@@ -1,6 +1,20 @@
 export const Side = ['left', 'right'] as const;
 export type SideType = typeof Side[number];
 
+export const States = ['stand', 'run', 'jump', 'throw', 'down'] as const;
+export type StateType = typeof States[number];
+
+export interface CharacterProperties{
+  state: StateType;
+  position: number;
+  side: SideType;
+}
+
+export interface Target{
+  id: number;
+  position: number;
+}
+
 export const getPosition = (element: HTMLElement, prop: 'left'|'top'|'backgroundPositionX' = 'left'): number => {
   const poss = element.style[prop];
   return parseInt(poss.replace('px', ''));

@@ -1,5 +1,5 @@
 import { Engine } from './gameEngine';
-import { getPosition, SideType } from './helper';
+import { CharacterProperties, getPosition, SideType, States, StateType } from './helper';
 import { createItem, ItemConfig } from './item';
 
 const OFFSET_CHARACTER = {
@@ -7,8 +7,7 @@ const OFFSET_CHARACTER = {
   right: 55,
   left: -30,
 }
-const States = ['stand', 'run', 'jump', 'throw', 'down'] as const;
-type StateType = typeof States[number];
+
 let state: StateType = 'stand';
 let side: SideType = 'right';
 
@@ -17,12 +16,28 @@ const touchCoord = {
   y:0,
 }
 
-export const Character = (engine: Engine, characterName: string): HTMLElement => {
-  const component = document.createElement('div');
-  component.className = `${characterName}-${state}`;
-  engine.addGamingThread(() => engineCallback(component, characterName));
-  addListeners(engine, component);
-  return component;
+export class Character {
+  private readonly htmlElement: HTMLElement;
+  private state: StateType = 'stand';
+  constructor(engine: Engine, characterName: string){
+    this.htmlElement = document.createElement('div');
+    this.htmlElement.className = `${characterName}-${this.state}`
+    engine.addGamingThread(() => engineCallback(this.htmlElement, characterName));
+    addListeners(engine, this.htmlElement);
+  }
+
+  get element(): HTMLElement{
+    return this.htmlElement;
+  }
+
+  get properties(): CharacterProperties{
+    return {
+      position: getPosition(this.element),
+      side,
+      state,
+    }
+  }
+
 }
 
 const engineCallback = (component: HTMLElement, characterName: string) => {

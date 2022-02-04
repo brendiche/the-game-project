@@ -1,7 +1,7 @@
-import { getPosition } from "./helper";
+import { getPosition, Target } from "./helper";
 import './assets/target.css';
 
-export const createControle = (character: HTMLElement): HTMLElement => {
+export const createControle = (character: HTMLElement, callback: (target: Target) => void): HTMLElement => {
   const controle = document.createElement('button');
   controle.innerText = 'add target';
   controle.onclick = () => {
@@ -13,6 +13,10 @@ export const createControle = (character: HTMLElement): HTMLElement => {
     target.style.left = `${left+450}px`;
     target.style.top = `${top}px`;
     document.body.appendChild(target);
+    callback({
+      id: Date.now(),
+      position: left+450
+    })
   };
   return controle 
 }
