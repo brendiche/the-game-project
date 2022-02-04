@@ -1,5 +1,5 @@
 import { Engine } from './gameEngine';
-import { CharacterProperties, getPosition, SideType, States, StateType } from './helper';
+import { CharacterProperties, getPosition, Item, SideType, States, StateType } from './helper';
 import { createItem, ItemConfig } from './item';
 
 const OFFSET_CHARACTER = {
@@ -10,6 +10,7 @@ const OFFSET_CHARACTER = {
 
 let state: StateType = 'stand';
 let side: SideType = 'right';
+const items: Item[] = [];
 
 const touchCoord = {
   x:0,
@@ -35,6 +36,7 @@ export class Character {
       position: getPosition(this.element),
       side,
       state,
+      items,
     }
   }
 
@@ -43,6 +45,10 @@ export class Character {
 const engineCallback = (component: HTMLElement, characterName: string) => {
   setState(component,characterName , state);
   setSide(component, side);
+  // TODO 2022-02-04 quick fix in order to get item position
+  for (let i = 0; i < items.length; i++) {
+    items[i].position = getPosition(items[i].element);
+  }
 }
 
 const setState = (component: HTMLElement,characterName: string, state: StateType): void => {
@@ -92,9 +98,14 @@ const addListeners = (engine: Engine, component: HTMLElement): void => {
         break;
        case ' ':
           state = 'throw';
-          createItem(engine, {
+          // eslint-disable-next-line no-case-declarations
+          const item = createItem(engine, {
             ...itemConfig,
             className: `kunai${side === 'left' ? ' left' : ''}`
+          });
+          items.push({
+            element: item,
+            position: getPosition(item)
           });
           setTimeout(() => {
             if(state === 'throw'){

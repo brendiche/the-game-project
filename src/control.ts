@@ -15,7 +15,8 @@ export const createControle = (character: HTMLElement, callback: (target: Target
     document.body.appendChild(target);
     callback({
       id: Date.now(),
-      position: left+450
+      position: left+450,
+      element: target,
     })
   };
   return controle 

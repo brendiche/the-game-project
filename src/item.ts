@@ -12,7 +12,7 @@ const ITEM_CONFIG = {
   maxDistance: 500,
 }
 
-export const createItem = (engine: Engine, itemConfig: ItemConfig) => {
+export const createItem = (engine: Engine, itemConfig: ItemConfig): HTMLElement => {
   const element = document.createElement('div');
   element.className = itemConfig.className;
   for(const prop in itemConfig.style){

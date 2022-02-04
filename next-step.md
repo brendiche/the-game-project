@@ -5,6 +5,7 @@
  - [x] extract character logic in order to scale
  - [x] add touch controles
  - [x] add some button control
- - [ ] add interaction betwin components
+ - [x] add interaction betwin components
+ - [x] add colision betwin item and target
  - [ ] add character choice
  - [ ] handle moblie screen

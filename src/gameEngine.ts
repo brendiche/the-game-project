@@ -14,7 +14,15 @@ export class Engine {
       }
       if(this.character && this.targets.length){
         for (const target of this.targets) {
-          if(this.character.position === target.position) alert('colision detected')
+          if(this.character.items.length){
+            for(const item of this.character.items){
+              // TODO 2022-02-04 : clean up target array and the item array
+              if (item.position === target.position+5) {// TODO 2022-02-04 : clean up the magic number
+                item.element.remove();
+                target.element.remove();
+              }
+            }
+          } 
         }
       }
     }, refreshTimer)

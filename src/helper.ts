@@ -8,11 +8,18 @@ export interface CharacterProperties{
   state: StateType;
   position: number;
   side: SideType;
+  items: Item[]
+}
+
+export interface Item {
+  position: number;
+  element: HTMLElement;
 }
 
 export interface Target{
   id: number;
   position: number;
+  element: HTMLElement;
 }
 
 export const getPosition = (element: HTMLElement, prop: 'left'|'top'|'backgroundPositionX' = 'left'): number => {
