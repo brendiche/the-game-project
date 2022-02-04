@@ -1,4 +1,4 @@
-import { CharacterProperties, Target } from "./helper";
+import { CharacterProperties, getOffset, Target } from "./helper";
 
 type CallbackGameEngine = () => void
 export class Engine {
@@ -13,13 +13,14 @@ export class Engine {
         callback();
       }
       if(this.character && this.targets.length){
-        for (const target of this.targets) {
+        for (let i = 0; i < this.targets.length; i++) {
+          const target = this.targets[i];
           if(this.character.items.length){
             for(const item of this.character.items){
-              // TODO 2022-02-04 : clean up target array and the item array
-              if (item.position === target.position+5) {// TODO 2022-02-04 : clean up the magic number
-                item.element.remove();
+              if (item.position >= target.position && item.position <= target.position + getOffset(target.element)) {
+                item.element.remove(); // TODO 2022-02-04: remove also the item in the 
                 target.element.remove();
+                this.targets.splice(i,1); // need to be very carful with this because it removes element in the array it's looping on
               }
             }
           } 

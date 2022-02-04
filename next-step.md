@@ -9,3 +9,5 @@
  - [x] add colision betwin item and target
  - [ ] add character choice
  - [ ] handle moblie screen
+ - [ ] make a global config 
+ - [ ] fix the boundary of the game
