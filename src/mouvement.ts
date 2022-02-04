@@ -6,6 +6,11 @@ const INITIAL_POSSITION = {
   left: 50,
 }
 
+const touchCoord = {
+  x:0,
+  y:0,
+}
+
 let state: 'moveRight' | 'moveLeft' | 'noMove' = 'noMove';
 // TODO 2022-02-02 : investigate this action variable related to the commented code
 // const action: 'stand' | 'jump' | 'crawl' = 'stand';
@@ -47,6 +52,21 @@ const addListeners = (): void  => {
     //   action = 'stand';
     // }
   });
+  window.addEventListener("touchstart", (event) => {
+    touchCoord.x = event.touches[0].clientX;
+    touchCoord.y = event.touches[0].clientY;
+  });
+  window.addEventListener("touchmove", (event) => {
+    console.log('[character][addListeners] touchmove:',event);
+    if(event.touches[0].clientX > touchCoord.x){
+      state = "moveRight";
+    }else{
+      state = "moveLeft";
+    }
+  });
+  window.addEventListener('touchend', (event)=> {
+    state = 'noMove';
+  })
 }
 
 const motion = (element: HTMLElement) => {

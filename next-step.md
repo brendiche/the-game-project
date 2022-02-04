@@ -3,6 +3,7 @@
  - [x] add unit test
  - [x] resolve the todo in the engine 
  - [x] extract character logic in order to scale
- - [ ] add touch controles
+ - [x] add touch controles
  - [ ] add some button control
  - [ ] add character choice
+ - [ ] handle moblie screen

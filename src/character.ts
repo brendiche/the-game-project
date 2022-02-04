@@ -138,7 +138,16 @@ const addListeners = (engine: Engine, component: HTMLElement): void => {
       }
     },501);
   });
-  // window.addEventListener("touchmove", (event) => {
-  //   console.log('[character][addListeners] touchmove:',event);
-  // });
+  window.addEventListener("touchmove", (event) => {
+    console.log('[character][addListeners] touchmove:',event);
+    state = 'run';
+    if(event.touches[0].clientX > touchCoord.x){
+      side = 'right';
+    }else{
+      side = 'left';
+    }
+  });
+  window.addEventListener('touchend', (event)=> {
+    state = 'stand';
+  })
 }
