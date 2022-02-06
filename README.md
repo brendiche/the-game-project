@@ -20,3 +20,6 @@ it will serve the project on port 8080
 The app is deploy using [netlify](https://www.netlify.com/). Hooks on commit on branch master trigger the CD.
 ## Demo
 You can access a preview [here](https://the-game-project.netlify.app/)
+
+## Test
+You can access the test code coverage [here](https://brendiche.github.io/the-game-project/)
