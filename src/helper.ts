@@ -34,5 +34,5 @@ export const setPosition = (element: HTMLElement, newPosition: number, axis: 'le
 }
 
 export const getOffset = (element: HTMLElement): number => {
-  return element.offsetWidth;
+  return parseInt(getComputedStyle(element).width.replace('px', ''));
 }
