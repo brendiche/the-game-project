@@ -5,3 +5,12 @@ exports[`charater class it should create a character well initialized 1`] = `
   class="test-stand"
 />
 `;
+
+exports[`charater class it should create a character well initialized 2`] = `
+Object {
+  "items": Array [],
+  "position": NaN,
+  "side": "right",
+  "state": "stand",
+}
+`;

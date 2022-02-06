@@ -27,7 +27,7 @@ export class Character {
     this.htmlElement = document.createElement('div');
     this.htmlElement.className = `${characterName}-${this.state}`
     engine.addGamingThread(() => this.engineCallback());
-    this.addListeners(engine, this.htmlElement);
+    this.addListeners(this.htmlElement);
   }
 
   get element(): HTMLElement{
@@ -73,7 +73,7 @@ export class Character {
     }
   }
 
-  private addListeners(engine: Engine, component: HTMLElement): void {
+  private addListeners(component: HTMLElement): void {
     window.addEventListener('keydown' , (event) => {
       const itemConfig: ItemConfig = {
         className:'',
