@@ -7,7 +7,7 @@
  - [x] add some button control
  - [x] add interaction betwin components
  - [x] add colision betwin item and target
- - [ ] add character choice
- - [ ] handle moblie screen
  - [ ] make a global config 
  - [ ] fix the boundary of the game
+ - [ ] add character choice
+ - [ ] handle moblie screen

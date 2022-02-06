@@ -8,9 +8,7 @@ const OFFSET_CHARACTER = {
   left: -30,
 }
 
-let state: StateType = 'stand';
-let side: SideType = 'right';
-const items: Item[] = [];
+// const items: Item[] = [];
 
 const touchCoord = {
   x:0,
@@ -19,12 +17,17 @@ const touchCoord = {
 
 export class Character {
   private readonly htmlElement: HTMLElement;
+  private readonly characterName: string;
   private state: StateType = 'stand';
+  private side: SideType = 'right';
+  private items: Item[] = [];
+
   constructor(engine: Engine, characterName: string){
+    this.characterName = characterName;
     this.htmlElement = document.createElement('div');
     this.htmlElement.className = `${characterName}-${this.state}`
-    engine.addGamingThread(() => engineCallback(this.htmlElement, characterName));
-    addListeners(engine, this.htmlElement);
+    engine.addGamingThread(() => this.engineCallback());
+    this.addListeners(engine, this.htmlElement);
   }
 
   get element(): HTMLElement{
@@ -34,154 +37,162 @@ export class Character {
   get properties(): CharacterProperties{
     return {
       position: getPosition(this.element),
-      side,
-      state,
-      items,
+      side: this.side,
+      state: this.state,
+      items: this.items,
     }
   }
 
   public removeItem(id: number){
-    const index = items.map(item => item.id).indexOf(id);
+    const index = this.items.map(item => item.id).indexOf(id);
     if(index !== -1){
-      items.splice(index,1);
+      this.items.splice(index,1);
     }
   }
 
-}
-
-const engineCallback = (component: HTMLElement, characterName: string) => {
-  setState(component,characterName , state);
-  setSide(component, side);
-  // TODO 2022-02-04 quick fix in order to get item position
-  for (let i = 0; i < items.length; i++) {
-    items[i].position = getPosition(items[i].element);
+  private setState(): void {
+    const classRegex = new RegExp(`${this.characterName}-(${States.join('|')})`);
+    this.htmlElement.className = this.htmlElement.className.replace(classRegex, `${this.characterName}-${this.state}`);
   }
-}
-
-const setState = (component: HTMLElement,characterName: string, state: StateType): void => {
-  const classRegex = new RegExp(`${characterName}-(${States.join('|')})`);
-  component.className = component.className.replace(classRegex, `${characterName}-${state}`);
-}
-
-const setSide = (component: HTMLElement, side: SideType): void => {
-  if(side === 'left'){
-    component.className= component.className.includes('left') ? component.className : `${component.className} left`;
-  }else{
-    component.className = component.className.replace('left','');
-  }
-}
-
-const addListeners = (engine: Engine, component: HTMLElement): void => {
-  window.addEventListener('keydown' , (event) => {
-    const itemConfig: ItemConfig = {
-      className:'',
-      style:{
-        position: 'absolute',
-        left: `${getPosition(component) + OFFSET_CHARACTER[side]}px`,
-        top: `${getPosition(component, 'top') + OFFSET_CHARACTER.top}px`,
-      },
-      side,
-    };
-    console.log('[character][addListeners] keydown: ', event.key);
-     switch(event.key){
-       case 'ArrowRight':
-         state = 'run';
-         side = 'right';
-       break;
-       case 'ArrowLeft':
-          state = 'run';
-          side = 'left';
-        break;
-       case 'ArrowDown':
-          state = 'down';
-        break;
-       case 'ArrowUp':
-         state = 'jump';
-        setTimeout(() => {
-          if(state === 'jump') {
-            state = 'stand';
-          }
-        },701)
-        break;
-       case ' ':
-          state = 'throw';
-          // eslint-disable-next-line no-case-declarations
-          const item = createItem(engine, {
-            ...itemConfig,
-            className: `kunai${side === 'left' ? ' left' : ''}`
-          });
-          items.push({
-            id: Date.now(),
-            element: item,
-            position: getPosition(item)
-          });
-          setTimeout(() => {
-            if(state === 'throw'){
-              state = 'stand';
-            }
-          },501)
-          break;
-          
-       case 's':
-          state = 'throw';
-          createItem(engine, {
-            ...itemConfig,
-            className: `shuriken${side === 'left' ? ' left' : ''}`
-          });
-          setTimeout(() => {
-            if(state === 'throw'){
-              state = 'stand';
-            }
-          },501)
-          break;
-          
-     }
-  });
-  window.addEventListener('keyup' , (event) => {
-    console.log('[character][addListeners] keyup: ', event.key);
-     switch(event.key){
-        case 'ArrowRight':
-        case 'ArrowLeft':
-        case 'ArrowDown':
-          state = 'stand';
-        break;
-     }
-  });
-
-  window.addEventListener("touchstart", (event) => {
-    const itemConfig: ItemConfig = {
-      className:'',
-      style:{
-        position: 'absolute',
-        left: `${getPosition(component) + OFFSET_CHARACTER[side]}px`,
-        top: `${getPosition(component, 'top') + OFFSET_CHARACTER.top}px`,
-      },
-      side,
-    };
-    console.log('[character][addListeners] touchstart:',event);
-    touchCoord.x = event.touches[0].clientX;
-    touchCoord.y = event.touches[0].clientY;
-    state = 'throw';
-    createItem(engine, {
-      ...itemConfig,
-      className: `kunai${side === 'left' ? ' left' : ''}`
-    });
-    setTimeout(() => {
-      if(state === 'throw'){
-        state = 'stand';
-      }
-    },501);
-  });
-  window.addEventListener("touchmove", (event) => {
-    console.log('[character][addListeners] touchmove:',event);
-    state = 'run';
-    if(event.touches[0].clientX > touchCoord.x){
-      side = 'right';
+  
+  private setSide(): void {
+    const className = this.htmlElement.className;
+    if(this.side === 'left'){
+      this.htmlElement.className = className.includes('left') ? className : `${className} left`;
     }else{
-      side = 'left';
+      this.htmlElement.className = className.replace('left','');
     }
-  });
-  window.addEventListener('touchend', ()=> {
-    state = 'stand';
-  })
+  }
+
+  private engineCallback(): void {
+    this.setState();
+    this.setSide();
+    // TODO 2022-02-04 quick fix in order to get item position
+    for (let i = 0; i < this.items.length; i++) {
+      this.items[i].position = getPosition(this.items[i].element);
+    }
+  }
+
+  private addListeners(engine: Engine, component: HTMLElement): void {
+    window.addEventListener('keydown' , (event) => {
+      const itemConfig: ItemConfig = {
+        className:'',
+        style:{
+          position: 'absolute',
+          left: `${getPosition(component) + OFFSET_CHARACTER[this.side]}px`,
+          top: `${getPosition(component, 'top') + OFFSET_CHARACTER.top}px`,
+        },
+        side: this.side,
+      };
+      console.log('[character][addListeners] keydown: ', event.key);
+       switch(event.key){
+         case 'ArrowRight':
+           this.state = 'run';
+           this.side = 'right';
+         break;
+         case 'ArrowLeft':
+            this.state = 'run';
+            this.side = 'left';
+          break;
+         case 'ArrowDown':
+            this.state = 'down';
+          break;
+         case 'ArrowUp':
+            this.state = 'jump';
+          setTimeout(() => {
+            if(this.state === 'jump') {
+                this.state = 'stand';
+            }
+          },701)
+          break;
+         case ' ':
+            this.state = 'throw';
+            // eslint-disable-next-line no-case-declarations
+            const item = createItem(engine, {
+              ...itemConfig,
+              className: `kunai${this.side === 'left' ? ' left' : ''}`
+            });
+            this.items.push({
+              id: Date.now(),
+              element: item,
+              position: getPosition(item)
+            });
+            setTimeout(() => {
+              if(this.state === 'throw'){
+                this.state = 'stand';
+              }
+            },501)
+            break;
+            
+         case 's':
+            this.state = 'throw';
+            // TODO 2022-02-06: remove those eslint and fix the problem
+            // eslint-disable-next-line no-case-declarations
+            const itemS = createItem(engine, {
+              ...itemConfig,
+              className: `shuriken${this.side === 'left' ? ' left' : ''}`
+            });
+            this.items.push({
+              id: Date.now(),
+              element: itemS,
+              position: getPosition(item)
+            });
+            setTimeout(() => {
+              if(this.state === 'throw'){
+                this.state = 'stand';
+              }
+            },501)
+            break;
+            
+       }
+    });
+    window.addEventListener('keyup' , (event) => {
+      console.log('[character][addListeners] keyup: ', event.key);
+       switch(event.key){
+          case 'ArrowRight':
+          case 'ArrowLeft':
+          case 'ArrowDown':
+            this.state = 'stand';
+          break;
+       }
+    });
+  
+    window.addEventListener("touchstart", (event) => {
+      const itemConfig: ItemConfig = {
+        className:'',
+        style:{
+          position: 'absolute',
+          left: `${getPosition(component) + OFFSET_CHARACTER[this.side]}px`,
+          top: `${getPosition(component, 'top') + OFFSET_CHARACTER.top}px`,
+        },
+        side: this.side,
+      };
+      console.log('[character][addListeners] touchstart:',event);
+      touchCoord.x = event.touches[0].clientX;
+      touchCoord.y = event.touches[0].clientY;
+      this.state = 'throw';
+      createItem(engine, {
+        ...itemConfig,
+        className: `kunai${this.side === 'left' ? ' left' : ''}`
+      });
+      setTimeout(() => {
+        if(this.state === 'throw'){
+          this.state = 'stand';
+        }
+      },501);
+    });
+    window.addEventListener("touchmove", (event) => {
+      console.log('[character][addListeners] touchmove:',event);
+      this.state = 'run';
+      if(event.touches[0].clientX > touchCoord.x){
+        this.side = 'right';
+      }else{
+        this.side = 'left';
+      }
+    });
+    window.addEventListener('touchend', ()=> {
+      this.state = 'stand';
+    })
+  }
+
 }

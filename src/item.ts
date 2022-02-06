@@ -18,6 +18,7 @@ export const createItem = (engine: Engine, itemConfig: ItemConfig): HTMLElement 
   for(const prop in itemConfig.style){
     element.style[prop] = itemConfig.style[prop];
   }
+  //TODO 2022-02-06 this logic should be handle somewhere else
   const initialPosition = getPosition(element);
   engine.addGamingThread(() => {
     if (itemConfig.side === 'right'){
