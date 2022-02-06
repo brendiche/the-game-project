@@ -8,8 +8,6 @@ const OFFSET_CHARACTER = {
   left: -30,
 }
 
-// const items: Item[] = [];
-
 const touchCoord = {
   x:0,
   y:0,
@@ -18,11 +16,13 @@ const touchCoord = {
 export class Character {
   private readonly htmlElement: HTMLElement;
   private readonly characterName: string;
+  private readonly engine: Engine;
   private state: StateType = 'stand';
   private side: SideType = 'right';
   private items: Item[] = [];
 
   constructor(engine: Engine, characterName: string){
+    this.engine = engine;
     this.characterName = characterName;
     this.htmlElement = document.createElement('div');
     this.htmlElement.className = `${characterName}-${this.state}`
@@ -107,43 +107,13 @@ export class Character {
           break;
          case ' ':
             this.state = 'throw';
-            // eslint-disable-next-line no-case-declarations
-            const item = createItem(engine, {
-              ...itemConfig,
-              className: `kunai${this.side === 'left' ? ' left' : ''}`
-            });
-            this.items.push({
-              id: Date.now(),
-              element: item,
-              position: getPosition(item)
-            });
-            setTimeout(() => {
-              if(this.state === 'throw'){
-                this.state = 'stand';
-              }
-            },501)
+            this.handleItem(itemConfig,'kunai');
             break;
             
          case 's':
             this.state = 'throw';
-            // TODO 2022-02-06: remove those eslint and fix the problem
-            // eslint-disable-next-line no-case-declarations
-            const itemS = createItem(engine, {
-              ...itemConfig,
-              className: `shuriken${this.side === 'left' ? ' left' : ''}`
-            });
-            this.items.push({
-              id: Date.now(),
-              element: itemS,
-              position: getPosition(item)
-            });
-            setTimeout(() => {
-              if(this.state === 'throw'){
-                this.state = 'stand';
-              }
-            },501)
+            this.handleItem(itemConfig,'shuriken');
             break;
-            
        }
     });
     window.addEventListener('keyup' , (event) => {
@@ -171,15 +141,7 @@ export class Character {
       touchCoord.x = event.touches[0].clientX;
       touchCoord.y = event.touches[0].clientY;
       this.state = 'throw';
-      createItem(engine, {
-        ...itemConfig,
-        className: `kunai${this.side === 'left' ? ' left' : ''}`
-      });
-      setTimeout(() => {
-        if(this.state === 'throw'){
-          this.state = 'stand';
-        }
-      },501);
+      this.handleItem(itemConfig, 'kunai')
     });
     window.addEventListener("touchmove", (event) => {
       console.log('[character][addListeners] touchmove:',event);
@@ -193,6 +155,23 @@ export class Character {
     window.addEventListener('touchend', ()=> {
       this.state = 'stand';
     })
+  }
+
+  private handleItem(itemConfig:ItemConfig, itemClass: string){
+    const item = createItem(this.engine, {
+      ...itemConfig,
+      className: `${itemClass}${this.side === 'left' ? ' left' : ''}`
+    });
+    this.items.push({
+      id: Date.now(),
+      element: item,
+      position: getPosition(item)
+    });
+    setTimeout(() => {
+      if(this.state === 'throw'){
+        this.state = 'stand';
+      }
+    },501)
   }
 
 }

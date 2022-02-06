@@ -13,6 +13,18 @@ export class GameManager{
     this.character = character;
     this.level = level;
 
+    // Code for debug
+    const debug = document.createElement('div');
+    const _character = document.createElement('div');
+    _character.id = 'character-debug';
+    debug.style.position = 'absolute';
+    debug.style.backgroundColor = '#ddd';
+    debug.style.left = '1310px';
+    debug.id = 'debug';
+    debug.appendChild(_character);
+    document.body.appendChild(debug);
+    ///
+
     engine.addGamingThread(() => {
       if(this.character && engine.targets.length){
         for (let i = 0; i < engine.targets.length; i++) {
@@ -32,16 +44,5 @@ export class GameManager{
       const character = document.getElementById('character-debug');
       character.innerHTML = JSON.stringify(this.character.properties);
     })
-
-    // Code for debug
-    const debug = document.createElement('div');
-    const _character = document.createElement('div');
-    _character.id = 'character-debug';
-    debug.style.position = 'absolute';
-    debug.style.backgroundColor = '#ddd';
-    debug.style.left = '1310px';
-    debug.id = 'debug';
-    debug.appendChild(_character);
-    document.body.appendChild(debug);
   }
 }
