@@ -14,3 +14,83 @@ Object {
   "state": "stand",
 }
 `;
+
+exports[`charater class should test the KeyboardEvent 1`] = `
+Object {
+  "items": Array [],
+  "position": NaN,
+  "side": "right",
+  "state": "down",
+}
+`;
+
+exports[`charater class should test the KeyboardEvent 2`] = `
+Object {
+  "items": Array [],
+  "position": NaN,
+  "side": "right",
+  "state": "run",
+}
+`;
+
+exports[`charater class should test the KeyboardEvent 3`] = `
+Object {
+  "items": Array [],
+  "position": NaN,
+  "side": "left",
+  "state": "run",
+}
+`;
+
+exports[`charater class should test the KeyboardEvent 4`] = `
+Object {
+  "items": Array [],
+  "position": NaN,
+  "side": "left",
+  "state": "jump",
+}
+`;
+
+exports[`charater class should test the KeyboardEvent 5`] = `
+Object {
+  "items": Array [
+    Object {
+      "element": <div
+        class="kunai left"
+        style="position: absolute;"
+      />,
+      "id": 1644182219303,
+      "position": NaN,
+    },
+  ],
+  "position": NaN,
+  "side": "left",
+  "state": "throw",
+}
+`;
+
+exports[`charater class should test the KeyboardEvent 6`] = `
+Object {
+  "items": Array [
+    Object {
+      "element": <div
+        class="kunai left"
+        style="position: absolute;"
+      />,
+      "id": 1644182219303,
+      "position": NaN,
+    },
+    Object {
+      "element": <div
+        class="shuriken left"
+        style="position: absolute;"
+      />,
+      "id": 1644182219303,
+      "position": NaN,
+    },
+  ],
+  "position": NaN,
+  "side": "left",
+  "state": "throw",
+}
+`;
