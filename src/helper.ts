@@ -12,6 +12,7 @@ export interface CharacterProperties{
 }
 
 export interface Item {
+  id: number;
   position: number;
   element: HTMLElement;
 }

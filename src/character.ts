@@ -40,6 +40,13 @@ export class Character {
     }
   }
 
+  public removeItem(id: number){
+    const index = items.map(item => item.id).indexOf(id);
+    if(index !== -1){
+      items.splice(index,1);
+    }
+  }
+
 }
 
 const engineCallback = (component: HTMLElement, characterName: string) => {
@@ -104,6 +111,7 @@ const addListeners = (engine: Engine, component: HTMLElement): void => {
             className: `kunai${side === 'left' ? ' left' : ''}`
           });
           items.push({
+            id: Date.now(),
             element: item,
             position: getPosition(item)
           });
