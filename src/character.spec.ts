@@ -20,7 +20,7 @@ describe('charater class', () => {
     expect(character.properties).toMatchSnapshot();
     expect(mockGamingThreadCallback).toHaveBeenCalled();
   });
-  it('should test the KeyboardEvent', () => {
+  it('should test the KeyboardEvent keydown', () => {
     const arrowDownEvent = new KeyboardEvent('keydown', {key: 'ArrowDown'});
     const arrowLeftEvent = new KeyboardEvent('keydown', {key: 'ArrowRight'});
     const arrowRightEvent = new KeyboardEvent('keydown', {key: 'ArrowLeft'});
@@ -38,6 +38,17 @@ describe('charater class', () => {
     window.dispatchEvent(spaceEvent);
     expect(character.properties).toMatchSnapshot();
     window.dispatchEvent(sEvent);
+    expect(character.properties).toMatchSnapshot();
+  }); 
+  it('should test the KeyboardEvent keyup', () => {
+    const arrowDownEvent = new KeyboardEvent('keyup', {key: 'ArrowDown'});
+    const arrowLeftEvent = new KeyboardEvent('keyup', {key: 'ArrowRight'});
+    const arrowRightEvent = new KeyboardEvent('keyup', {key: 'ArrowLeft'});
+    window.dispatchEvent(arrowDownEvent);
+    expect(character.properties).toMatchSnapshot();
+    window.dispatchEvent(arrowLeftEvent);
+    expect(character.properties).toMatchSnapshot();
+    window.dispatchEvent(arrowRightEvent);
     expect(character.properties).toMatchSnapshot();
   })
 })

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">19.04% </span>
+                <span class="strong">57.14% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/21</span>
+                <span class='fraction'>12/21</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15% </span>
+                <span class="strong">55% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/20</span>
+                <span class='fraction'>11/20</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -119,22 +119,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -142,9 +135,16 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Engine } from "./gameEngine";
 import { getPosition, setPosition, SideType } from "./helper";
 &nbsp;
@@ -159,15 +159,15 @@ const ITEM_CONFIG = {
   maxDistance: 500,
 }
 &nbsp;
-export const createItem = <span class="fstat-no" title="function not covered" >(e</span>ngine: Engine, itemConfig: ItemConfig, removeCallback: () =&gt; void): HTMLElement =&gt; {
-  const element = <span class="cstat-no" title="statement not covered" >document.createElement('div');</span>
-<span class="cstat-no" title="statement not covered" >  element.className = itemConfig.className;</span>
-<span class="cstat-no" title="statement not covered" >  for(const prop in itemConfig.style){</span>
-<span class="cstat-no" title="statement not covered" >    element.style[prop] = itemConfig.style[prop];</span>
+export const createItem = (engine: Engine, itemConfig: ItemConfig, removeCallback: () =&gt; void): HTMLElement =&gt; {
+  const element = document.createElement('div');
+  element.className = itemConfig.className;
+  for(const prop in itemConfig.style){
+    element.style[prop] = itemConfig.style[prop];
   }
   //TODO 2022-02-06 this logic should be handle somewhere else
-  const initialPosition = <span class="cstat-no" title="statement not covered" >getPosition(element);</span>
-<span class="cstat-no" title="statement not covered" >  engine.addGamingThread(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
+  const initialPosition = getPosition(element);
+  engine.addGamingThread(<span class="fstat-no" title="function not covered" >() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (itemConfig.side === 'right'){</span>
 <span class="cstat-no" title="statement not covered" >      if(getPosition(element) &gt;= initialPosition + ITEM_CONFIG.maxDistance){</span>
 <span class="cstat-no" title="statement not covered" >        element.remove();</span>
@@ -184,8 +184,8 @@ export const createItem = <span class="fstat-no" title="function not covered" >(
       }
     }
   });
-<span class="cstat-no" title="statement not covered" >  document.body.appendChild(element)</span>
-<span class="cstat-no" title="statement not covered" >  return element;</span>
+  document.body.appendChild(element)
+  return element;
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -193,7 +193,7 @@ export const createItem = <span class="fstat-no" title="function not covered" >(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sun Feb 06 2022 22:07:58 GMT+0100 (heure normale d’Europe centrale)
+                at Sun Feb 06 2022 22:35:14 GMT+0100 (heure normale d’Europe centrale)
             </div>
         <script src="prettify.js"></script>
         <script>
