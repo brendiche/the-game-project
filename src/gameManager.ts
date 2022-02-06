@@ -32,7 +32,7 @@ export class GameManager{
           if(this.character.properties.items.length){
             for(const item of this.character.properties.items){
               if (item.position >= target.position && item.position <= target.position + getOffset(target.element)) {
-                item.element.remove(); // TODO 2022-02-04: remove also the item in the 
+                item.element.remove();  
                 this.character.removeItem(item.id);
                 target.element.remove();
                 engine.targets.splice(i,1); // need to be very carful with this because it removes element in the array it's looping on

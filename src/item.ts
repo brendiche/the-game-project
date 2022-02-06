@@ -12,7 +12,7 @@ const ITEM_CONFIG = {
   maxDistance: 500,
 }
 
-export const createItem = (engine: Engine, itemConfig: ItemConfig): HTMLElement => {
+export const createItem = (engine: Engine, itemConfig: ItemConfig, removeCallback: () => void): HTMLElement => {
   const element = document.createElement('div');
   element.className = itemConfig.className;
   for(const prop in itemConfig.style){
@@ -24,12 +24,14 @@ export const createItem = (engine: Engine, itemConfig: ItemConfig): HTMLElement 
     if (itemConfig.side === 'right'){
       if(getPosition(element) >= initialPosition + ITEM_CONFIG.maxDistance){
         element.remove();
+        removeCallback();
       }else{
         setPosition(element, getPosition(element) + ITEM_CONFIG.movingStep);
       }
     } else {
       if(getPosition(element) <= initialPosition - ITEM_CONFIG.maxDistance){
         element.remove();
+        removeCallback();
       }else{
         setPosition(element, getPosition(element) - ITEM_CONFIG.movingStep);
       }

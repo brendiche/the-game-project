@@ -158,12 +158,13 @@ export class Character {
   }
 
   private handleItem(itemConfig:ItemConfig, itemClass: string){
+    const id = Date.now();
     const item = createItem(this.engine, {
       ...itemConfig,
       className: `${itemClass}${this.side === 'left' ? ' left' : ''}`
-    });
+    }, () => this.removeItem(id));
     this.items.push({
-      id: Date.now(),
+      id,
       element: item,
       position: getPosition(item)
     });
