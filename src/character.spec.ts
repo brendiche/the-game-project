@@ -51,4 +51,16 @@ describe('charater class', () => {
     window.dispatchEvent(arrowRightEvent);
     expect(character.properties).toMatchSnapshot();
   })
+  it('should handle the touche events', () =>{
+    const touch = {clientX:10, clientY: 10} as Touch
+    const touchStartEvent = new TouchEvent('touchstart', {touches: [touch]});
+    const touchMoveEvent = new TouchEvent('touchmove', {touches: [{...touch,clientX:20}]});
+    const touchEndEvent = new TouchEvent('touchend', {touches: [touch]});
+    window.dispatchEvent(touchStartEvent);
+    expect(character.properties).toMatchSnapshot();
+    window.dispatchEvent(touchMoveEvent);
+    expect(character.properties).toMatchSnapshot();
+    window.dispatchEvent(touchEndEvent);
+    expect(character.properties).toMatchSnapshot();
+  })
 })

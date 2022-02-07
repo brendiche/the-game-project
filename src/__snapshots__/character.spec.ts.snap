@@ -15,6 +15,108 @@ Object {
 }
 `;
 
+exports[`charater class should handle the touche events 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "element": <div
+        class="kunai left"
+        style="position: absolute;"
+      />,
+      "id": 1644182219303,
+      "position": NaN,
+    },
+    Object {
+      "element": <div
+        class="shuriken left"
+        style="position: absolute;"
+      />,
+      "id": 1644182219303,
+      "position": NaN,
+    },
+    Object {
+      "element": <div
+        class="kunai left"
+        style="position: absolute;"
+      />,
+      "id": 1644182219303,
+      "position": NaN,
+    },
+  ],
+  "position": NaN,
+  "side": "left",
+  "state": "throw",
+}
+`;
+
+exports[`charater class should handle the touche events 2`] = `
+Object {
+  "items": Array [
+    Object {
+      "element": <div
+        class="kunai left"
+        style="position: absolute;"
+      />,
+      "id": 1644182219303,
+      "position": NaN,
+    },
+    Object {
+      "element": <div
+        class="shuriken left"
+        style="position: absolute;"
+      />,
+      "id": 1644182219303,
+      "position": NaN,
+    },
+    Object {
+      "element": <div
+        class="kunai left"
+        style="position: absolute;"
+      />,
+      "id": 1644182219303,
+      "position": NaN,
+    },
+  ],
+  "position": NaN,
+  "side": "right",
+  "state": "run",
+}
+`;
+
+exports[`charater class should handle the touche events 3`] = `
+Object {
+  "items": Array [
+    Object {
+      "element": <div
+        class="kunai left"
+        style="position: absolute;"
+      />,
+      "id": 1644182219303,
+      "position": NaN,
+    },
+    Object {
+      "element": <div
+        class="shuriken left"
+        style="position: absolute;"
+      />,
+      "id": 1644182219303,
+      "position": NaN,
+    },
+    Object {
+      "element": <div
+        class="kunai left"
+        style="position: absolute;"
+      />,
+      "id": 1644182219303,
+      "position": NaN,
+    },
+  ],
+  "position": NaN,
+  "side": "right",
+  "state": "stand",
+}
+`;
+
 exports[`charater class should test the KeyboardEvent keydown 1`] = `
 Object {
   "items": Array [],
