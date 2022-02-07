@@ -7,19 +7,23 @@ const dateNowStub = () => 1644182219303;
 global.Date.now = dateNowStub;
 
 
-const mockGamingThreadCallback = jest.fn();
+const callbackArray: any[] = []
 const mockEngine: Partial<Engine> = {
-  addGamingThread: mockGamingThreadCallback,
+  addGamingThread: (arg:any) => callbackArray.push(arg)
 }
 const character = new Character(mockEngine as Engine, 'test');
 document.body.appendChild(character.element);
 
 describe('charater class', () => {
-  it('it should create a character well initialized', () => {
+  it('should create a character well initialized', () => {
     expect(character.element).toMatchSnapshot();
     expect(character.properties).toMatchSnapshot();
-    expect(mockGamingThreadCallback).toHaveBeenCalled();
+    expect(callbackArray.length).toBe(1);
   });
+  it('should set side and state', () => {
+    callbackArray[0]();
+    expect(character.properties).toMatchSnapshot();
+  })
   it('should test the KeyboardEvent keydown', () => {
     const arrowDownEvent = new KeyboardEvent('keydown', {key: 'ArrowDown'});
     const arrowLeftEvent = new KeyboardEvent('keydown', {key: 'ArrowRight'});
@@ -50,7 +54,7 @@ describe('charater class', () => {
     expect(character.properties).toMatchSnapshot();
     window.dispatchEvent(arrowRightEvent);
     expect(character.properties).toMatchSnapshot();
-  })
+  });
   it('should handle the touche events', () =>{
     const touch = {clientX:10, clientY: 10} as Touch
     const touchStartEvent = new TouchEvent('touchstart', {touches: [touch]});
@@ -61,6 +65,14 @@ describe('charater class', () => {
     window.dispatchEvent(touchMoveEvent);
     expect(character.properties).toMatchSnapshot();
     window.dispatchEvent(touchEndEvent);
+    expect(character.properties).toMatchSnapshot();
+  });
+  it('should remove an item', () => {
+    const dateNowStub = () => 1644182219302;
+    global.Date.now = dateNowStub;
+    const spaceEvent = new KeyboardEvent('keydown', {key: ' '});
+    window.dispatchEvent(spaceEvent);
+    character.removeItem(1644182219302);
     expect(character.properties).toMatchSnapshot();
   })
 })

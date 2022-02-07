@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`charater class it should create a character well initialized 1`] = `
+exports[`charater class should create a character well initialized 1`] = `
 <div
   class="test-stand"
 />
 `;
 
-exports[`charater class it should create a character well initialized 2`] = `
+exports[`charater class should create a character well initialized 2`] = `
 Object {
   "items": Array [],
   "position": NaN,
@@ -111,6 +111,49 @@ Object {
       "position": NaN,
     },
   ],
+  "position": NaN,
+  "side": "right",
+  "state": "stand",
+}
+`;
+
+exports[`charater class should remove an item 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "element": <div
+        class="kunai left"
+        style="position: absolute;"
+      />,
+      "id": 1644182219303,
+      "position": NaN,
+    },
+    Object {
+      "element": <div
+        class="shuriken left"
+        style="position: absolute;"
+      />,
+      "id": 1644182219303,
+      "position": NaN,
+    },
+    Object {
+      "element": <div
+        class="kunai left"
+        style="position: absolute;"
+      />,
+      "id": 1644182219303,
+      "position": NaN,
+    },
+  ],
+  "position": NaN,
+  "side": "right",
+  "state": "throw",
+}
+`;
+
+exports[`charater class should set side and state 1`] = `
+Object {
+  "items": Array [],
   "position": NaN,
   "side": "right",
   "state": "stand",
