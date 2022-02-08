@@ -1,31 +1,26 @@
 /**
  * @jest-environment jsdom
  */
-import { Engine } from "./gameEngine"
-import { createItem } from "./item"
-
-const callbackArray: any[] = []
-const mockEngine: Partial<Engine> = {
-  addGamingThread: (arg:any) => callbackArray.push(arg)
-}
-
-const removeCallback = jest.fn();
+ const dateNowStub = () => 1644182219303;
+ global.Date.now = dateNowStub;
+import { Item } from "./item"
 const style = {
   position: 'absolute',
   left: '10px',
   top: '10px',
 } as CSSStyleDeclaration
 
+const item = new Item({className:'test',side:'left', style:style});
 describe('item', () => {
   it('should create an item', () => {
-    const itemLeft = createItem(mockEngine as Engine,{className:'test',side:'left', style:style},removeCallback);
-    expect(itemLeft).toMatchSnapshot();
-    const itemRight = createItem(mockEngine as Engine,{className:'test',side:'right', style:style},removeCallback);
-    expect(itemRight).toMatchSnapshot();
-    expect(callbackArray.length).toBe(2);
-    callbackArray[0]();
-    expect(itemLeft).toMatchSnapshot()
-    callbackArray[1]();
-    expect(itemRight).toMatchSnapshot()
+    expect(item).toMatchSnapshot();
+    expect(item.element).toMatchSnapshot();
+    expect(item.id).toMatchSnapshot();
+    expect(item.position).toMatchSnapshot();
+    expect(item.initialPosition).toMatchSnapshot();
   });
+  it('should remove element', ()=> {
+    item.remove()
+    expect(item.element).toMatchSnapshot()
+  })
 })

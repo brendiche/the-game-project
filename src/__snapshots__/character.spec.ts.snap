@@ -6,314 +6,371 @@ exports[`charater class should create a character well initialized 1`] = `
 />
 `;
 
-exports[`charater class should create a character well initialized 2`] = `
-Object {
-  "items": Array [],
-  "position": NaN,
-  "side": "right",
-  "state": "stand",
-}
-`;
+exports[`charater class should create a character well initialized 2`] = `"right"`;
+
+exports[`charater class should create a character well initialized 3`] = `"stand"`;
+
+exports[`charater class should create a character well initialized 4`] = `Array []`;
 
 exports[`charater class should handle the touche events 1`] = `
-Object {
-  "items": Array [
-    Object {
-      "element": <div
-        class="kunai left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-    Object {
-      "element": <div
-        class="shuriken left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-    Object {
-      "element": <div
-        class="kunai left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-  ],
-  "position": NaN,
-  "side": "left",
-  "state": "throw",
-}
+<div
+  class="test-stand"
+/>
 `;
 
-exports[`charater class should handle the touche events 2`] = `
-Object {
-  "items": Array [
-    Object {
-      "element": <div
-        class="kunai left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-    Object {
-      "element": <div
-        class="shuriken left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-    Object {
-      "element": <div
-        class="kunai left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-  ],
-  "position": NaN,
-  "side": "right",
-  "state": "run",
-}
+exports[`charater class should handle the touche events 2`] = `"left"`;
+
+exports[`charater class should handle the touche events 3`] = `"throw"`;
+
+exports[`charater class should handle the touche events 4`] = `
+Array [
+  Item {
+    "_element": <div
+      class="kunai left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+  Item {
+    "_element": <div
+      class="shuriken left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+  Item {
+    "_element": <div
+      class="kunai left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+]
 `;
 
-exports[`charater class should handle the touche events 3`] = `
-Object {
-  "items": Array [
-    Object {
-      "element": <div
-        class="kunai left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-    Object {
-      "element": <div
-        class="shuriken left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-    Object {
-      "element": <div
-        class="kunai left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-  ],
-  "position": NaN,
-  "side": "right",
-  "state": "stand",
-}
+exports[`charater class should handle the touche events 5`] = `
+<div
+  class="test-stand"
+/>
+`;
+
+exports[`charater class should handle the touche events 6`] = `"right"`;
+
+exports[`charater class should handle the touche events 7`] = `"run"`;
+
+exports[`charater class should handle the touche events 8`] = `
+Array [
+  Item {
+    "_element": <div
+      class="kunai left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+  Item {
+    "_element": <div
+      class="shuriken left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+  Item {
+    "_element": <div
+      class="kunai left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+]
+`;
+
+exports[`charater class should handle the touche events 9`] = `
+<div
+  class="test-stand"
+/>
+`;
+
+exports[`charater class should handle the touche events 10`] = `"right"`;
+
+exports[`charater class should handle the touche events 11`] = `"stand"`;
+
+exports[`charater class should handle the touche events 12`] = `
+Array [
+  Item {
+    "_element": <div
+      class="kunai left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+  Item {
+    "_element": <div
+      class="shuriken left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+  Item {
+    "_element": <div
+      class="kunai left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+]
 `;
 
 exports[`charater class should remove an item 1`] = `
-Object {
-  "items": Array [
-    Object {
-      "element": <div
-        class="kunai left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-    Object {
-      "element": <div
-        class="shuriken left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-    Object {
-      "element": <div
-        class="kunai left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-  ],
-  "position": NaN,
-  "side": "right",
-  "state": "throw",
-}
+<div
+  class="test-stand"
+/>
+`;
+
+exports[`charater class should remove an item 2`] = `"right"`;
+
+exports[`charater class should remove an item 3`] = `"throw"`;
+
+exports[`charater class should remove an item 4`] = `
+Array [
+  Item {
+    "_element": <div
+      class="kunai left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+  Item {
+    "_element": <div
+      class="shuriken left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+  Item {
+    "_element": <div
+      class="kunai left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+]
 `;
 
 exports[`charater class should set side and state 1`] = `
-Object {
-  "items": Array [],
-  "position": NaN,
-  "side": "right",
-  "state": "stand",
-}
+<div
+  class="test-stand"
+/>
 `;
+
+exports[`charater class should set side and state 2`] = `"right"`;
+
+exports[`charater class should set side and state 3`] = `"stand"`;
+
+exports[`charater class should set side and state 4`] = `Array []`;
 
 exports[`charater class should test the KeyboardEvent keydown 1`] = `
-Object {
-  "items": Array [],
-  "position": NaN,
-  "side": "right",
-  "state": "down",
-}
+<div
+  class="test-stand"
+/>
 `;
 
-exports[`charater class should test the KeyboardEvent keydown 2`] = `
-Object {
-  "items": Array [],
-  "position": NaN,
-  "side": "right",
-  "state": "run",
-}
-`;
+exports[`charater class should test the KeyboardEvent keydown 2`] = `"right"`;
 
-exports[`charater class should test the KeyboardEvent keydown 3`] = `
-Object {
-  "items": Array [],
-  "position": NaN,
-  "side": "left",
-  "state": "run",
-}
-`;
+exports[`charater class should test the KeyboardEvent keydown 3`] = `"down"`;
 
-exports[`charater class should test the KeyboardEvent keydown 4`] = `
-Object {
-  "items": Array [],
-  "position": NaN,
-  "side": "left",
-  "state": "jump",
-}
-`;
+exports[`charater class should test the KeyboardEvent keydown 4`] = `Array []`;
 
 exports[`charater class should test the KeyboardEvent keydown 5`] = `
-Object {
-  "items": Array [
-    Object {
-      "element": <div
-        class="kunai left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-  ],
-  "position": NaN,
-  "side": "left",
-  "state": "throw",
-}
+<div
+  class="test-stand"
+/>
 `;
 
-exports[`charater class should test the KeyboardEvent keydown 6`] = `
-Object {
-  "items": Array [
-    Object {
-      "element": <div
-        class="kunai left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-    Object {
-      "element": <div
-        class="shuriken left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-  ],
-  "position": NaN,
-  "side": "left",
-  "state": "throw",
-}
+exports[`charater class should test the KeyboardEvent keydown 6`] = `"right"`;
+
+exports[`charater class should test the KeyboardEvent keydown 7`] = `"run"`;
+
+exports[`charater class should test the KeyboardEvent keydown 8`] = `Array []`;
+
+exports[`charater class should test the KeyboardEvent keydown 9`] = `
+<div
+  class="test-stand"
+/>
+`;
+
+exports[`charater class should test the KeyboardEvent keydown 10`] = `"left"`;
+
+exports[`charater class should test the KeyboardEvent keydown 11`] = `"run"`;
+
+exports[`charater class should test the KeyboardEvent keydown 12`] = `Array []`;
+
+exports[`charater class should test the KeyboardEvent keydown 13`] = `
+<div
+  class="test-stand"
+/>
+`;
+
+exports[`charater class should test the KeyboardEvent keydown 14`] = `"left"`;
+
+exports[`charater class should test the KeyboardEvent keydown 15`] = `"jump"`;
+
+exports[`charater class should test the KeyboardEvent keydown 16`] = `Array []`;
+
+exports[`charater class should test the KeyboardEvent keydown 17`] = `
+<div
+  class="test-stand"
+/>
+`;
+
+exports[`charater class should test the KeyboardEvent keydown 18`] = `"left"`;
+
+exports[`charater class should test the KeyboardEvent keydown 19`] = `"throw"`;
+
+exports[`charater class should test the KeyboardEvent keydown 20`] = `
+Array [
+  Item {
+    "_element": <div
+      class="kunai left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+]
+`;
+
+exports[`charater class should test the KeyboardEvent keydown 21`] = `
+<div
+  class="test-stand"
+/>
+`;
+
+exports[`charater class should test the KeyboardEvent keydown 22`] = `"left"`;
+
+exports[`charater class should test the KeyboardEvent keydown 23`] = `"throw"`;
+
+exports[`charater class should test the KeyboardEvent keydown 24`] = `
+Array [
+  Item {
+    "_element": <div
+      class="kunai left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+  Item {
+    "_element": <div
+      class="shuriken left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+]
 `;
 
 exports[`charater class should test the KeyboardEvent keyup 1`] = `
-Object {
-  "items": Array [
-    Object {
-      "element": <div
-        class="kunai left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-    Object {
-      "element": <div
-        class="shuriken left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-  ],
-  "position": NaN,
-  "side": "left",
-  "state": "stand",
-}
+<div
+  class="test-stand"
+/>
 `;
 
-exports[`charater class should test the KeyboardEvent keyup 2`] = `
-Object {
-  "items": Array [
-    Object {
-      "element": <div
-        class="kunai left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-    Object {
-      "element": <div
-        class="shuriken left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-  ],
-  "position": NaN,
-  "side": "left",
-  "state": "stand",
-}
+exports[`charater class should test the KeyboardEvent keyup 2`] = `"left"`;
+
+exports[`charater class should test the KeyboardEvent keyup 3`] = `"stand"`;
+
+exports[`charater class should test the KeyboardEvent keyup 4`] = `
+Array [
+  Item {
+    "_element": <div
+      class="kunai left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+  Item {
+    "_element": <div
+      class="shuriken left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+]
 `;
 
-exports[`charater class should test the KeyboardEvent keyup 3`] = `
-Object {
-  "items": Array [
-    Object {
-      "element": <div
-        class="kunai left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-    Object {
-      "element": <div
-        class="shuriken left"
-        style="position: absolute;"
-      />,
-      "id": 1644182219303,
-      "position": NaN,
-    },
-  ],
-  "position": NaN,
-  "side": "left",
-  "state": "stand",
-}
+exports[`charater class should test the KeyboardEvent keyup 5`] = `
+<div
+  class="test-stand"
+/>
+`;
+
+exports[`charater class should test the KeyboardEvent keyup 6`] = `"left"`;
+
+exports[`charater class should test the KeyboardEvent keyup 7`] = `"stand"`;
+
+exports[`charater class should test the KeyboardEvent keyup 8`] = `
+Array [
+  Item {
+    "_element": <div
+      class="kunai left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+  Item {
+    "_element": <div
+      class="shuriken left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+]
+`;
+
+exports[`charater class should test the KeyboardEvent keyup 9`] = `
+<div
+  class="test-stand"
+/>
+`;
+
+exports[`charater class should test the KeyboardEvent keyup 10`] = `"left"`;
+
+exports[`charater class should test the KeyboardEvent keyup 11`] = `"stand"`;
+
+exports[`charater class should test the KeyboardEvent keyup 12`] = `
+Array [
+  Item {
+    "_element": <div
+      class="kunai left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+  Item {
+    "_element": <div
+      class="shuriken left"
+      style="position: absolute;"
+    />,
+    "_id": 1644182219303,
+    "_initialPosition": NaN,
+  },
+]
 `;

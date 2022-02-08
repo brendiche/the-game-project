@@ -8,14 +8,8 @@ export interface CharacterProperties{
   state: StateType;
   position: number;
   side: SideType;
-  items: Item[]
 }
 
-export interface Item {
-  id: number;
-  position: number;
-  element: HTMLElement;
-}
 
 export interface Target{
   id: number;

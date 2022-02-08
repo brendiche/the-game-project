@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.95% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/21</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/20</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
@@ -104,88 +104,91 @@
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Engine } from "./gameEngine";
-import { getPosition, setPosition, SideType } from "./helper";
+<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">import { getPosition, SideType } from "./helper";
 &nbsp;
 export interface ItemConfig{
   className: string;
   style: Partial&lt;CSSStyleDeclaration&gt;;
   side: SideType;
 }
+export class Item {
+  private readonly _id: number;
+  private readonly _initialPosition: number;
+  private _element: HTMLElement;
 &nbsp;
-const ITEM_CONFIG = {
-  movingStep: 10,
-  maxDistance: 500,
-}
-&nbsp;
-export const createItem = (engine: Engine, itemConfig: ItemConfig, removeCallback: () =&gt; void): HTMLElement =&gt; {
-  const element = document.createElement('div');
-  element.className = itemConfig.className;
-  for(const prop in itemConfig.style){
-    element.style[prop] = itemConfig.style[prop];
-  }
-  //TODO 2022-02-06 this logic should be handle somewhere else
-  const initialPosition = getPosition(element);
-  engine.addGamingThread(() =&gt; {
-    if (itemConfig.side === 'right'){
-      <span class="missing-if-branch" title="if path not taken" >I</span>if(getPosition(element) &gt;= initialPosition + ITEM_CONFIG.maxDistance){
-<span class="cstat-no" title="statement not covered" >        element.remove();</span>
-<span class="cstat-no" title="statement not covered" >        removeCallback();</span>
-      }else{
-        setPosition(element, getPosition(element) + ITEM_CONFIG.movingStep);
-      }
-    } else {
-      <span class="missing-if-branch" title="if path not taken" >I</span>if(getPosition(element) &lt;= initialPosition - ITEM_CONFIG.maxDistance){
-<span class="cstat-no" title="statement not covered" >        element.remove();</span>
-<span class="cstat-no" title="statement not covered" >        removeCallback();</span>
-      }else{
-        setPosition(element, getPosition(element) - ITEM_CONFIG.movingStep);
-      }
+  constructor(itemConfig: ItemConfig){
+    this._id = Date.now();
+    this._element = document.createElement('div');
+    this._element.className = itemConfig.className;
+    for(const prop in itemConfig.style){
+      this._element.style[prop] = itemConfig.style[prop];
     }
-  });
-  document.body.appendChild(element)
-  return element;
+    document.body.appendChild(this._element);
+    this._initialPosition = getPosition(this.element);
+  }
+&nbsp;
+  get id(): number {
+    return this._id;
+  }
+&nbsp;
+  get initialPosition():number{
+    return this._initialPosition;
+  }
+&nbsp;
+  get position():number{
+    return getPosition(this.element);
+  }
+&nbsp;
+  get element(): HTMLElement{
+    return this._element;
+  }
+&nbsp;
+  public remove(): void{
+    this._element.remove();
+  }
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -193,7 +196,7 @@ export const createItem = (engine: Engine, itemConfig: ItemConfig, removeCallbac
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Feb 07 2022 18:50:40 GMT+0100 (heure normale d’Europe centrale)
+                at Tue Feb 08 2022 18:14:36 GMT+0100 (heure normale d’Europe centrale)
             </div>
         <script src="prettify.js"></script>
         <script>

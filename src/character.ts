@@ -1,6 +1,6 @@
 import { Engine } from './gameEngine';
-import { CharacterProperties, getPosition, Item, SideType, States, StateType } from './helper';
-import { createItem, ItemConfig } from './item';
+import { getPosition, setPosition, SideType, States, StateType } from './helper';
+import { Item, ItemConfig } from './item';
 
 const OFFSET_CHARACTER = {
   top: 12,
@@ -13,51 +13,56 @@ const touchCoord = {
   y:0,
 }
 
+const ITEM_CONFIG = {
+  movingStep: 10,
+  maxDistance: 500,
+}
+
 export class Character {
   private readonly htmlElement: HTMLElement;
   private readonly characterName: string;
   private readonly engine: Engine;
-  private state: StateType = 'stand';
-  private side: SideType = 'right';
-  private items: Item[] = [];
+  private _state: StateType = 'stand';
+  private _side: SideType = 'right';
+  private _items: Item[] = [];
 
   constructor(engine: Engine, characterName: string){
     this.engine = engine;
     this.characterName = characterName;
     this.htmlElement = document.createElement('div');
-    this.htmlElement.className = `${characterName}-${this.state}`
-    engine.addGamingThread(() => this.engineCallback());
+    this.htmlElement.className = `${characterName}-${this._state}`
+    this.engine.addGamingThread(() => this.engineCallback());
     this.addListeners(this.htmlElement);
+  }
+  get state(): StateType{
+    return this._state;
+  }
+  get side(): SideType{
+    return this._side;
+  }
+  get items(): Item[]{
+    return this._items;
   }
 
   get element(): HTMLElement{
     return this.htmlElement;
   }
 
-  get properties(): CharacterProperties{
-    return {
-      position: getPosition(this.element),
-      side: this.side,
-      state: this.state,
-      items: this.items,
-    }
-  }
-
   public removeItem(id: number){
-    const index = this.items.map(item => item.id).indexOf(id);
+    const index = this._items.map(item => item.id).indexOf(id);
     if(index !== -1){
-      this.items.splice(index,1);
+      this._items.splice(index,1);
     }
   }
 
   private setState(): void {
     const classRegex = new RegExp(`${this.characterName}-(${States.join('|')})`);
-    this.htmlElement.className = this.htmlElement.className.replace(classRegex, `${this.characterName}-${this.state}`);
+    this.htmlElement.className = this.htmlElement.className.replace(classRegex, `${this.characterName}-${this._state}`);
   }
   
   private setSide(): void {
     const className = this.htmlElement.className;
-    if(this.side === 'left'){
+    if(this._side === 'left'){
       this.htmlElement.className = className.includes('left') ? className : `${className} left`;
     }else{
       this.htmlElement.className = className.replace('left','');
@@ -68,8 +73,8 @@ export class Character {
     this.setState();
     this.setSide();
     // TODO 2022-02-04 quick fix in order to get item position
-    for (let i = 0; i < this.items.length; i++) {
-      this.items[i].position = getPosition(this.items[i].element);
+    for (let i = 0; i < this._items.length; i++) {
+      // this._items[i].position = getPosition(this._items[i].element);
     }
   }
 
@@ -79,40 +84,40 @@ export class Character {
         className:'',
         style:{
           position: 'absolute',
-          left: `${getPosition(component) + OFFSET_CHARACTER[this.side]}px`,
+          left: `${getPosition(component) + OFFSET_CHARACTER[this._side]}px`,
           top: `${getPosition(component, 'top') + OFFSET_CHARACTER.top}px`,
         },
-        side: this.side,
+        side: this._side,
       };
       console.log('[character][addListeners] keydown: ', event.key);
        switch(event.key){
          case 'ArrowRight':
-           this.state = 'run';
-           this.side = 'right';
+           this._state = 'run';
+           this._side = 'right';
          break;
          case 'ArrowLeft':
-            this.state = 'run';
-            this.side = 'left';
+            this._state = 'run';
+            this._side = 'left';
           break;
          case 'ArrowDown':
-            this.state = 'down';
+            this._state = 'down';
           break;
          case 'ArrowUp':
-            this.state = 'jump';
+            this._state = 'jump';
           setTimeout(() => {
-            if(this.state === 'jump') {
-                this.state = 'stand';
+            if(this._state === 'jump') {
+                this._state = 'stand';
             }
           },701)
           break;
          case ' ':
-            this.state = 'throw';
-            this.handleItem(itemConfig,'kunai');
+            this._state = 'throw';
+            this.createItem(itemConfig,'kunai');
             break;
             
          case 's':
-            this.state = 'throw';
-            this.handleItem(itemConfig,'shuriken');
+            this._state = 'throw';
+            this.createItem(itemConfig,'shuriken');
             break;
        }
     });
@@ -122,7 +127,7 @@ export class Character {
           case 'ArrowRight':
           case 'ArrowLeft':
           case 'ArrowDown':
-            this.state = 'stand';
+            this._state = 'stand';
           break;
        }
     });
@@ -132,47 +137,63 @@ export class Character {
         className:'',
         style:{
           position: 'absolute',
-          left: `${getPosition(component) + OFFSET_CHARACTER[this.side]}px`,
+          left: `${getPosition(component) + OFFSET_CHARACTER[this._side]}px`,
           top: `${getPosition(component, 'top') + OFFSET_CHARACTER.top}px`,
         },
-        side: this.side,
+        side: this._side,
       };
       console.log('[character][addListeners] touchstart:',event);
       touchCoord.x = event.touches[0].clientX;
       touchCoord.y = event.touches[0].clientY;
-      this.state = 'throw';
-      this.handleItem(itemConfig, 'kunai')
+      this._state = 'throw';
+      this.createItem(itemConfig, 'kunai')
     });
     window.addEventListener("touchmove", (event) => {
       console.log('[character][addListeners] touchmove:',event);
-      this.state = 'run';
+      this._state = 'run';
       if(event.touches[0].clientX > touchCoord.x){
-        this.side = 'right';
+        this._side = 'right';
       }else{
-        this.side = 'left';
+        this._side = 'left';
       }
     });
     window.addEventListener('touchend', ()=> {
-      this.state = 'stand';
+      this._state = 'stand';
     })
   }
 
-  private handleItem(itemConfig:ItemConfig, itemClass: string){
-    const id = Date.now();
-    const item = createItem(this.engine, {
+  private createItem(itemConfig:ItemConfig, itemClass: string){
+    const item = new Item({
       ...itemConfig,
-      className: `${itemClass}${this.side === 'left' ? ' left' : ''}`
-    }, () => this.removeItem(id));
-    this.items.push({
-      id,
-      element: item,
-      position: getPosition(item)
+      className: `${itemClass}${this._side === 'left' ? ' left' : ''}`
     });
+    this.setMove(item);
+    this._items.push(item);
     setTimeout(() => {
-      if(this.state === 'throw'){
-        this.state = 'stand';
+      if(this._state === 'throw'){
+        this._state = 'stand';
       }
     },501)
+  }
+
+  private setMove(item: Item){
+    this.engine.addGamingThread(() => {
+      if (this.side === 'right'){
+        if(item.position >= item.initialPosition + ITEM_CONFIG.maxDistance){
+          item.remove();
+          this.removeItem(item.id);
+        }else{
+          setPosition(item.element, item.position + ITEM_CONFIG.movingStep);
+        }
+      } else {
+        if(item.position <= item.initialPosition - ITEM_CONFIG.maxDistance){
+          item.remove();
+          this.removeItem(item.id);
+        }else{
+          setPosition(item.element, item.position - ITEM_CONFIG.movingStep);
+        }
+      }
+    });
   }
 
 }

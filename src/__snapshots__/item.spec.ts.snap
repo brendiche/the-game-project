@@ -1,10 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`item should create an item 1`] = `
-<div
-  class="test"
-  style="position: absolute; left: 10px; top: 10px;"
-/>
+Item {
+  "_element": <div
+    class="test"
+    style="position: absolute; left: 10px; top: 10px;"
+  />,
+  "_id": 1644182219303,
+  "_initialPosition": 10,
+}
 `;
 
 exports[`item should create an item 2`] = `
@@ -14,16 +18,15 @@ exports[`item should create an item 2`] = `
 />
 `;
 
-exports[`item should create an item 3`] = `
-<div
-  class="test"
-  style="position: absolute; left: 0px; top: 10px;"
-/>
-`;
+exports[`item should create an item 3`] = `1644182219303`;
 
-exports[`item should create an item 4`] = `
+exports[`item should create an item 4`] = `10`;
+
+exports[`item should create an item 5`] = `10`;
+
+exports[`item should remove element 1`] = `
 <div
   class="test"
-  style="position: absolute; left: 20px; top: 10px;"
+  style="position: absolute; left: 10px; top: 10px;"
 />
 `;

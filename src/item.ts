@@ -1,42 +1,43 @@
-import { Engine } from "./gameEngine";
-import { getPosition, setPosition, SideType } from "./helper";
+import { getPosition, SideType } from "./helper";
 
 export interface ItemConfig{
   className: string;
   style: Partial<CSSStyleDeclaration>;
   side: SideType;
 }
+export class Item {
+  private readonly _id: number;
+  private readonly _initialPosition: number;
+  private _element: HTMLElement;
 
-const ITEM_CONFIG = {
-  movingStep: 10,
-  maxDistance: 500,
-}
-
-export const createItem = (engine: Engine, itemConfig: ItemConfig, removeCallback: () => void): HTMLElement => {
-  const element = document.createElement('div');
-  element.className = itemConfig.className;
-  for(const prop in itemConfig.style){
-    element.style[prop] = itemConfig.style[prop];
-  }
-  //TODO 2022-02-06 this logic should be handle somewhere else
-  const initialPosition = getPosition(element);
-  engine.addGamingThread(() => {
-    if (itemConfig.side === 'right'){
-      if(getPosition(element) >= initialPosition + ITEM_CONFIG.maxDistance){
-        element.remove();
-        removeCallback();
-      }else{
-        setPosition(element, getPosition(element) + ITEM_CONFIG.movingStep);
-      }
-    } else {
-      if(getPosition(element) <= initialPosition - ITEM_CONFIG.maxDistance){
-        element.remove();
-        removeCallback();
-      }else{
-        setPosition(element, getPosition(element) - ITEM_CONFIG.movingStep);
-      }
+  constructor(itemConfig: ItemConfig){
+    this._id = Date.now();
+    this._element = document.createElement('div');
+    this._element.className = itemConfig.className;
+    for(const prop in itemConfig.style){
+      this._element.style[prop] = itemConfig.style[prop];
     }
-  });
-  document.body.appendChild(element)
-  return element;
+    document.body.appendChild(this._element);
+    this._initialPosition = getPosition(this.element);
+  }
+
+  get id(): number {
+    return this._id;
+  }
+
+  get initialPosition():number{
+    return this._initialPosition;
+  }
+
+  get position():number{
+    return getPosition(this.element);
+  }
+
+  get element(): HTMLElement{
+    return this._element;
+  }
+
+  public remove(): void{
+    this._element.remove();
+  }
 }

@@ -16,13 +16,12 @@ document.body.appendChild(character.element);
 
 describe('charater class', () => {
   it('should create a character well initialized', () => {
-    expect(character.element).toMatchSnapshot();
-    expect(character.properties).toMatchSnapshot();
+    checkCharacter();
     expect(callbackArray.length).toBe(1);
   });
   it('should set side and state', () => {
     callbackArray[0]();
-    expect(character.properties).toMatchSnapshot();
+    checkCharacter();
   })
   it('should test the KeyboardEvent keydown', () => {
     const arrowDownEvent = new KeyboardEvent('keydown', {key: 'ArrowDown'});
@@ -32,28 +31,28 @@ describe('charater class', () => {
     const spaceEvent = new KeyboardEvent('keydown', {key: ' '});
     const sEvent = new KeyboardEvent('keydown', {key: 's'});
     window.dispatchEvent(arrowDownEvent);
-    expect(character.properties).toMatchSnapshot();
+    checkCharacter();
     window.dispatchEvent(arrowLeftEvent);
-    expect(character.properties).toMatchSnapshot();
+    checkCharacter();
     window.dispatchEvent(arrowRightEvent);
-    expect(character.properties).toMatchSnapshot();
+    checkCharacter();
     window.dispatchEvent(arrowUpEvent);
-    expect(character.properties).toMatchSnapshot();
+    checkCharacter();
     window.dispatchEvent(spaceEvent);
-    expect(character.properties).toMatchSnapshot();
+    checkCharacter();
     window.dispatchEvent(sEvent);
-    expect(character.properties).toMatchSnapshot();
+    checkCharacter();
   }); 
   it('should test the KeyboardEvent keyup', () => {
     const arrowDownEvent = new KeyboardEvent('keyup', {key: 'ArrowDown'});
     const arrowLeftEvent = new KeyboardEvent('keyup', {key: 'ArrowRight'});
     const arrowRightEvent = new KeyboardEvent('keyup', {key: 'ArrowLeft'});
     window.dispatchEvent(arrowDownEvent);
-    expect(character.properties).toMatchSnapshot();
+    checkCharacter();
     window.dispatchEvent(arrowLeftEvent);
-    expect(character.properties).toMatchSnapshot();
+    checkCharacter();
     window.dispatchEvent(arrowRightEvent);
-    expect(character.properties).toMatchSnapshot();
+    checkCharacter();
   });
   it('should handle the touche events', () =>{
     const touch = {clientX:10, clientY: 10} as Touch
@@ -61,11 +60,11 @@ describe('charater class', () => {
     const touchMoveEvent = new TouchEvent('touchmove', {touches: [{...touch,clientX:20}]});
     const touchEndEvent = new TouchEvent('touchend', {touches: [touch]});
     window.dispatchEvent(touchStartEvent);
-    expect(character.properties).toMatchSnapshot();
+    checkCharacter();
     window.dispatchEvent(touchMoveEvent);
-    expect(character.properties).toMatchSnapshot();
+    checkCharacter();
     window.dispatchEvent(touchEndEvent);
-    expect(character.properties).toMatchSnapshot();
+    checkCharacter();
   });
   it('should remove an item', () => {
     const dateNowStub = () => 1644182219302;
@@ -73,6 +72,13 @@ describe('charater class', () => {
     const spaceEvent = new KeyboardEvent('keydown', {key: ' '});
     window.dispatchEvent(spaceEvent);
     character.removeItem(1644182219302);
-    expect(character.properties).toMatchSnapshot();
+    checkCharacter();
   })
 })
+
+const checkCharacter=()=> {
+  expect(character.element).toMatchSnapshot();
+  expect(character.side).toMatchSnapshot();
+  expect(character.state).toMatchSnapshot();
+  expect(character.items).toMatchSnapshot();
+}
