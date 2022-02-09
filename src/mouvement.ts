@@ -5,7 +5,7 @@ const INITIAL_POSSITION = {
   top: 280,
   left: 50,
 }
-
+const JUMP_SIZE = 110; 
 const touchCoord = {
   x:0,
   y:0,
@@ -105,7 +105,7 @@ const doJump = (element: HTMLElement, direction: 'up'|'down' = 'up', step = 1) =
 const checkJump = (element: HTMLElement) => {
   const position = getPosition(element, 'top');
   if(jumpDirection === 'up'){
-    if(position <= INITIAL_POSSITION.top - 80) {  // TODO 2022-01-27 : remove the magic number
+    if(position <= INITIAL_POSSITION.top - JUMP_SIZE) {
       jumpDirection = 'down';
     }
   }else{

@@ -61,7 +61,7 @@
   margin: auto;
   width: 36px; 
   transform: scale(2);
-  animation: jump 700ms steps(2) infinite;
+  animation: jump 900ms steps(2) infinite;
 }
 
 .naruto-down{
