@@ -9,21 +9,23 @@ export class GameManager{
   private level: Level;
   private _targets: Target[] = [];  
 
-  constructor(engine: Engine, character: Character, level: Level){
+  constructor(conf: {developement:boolean},engine: Engine, character: Character, level: Level){
     this.engine = engine;
     this.character = character;
     this.level = level;
 
     // Code for debug => TODO 2022-02-08 create a class for debug
-    const debug = document.createElement('div');
-    const debugCharacter = document.createElement('div');
-    debugCharacter.id = 'character-debug';
-    debug.style.position = 'absolute';
-    debug.style.backgroundColor = '#ddd';
-    debug.style.left = '1310px';
-    debug.id = 'debug';
-    debug.appendChild(debugCharacter);
-    document.body.appendChild(debug);
+    if(conf.developement){
+      const debug = document.createElement('div');
+      const debugCharacter = document.createElement('div');
+      debugCharacter.id = 'character-debug';
+      debug.style.position = 'absolute';
+      debug.style.backgroundColor = '#ddd';
+      debug.style.left = '1310px';
+      debug.id = 'debug';
+      debug.appendChild(debugCharacter);
+      document.body.appendChild(debug);
+    }
     ///
 
     engine.addGamingThread(() => {
@@ -43,11 +45,13 @@ export class GameManager{
         }
       }
       const character = document.getElementById('character-debug');
-      character.innerHTML = JSON.stringify({
-        side: this.character.side,
-        state: this.character.state,
-        items: this.character.items,
-      });
+      if(character){
+        character.innerHTML = JSON.stringify({
+          side: this.character.side,
+          state: this.character.state,
+          items: this.character.items,
+        });
+      }
     })
   }
 

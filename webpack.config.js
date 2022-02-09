@@ -1,8 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
-  mode: 'development',
+module.exports = (env) => ({
+  mode: env.procution ? 'production' : 'development',
   entry: './src/index.ts',
   output: {
     filename: '[name].bundle.js',
@@ -34,4 +34,4 @@ module.exports = {
      title: 'The game project',
     }),
   ],
-};
+});
