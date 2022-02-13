@@ -23,11 +23,16 @@ const config: GameConfig = {
       step: 10,
       maxDistance: 500,
     }
+  },
+  level: {
+    borderRight: 1200,
+    borderLeft: 0,
+    scrollSpeed:10,
   }
 }
 
 const character = new Character(config.character, engine, 'naruto');
-const level = new Level('stand',engine,character.element ); // TODO 2022-02-06 this is weird to get the state on the level it's better to get character properties
+const level = new Level(config.level,engine,character.element ); // TODO 2022-02-06 this is weird to get the state on the level it's better to get character properties
 Move(engine, character.element);
 
 const manager = new GameManager(Conf, engine, character, level);

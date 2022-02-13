@@ -1,20 +1,17 @@
 import { Engine } from './gameEngine';
-import { getPosition, setPosition } from './helper';
+import { getPosition, LevelConfig, setPosition } from './helper';
 import './assets/levels/level.css'
 
 const State = ['moveRight', 'moveLeft', 'stand'] as const;
 type StateType = typeof State[number];
-const LEVEL_CONFIG = {
-  borderRight: 1200,
-  borderLeft: 0,
-  scrollSpeed:10,
-}
 
 export class Level {
+  private readonly config: LevelConfig;
   private level: HTMLElement;
   private state: StateType;
 
-  constructor(state: StateType = 'stand', engine: Engine, character: HTMLElement){
+  constructor(config: LevelConfig, engine: Engine, character: HTMLElement, state: StateType = 'stand') {
+    this.config = config;
     this.state = state;
     this.level = document.createElement('div');
     this.initLevel();
@@ -29,15 +26,15 @@ export class Level {
   private checkCharacterPosition(character: HTMLElement, level: HTMLElement) {
     const characterPosition = getPosition(character);
     const levelPosition = getPosition(level, 'backgroundPositionX');
-    if(characterPosition === 1200 && this.state === 'moveRight' && levelPosition > -LEVEL_CONFIG.borderRight){ // TODO 2022-01-27: move this magic number
-      setPosition(level, levelPosition-LEVEL_CONFIG.scrollSpeed, 'backgroundPositionX');
+    if(characterPosition === 1200 && this.state === 'moveRight' && levelPosition > -this.config.borderRight){ // TODO 2022-01-27: move this magic number
+      setPosition(level, levelPosition-this.config.scrollSpeed, 'backgroundPositionX');
     }
-    if(characterPosition === 50 && this.state === 'moveLeft' && levelPosition < LEVEL_CONFIG.borderLeft){ // TODO 2022-01-27: move this magic number
-      setPosition(level, levelPosition+LEVEL_CONFIG.scrollSpeed, 'backgroundPositionX');
+    if(characterPosition === 50 && this.state === 'moveLeft' && levelPosition < this.config.borderLeft){ // TODO 2022-01-27: move this magic number
+      setPosition(level, levelPosition+this.config.scrollSpeed, 'backgroundPositionX');
     }
   }
 
-  private addListeners(){
+  private addListeners(){ // TODO 2022-02-13: remove this listener because it should get the state of the character
     window.addEventListener('keydown' , (event) => {
       if(event.key === 'ArrowRight'){
         this.state = 'moveRight'

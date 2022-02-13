@@ -20,6 +20,7 @@ export interface Target{
 export interface GameConfig{
   developement: boolean;
   character: CharacterConfig;
+  level: LevelConfig;
 }
 
 export interface CharacterConfig{
@@ -32,6 +33,12 @@ export interface CharacterConfig{
     maxDistance: number,
     step: number,
   }
+}
+
+export interface LevelConfig{
+  borderRight: number,
+  borderLeft: number,
+  scrollSpeed: number,
 }
 
 export const getPosition = (element: HTMLElement, prop: 'left'|'top'|'backgroundPositionX' = 'left'): number => {
