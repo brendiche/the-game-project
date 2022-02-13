@@ -8,6 +8,7 @@
  - [x] add interaction betwin components
  - [x] add colision betwin item and target
  - [ ] make a global config 
+ - [ ] handle the way the game is moving in the manager
  - [ ] fix the boundary of the game
  - [ ] add character choice
  - [ ] handle moblie screen
