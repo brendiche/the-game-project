@@ -1,32 +1,23 @@
 import { Engine } from './gameEngine';
-import { getPosition, setPosition, SideType, States, StateType } from './helper';
+import { CharacterConfig, getPosition, setPosition, SideType, States, StateType } from './helper';
 import { Item, ItemConfig } from './item';
-
-const OFFSET_CHARACTER = {
-  top: 12,
-  right: 55,
-  left: -30,
-}
 
 const touchCoord = {
   x:0,
   y:0,
 }
 
-const ITEM_CONFIG = {
-  movingStep: 10,
-  maxDistance: 500,
-}
-
 export class Character {
   private readonly htmlElement: HTMLElement;
   private readonly characterName: string;
   private readonly engine: Engine;
+  private readonly config: CharacterConfig;
   private _state: StateType = 'stand';
   private _side: SideType = 'right';
   private _items: Item[] = [];
 
-  constructor(engine: Engine, characterName: string){
+  constructor(config: CharacterConfig, engine: Engine, characterName: string){
+    this.config = config;
     this.engine = engine;
     this.characterName = characterName;
     this.htmlElement = document.createElement('div');
@@ -84,8 +75,8 @@ export class Character {
         className:'',
         style:{
           position: 'absolute',
-          left: `${getPosition(component) + OFFSET_CHARACTER[this._side]}px`,
-          top: `${getPosition(component, 'top') + OFFSET_CHARACTER.top}px`,
+          left: `${getPosition(component) + this.config.offset[this._side]}px`,
+          top: `${getPosition(component, 'top') + this.config.offset.top}px`,
         },
         side: this._side,
       };
@@ -137,8 +128,8 @@ export class Character {
         className:'',
         style:{
           position: 'absolute',
-          left: `${getPosition(component) + OFFSET_CHARACTER[this._side]}px`,
-          top: `${getPosition(component, 'top') + OFFSET_CHARACTER.top}px`,
+          left: `${getPosition(component) + this.config.offset[this._side]}px`,
+          top: `${getPosition(component, 'top') + this.config.offset.top}px`,
         },
         side: this._side,
       };
@@ -179,18 +170,18 @@ export class Character {
   private setMove(item: Item){
     this.engine.addGamingThread(() => {
       if (this.side === 'right'){
-        if(item.position >= item.initialPosition + ITEM_CONFIG.maxDistance){
+        if(item.position >= item.initialPosition + this.config.item.maxDistance){
           item.remove();
           this.removeItem(item.id);
         }else{
-          setPosition(item.element, item.position + ITEM_CONFIG.movingStep);
+          setPosition(item.element, item.position + this.config.item.step);
         }
       } else {
-        if(item.position <= item.initialPosition - ITEM_CONFIG.maxDistance){
+        if(item.position <= item.initialPosition - this.config.item.maxDistance){
           item.remove();
           this.removeItem(item.id);
         }else{
-          setPosition(item.element, item.position - ITEM_CONFIG.movingStep);
+          setPosition(item.element, item.position - this.config.item.step);
         }
       }
     });

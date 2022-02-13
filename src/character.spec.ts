@@ -3,6 +3,7 @@
  */
 import { Character } from "./character";
 import { Engine } from "./gameEngine";
+import { CharacterConfig } from "./helper";
 const dateNowStub = () => 1644182219303;
 global.Date.now = dateNowStub;
 
@@ -11,7 +12,18 @@ const callbackArray: any[] = []
 const mockEngine: Partial<Engine> = {
   addGamingThread: (arg:any) => callbackArray.push(arg)
 }
-const character = new Character(mockEngine as Engine, 'test');
+const mockConfig: CharacterConfig = {
+  offset:{
+    left:0,
+    right:0,
+    top:0,
+  },
+  item:{
+    maxDistance: 0,
+    step: 1
+  }
+}
+const character = new Character(mockConfig, mockEngine as Engine, 'test');
 document.body.appendChild(character.element);
 
 describe('charater class', () => {

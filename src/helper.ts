@@ -17,6 +17,23 @@ export interface Target{
   element: HTMLElement;
 }
 
+export interface GameConfig{
+  developement: boolean;
+  character: CharacterConfig;
+}
+
+export interface CharacterConfig{
+  offset : {
+    top: number,
+    right: number,
+    left: number,
+  },
+  item: {
+    maxDistance: number,
+    step: number,
+  }
+}
+
 export const getPosition = (element: HTMLElement, prop: 'left'|'top'|'backgroundPositionX' = 'left'): number => {
   const poss = element.style[prop];
   return parseInt(poss.replace('px', ''));
