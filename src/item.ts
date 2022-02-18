@@ -9,8 +9,10 @@ export class Item {
   private readonly _id: number;
   private readonly _initialPosition: number;
   private _element: HTMLElement;
+  private _side: SideType;
 
   constructor(itemConfig: ItemConfig){
+    this._side = itemConfig.side;
     this._id = Date.now();
     this._element = document.createElement('div');
     this._element.className = itemConfig.className;
@@ -35,6 +37,10 @@ export class Item {
 
   get element(): HTMLElement{
     return this._element;
+  }
+  
+  get side(): SideType{
+    return this._side;
   }
 
   public remove(): void{

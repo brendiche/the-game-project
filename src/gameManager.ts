@@ -29,21 +29,7 @@ export class GameManager{
     ///
 
     engine.addGamingThread(() => {
-      if(this.character && this.targets.length){
-        for (let i = 0; i < this.targets.length; i++) {
-          const target = this.targets[i];
-          if(this.character.items.length){
-            for(const item of this.character.items){
-              if (item.position >= target.position && item.position <= target.position + getOffset(target.element)) {
-                item.element.remove();  
-                this.character.removeItem(item.id);
-                target.element.remove();
-                this.targets.splice(i,1); // need to be very carful with this because it removes element in the array it's looping on
-              }
-            }
-          } 
-        }
-      }
+      this.handleTargets();
       const character = document.getElementById('character-debug');
       if(character){
         character.innerHTML = JSON.stringify({
@@ -61,5 +47,20 @@ export class GameManager{
 
   public addTarget(target: Target){
     this._targets.push(target);
+  }
+
+  private handleTargets():void {
+    this.targets.map((target, i) => {
+      if(this.character.items.length){
+        for(const item of this.character.items){
+          if (item.position >= target.position && item.position <= target.position + getOffset(target.element)) {
+            item.element.remove();  
+            this.character.removeItem(item.id);
+            target.element.remove();
+            this.targets.splice(i,1); // need to be very carful with this because it removes element in the array it's looping on
+          }
+        }
+      } 
+    })
   }
 }

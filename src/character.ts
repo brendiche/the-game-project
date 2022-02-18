@@ -165,7 +165,7 @@ export class Character {
 
   private setMove(item: Item){
     this.engine.addGamingThread(() => {
-      if (this.side === 'right'){
+      if (item.side === 'right'){
         if(item.position >= item.initialPosition + this.config.item.maxDistance){
           item.remove();
           this.removeItem(item.id);
