@@ -63,10 +63,6 @@ export class Character {
   private engineCallback(): void {
     this.setState();
     this.setSide();
-    // TODO 2022-02-04 quick fix in order to get item position
-    for (let i = 0; i < this._items.length; i++) {
-      // this._items[i].position = getPosition(this._items[i].element);
-    }
   }
 
   private addListeners(component: HTMLElement): void {

@@ -32,7 +32,7 @@ const config: GameConfig = {
 }
 
 const character = new Character(config.character, engine, 'naruto');
-const level = new Level(config.level,engine,character.element ); // TODO 2022-02-06 this is weird to get the state on the level it's better to get character properties
+const level = new Level(config.level,engine,character.element );
 Move(engine, character.element);
 
 const manager = new GameManager(Conf, engine, character, level);
