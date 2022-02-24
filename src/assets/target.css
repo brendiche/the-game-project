@@ -4,3 +4,33 @@
   height: 50px;
   position: absolute;
 }
+
+.text{
+  background-color: #0f0eab;
+  border: 4px ridge #b8b8b8;
+  border-radius: 5px;
+  height: 100px;
+  width: 800px;
+}
+
+.line-1{
+  position: relative;
+  top: 50%;  
+  width: 1em;
+  margin: 0 auto;
+  font-size: 1em;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  transform: translateY(-50%);  
+  color: #fff;  
+}
+
+/* Animation */
+.anim-typewriter{
+animation: typewriter 4s steps(55) 1s 1 normal both;
+}
+@keyframes typewriter{
+from{width: 0;}
+to{width: 100%;}
+}

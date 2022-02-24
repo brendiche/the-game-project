@@ -21,3 +21,15 @@ export const createControle = (character: HTMLElement, callback: (target: Target
   };
   return controle 
 }
+
+export const testText = (): HTMLElement => {
+  const text = document.createElement('div');
+  text.className = 'text';
+  const content = document.createElement('p');
+  content.className = 'line-1 anim-typewriter';
+  content.innerHTML = `
+  Lorem ipsum dolor sit amet. Aut quod asperiores sit fuga enim vel dolor perferendis et quaerat culpa et iste 
+  `;
+  text.appendChild(content);
+  return text;
+}
