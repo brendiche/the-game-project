@@ -21,6 +21,10 @@ const mockConfig: CharacterConfig = {
   item:{
     maxDistance: 0,
     step: 1
+  },
+  initialPosition: {
+    top: 0,
+    left: 0
   }
 }
 const character = new Character(mockConfig, mockEngine as Engine, 'test');

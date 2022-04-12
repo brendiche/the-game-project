@@ -1,15 +1,17 @@
 import { Character } from "./character";
 import { Engine } from "./gameEngine";
-import { GameConfig, getOffset, Target } from "./helper";
+import { GameConfig, getOffset, getPosition, Target } from "./helper";
 import { Level } from "./level";
 
 export class GameManager{
   private character: Character;
   private engine: Engine;
   private level: Level;
-  private _targets: Target[] = [];  
+  private _targets: Target[] = []; 
+  private readonly config: GameConfig;
 
   constructor(conf: GameConfig, engine: Engine, character: Character, level: Level){
+    this.config = conf;
     this.engine = engine;
     this.character = character;
     this.level = level;
@@ -30,6 +32,7 @@ export class GameManager{
 
     engine.addGamingThread(() => {
       this.handleTargets();
+      this.handleLevel();
       // TODO 2022-04-05 : add level mouvement
       const characterDebug = document.getElementById('character-debug');
       if(characterDebug){
@@ -37,6 +40,7 @@ export class GameManager{
           side: this.character.side,
           state: this.character.state,
           items: this.character.items,
+          position: getPosition(this.character.element)
         });
       }
     });
@@ -63,5 +67,26 @@ export class GameManager{
         }
       } 
     })
+  }
+
+  private handleLevel(): void{
+    const characterPosition = getPosition(this.character.element);
+    const levelPosition = getPosition(this.level.element, 'backgroundPositionX');
+    if(
+      characterPosition === this.config.level.borderRight 
+      && this.character.side === 'right' 
+      &&  this.character.state === 'run' 
+      && levelPosition > - this.config.level.borderRight 
+    ){
+      this.level.moveLevel(this.character.side);
+    }
+    if(
+      characterPosition === this.config.character.initialPosition.left
+      && this.character.side === 'left' 
+      &&  this.character.state === 'run' 
+      && levelPosition < this.config.level.borderLeft 
+    ){
+      this.level.moveLevel(this.character.side);
+    }
   }
 }

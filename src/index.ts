@@ -22,6 +22,10 @@ const config: GameConfig = {
     item:{
       step: 10,
       maxDistance: 500,
+    }, 
+    initialPosition: {
+      top: 280,
+      left: 50,
     }
   },
   level: {
@@ -33,7 +37,7 @@ const config: GameConfig = {
 
 const character = new Character(config.character, engine, 'naruto');
 const level = new Level(config.level);
-Move(engine, character.element);
+Move(config.character, engine, character.element);
 
 const manager = new GameManager(config, engine, character, level);
 

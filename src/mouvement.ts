@@ -1,7 +1,7 @@
 import { Engine } from "./gameEngine";
-import { getPosition, setPosition, SideType } from "./helper";
+import { CharacterConfig, getPosition, setPosition, SideType } from "./helper";
 
-const INITIAL_POSSITION = {
+let INITIAL_POSSITION = {
   top: 280,
   left: 50,
 }
@@ -17,7 +17,9 @@ let state: 'moveRight' | 'moveLeft' | 'noMove' = 'noMove';
 let jumpDirection: 'up' | 'down' = 'up';
 let jumpInProgress = false;
 
-export const Move = (engine: Engine, element: HTMLElement): void => {
+export const Move = (characterConfig: CharacterConfig, engine: Engine, element: HTMLElement): void => {
+  // TODO 2022-04-12: change the way we handle this config
+  INITIAL_POSSITION = characterConfig.initialPosition;
   engine.addGamingThread(() => motion(element));
   initElementStyle(element);
   addListeners();

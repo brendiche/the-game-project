@@ -32,6 +32,10 @@ export interface CharacterConfig{
   item: {
     maxDistance: number,
     step: number,
+  },
+  initialPosition: {
+    top: number,
+    left: number,
   }
 }
 
