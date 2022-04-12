@@ -3,7 +3,7 @@ import { Engine } from './gameEngine';
 import { Level } from './level';
 import {Move} from './mouvement';
 import './assets/characters/Naruto.css';
-import { createControle, testText } from './control';
+import { createControl } from './control';
 import { GameManager } from './gameManager';
 import { GameConfig } from './helper';
 import Conf from '../conf/config.json';
@@ -32,15 +32,13 @@ const config: GameConfig = {
 }
 
 const character = new Character(config.character, engine, 'naruto');
-const level = new Level(config.level,engine,character.element );
+const level = new Level(config.level);
 Move(engine, character.element);
 
-const manager = new GameManager(Conf, engine, character, level);
+const manager = new GameManager(config, engine, character, level);
 
-const controle = createControle(character.element, (target) => manager.addTarget(target));
-const text = testText();
+const control = createControl(character.element, (target) => manager.addTarget(target));
 
 document.body.appendChild(level.element);
 document.body.appendChild(character.element);
-document.body.appendChild(controle);
-document.body.appendChild(text);
+document.body.appendChild(control);

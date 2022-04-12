@@ -1,6 +1,6 @@
 import { Character } from "./character";
 import { Engine } from "./gameEngine";
-import { getOffset, Target } from "./helper";
+import { GameConfig, getOffset, Target } from "./helper";
 import { Level } from "./level";
 
 export class GameManager{
@@ -9,7 +9,7 @@ export class GameManager{
   private level: Level;
   private _targets: Target[] = [];  
 
-  constructor(conf: {developement:boolean},engine: Engine, character: Character, level: Level){
+  constructor(conf: GameConfig, engine: Engine, character: Character, level: Level){
     this.engine = engine;
     this.character = character;
     this.level = level;
@@ -30,15 +30,16 @@ export class GameManager{
 
     engine.addGamingThread(() => {
       this.handleTargets();
-      const character = document.getElementById('character-debug');
-      if(character){
-        character.innerHTML = JSON.stringify({
+      // TODO 2022-04-05 : add level mouvement
+      const characterDebug = document.getElementById('character-debug');
+      if(characterDebug){
+        characterDebug.innerHTML = JSON.stringify({
           side: this.character.side,
           state: this.character.state,
           items: this.character.items,
         });
       }
-    })
+    });
   }
 
   get targets(): Target[] {
