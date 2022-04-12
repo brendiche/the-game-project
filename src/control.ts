@@ -1,10 +1,10 @@
 import { getPosition, Target } from "./helper";
 import './assets/target.css';
 
-export const createControle = (character: HTMLElement, callback: (target: Target) => void): HTMLElement => {
-  const controle = document.createElement('button');
-  controle.innerText = 'add target';
-  controle.onclick = () => {
+export const createControl = (character: HTMLElement, callback: (target: Target) => void): HTMLElement => {
+  const control = document.createElement('button');
+  control.innerText = 'add target';
+  control.onclick = () => {
     console.log('[control][onclick] add target');
     const left = getPosition(character);
     const top = getPosition(character, "top");
@@ -19,7 +19,7 @@ export const createControle = (character: HTMLElement, callback: (target: Target
       element: target,
     })
   };
-  return controle 
+  return control 
 }
 
 export const testText = (): HTMLElement => {
