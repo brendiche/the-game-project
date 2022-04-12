@@ -2,7 +2,8 @@ import {Character} from './character';
 import { Engine } from './gameEngine';
 import { Level } from './level';
 import {Move} from './mouvement';
-import './assets/characters/Naruto.css';
+// import './assets/characters/Naruto.css';
+import './assets/characters/ggSalas.css';
 import { createControl } from './control';
 import { GameManager } from './gameManager';
 import { GameConfig } from './helper';
@@ -24,18 +25,18 @@ const config: GameConfig = {
       maxDistance: 500,
     }, 
     initialPosition: {
-      top: 280,
-      left: 50,
+      top: 100,
+      left: 580,
     }
   },
   level: {
-    borderRight: 1200,
+    borderRight: 600,
     borderLeft: 0,
     scrollSpeed:10,
   }
 }
 
-const character = new Character(config.character, engine, 'naruto');
+const character = new Character(config.character, engine, 'ggsalas');
 const level = new Level(config.level);
 Move(config.character, engine, character.element);
 

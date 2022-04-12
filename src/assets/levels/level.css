@@ -4,3 +4,12 @@
   background: url('./level-forest.png'); 
   background-position-y: -20px;
 }
+
+.zelda{
+  height: 250px;
+  width: 350px;
+  background: url('./zelda-map.jpeg'); 
+  background-position-y: 616px;
+  background-position-x: 553px;
+  transform: scale(3);
+}

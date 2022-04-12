@@ -93,7 +93,7 @@ const initElementStyle = (element: HTMLElement) => {
 const moveSide = (element: HTMLElement, side: SideType = 'right',step = 10) => {
   let position = getPosition(element);
   position = side === 'right' ? position + step : position - step;
-  if(position <= 1200 && side === 'right' || position >= INITIAL_POSSITION.left && side === 'left'){ // TODO 2022-01-27 : remove the magic number
+  if(position <= 600 && side === 'right' || position >= INITIAL_POSSITION.left && side === 'left'){ // TODO 2022-01-27 : remove the magic number
     setPosition(element, position);
   }
 }
