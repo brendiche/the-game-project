@@ -4,6 +4,9 @@ export type SideType = typeof Side[number];
 export const States = ['stand', 'run', 'jump', 'throw', 'down'] as const;
 export type StateType = typeof States[number];
 
+export const StatesRPG = ['stand', 'left', 'right', 'down', 'top'] as const;
+export type StatesRPGType = typeof StatesRPG[number];
+
 export interface CharacterProperties{
   state: StateType;
   position: number;
@@ -24,6 +27,7 @@ export interface GameConfig{
 }
 
 export interface CharacterConfig{
+  controls: 'platformer' | 'RPG', 
   offset : {
     top: number,
     right: number,

@@ -15,6 +15,7 @@ console.log(Conf);
 const config: GameConfig = {
   ...Conf,
   character: {
+    controls: 'RPG',
     offset:{
       top: 12,
       right: 55,
@@ -38,7 +39,7 @@ const config: GameConfig = {
 
 const character = new Character(config.character, engine, 'ggsalas');
 const level = new Level(config.level);
-Move(config.character, engine, character.element);
+// Move(config.character, engine, character.element);
 
 const manager = new GameManager(config, engine, character, level);
 

@@ -1,5 +1,5 @@
 import { Engine } from './gameEngine';
-import { CharacterConfig, getPosition, setPosition, SideType, States, StateType } from './helper';
+import { CharacterConfig, getPosition, setPosition, SideType, States, StatesRPG, StatesRPGType, StateType } from './helper';
 import { Item, ItemConfig } from './item';
 
 const touchCoord = {
@@ -13,6 +13,7 @@ export class Character {
   private readonly engine: Engine;
   private readonly config: CharacterConfig;
   private _state: StateType = 'stand';
+  private _stateRPG: StatesRPGType = 'stand';
   private _side: SideType = 'right';
   private _items: Item[] = [];
 
@@ -23,7 +24,11 @@ export class Character {
     this.htmlElement = document.createElement('div');
     this.htmlElement.className = `${characterName}-${this._state}`
     this.engine.addGamingThread(() => this.engineCallback());
-    this.addListeners(this.htmlElement);
+    if(config.controls === 'platformer'){
+      this.addListenersPlatformer(this.htmlElement);
+    }else{
+      this.addListenersRPG();
+    }
   }
   get state(): StateType{
     return this._state;
@@ -50,6 +55,11 @@ export class Character {
     const classRegex = new RegExp(`${this.characterName}-(${States.join('|')})`);
     this.htmlElement.className = this.htmlElement.className.replace(classRegex, `${this.characterName}-${this._state}`);
   }
+
+  private setStateRPG(): void {
+    const classRegex = new RegExp(`${this.characterName}-(${StatesRPG.join('|')})`);
+    this.htmlElement.className = this.htmlElement.className.replace(classRegex, `${this.characterName}-${this._stateRPG}`);
+  }
   
   private setSide(): void {
     const className = this.htmlElement.className;
@@ -61,11 +71,31 @@ export class Character {
   }
 
   private engineCallback(): void {
-    this.setState();
-    this.setSide();
+    // this.setState();
+    this.setStateRPG();
+    // this.setSide();
   }
 
-  private addListeners(component: HTMLElement): void {
+  private addListenersRPG():void{
+    window.addEventListener('keydown', (event) => {
+      switch(event.key){
+        case 'ArrowRight':
+          this._stateRPG = 'right';
+          break;
+        case 'ArrowLeft':
+          this._stateRPG = 'left';
+          break;
+        case 'ArrowDown':
+          this._stateRPG = 'down';
+          break;
+        case 'ArrowUp':
+          this._stateRPG = 'top';
+          break;
+      }
+    })
+  }
+
+  private addListenersPlatformer(component: HTMLElement): void {
     window.addEventListener('keydown' , (event) => {
       const itemConfig: ItemConfig = {
         className:'',

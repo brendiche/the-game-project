@@ -13,6 +13,7 @@ const mockEngine: Partial<Engine> = {
   addGamingThread: (arg:any) => callbackArray.push(arg)
 }
 const mockConfig: CharacterConfig = {
+  controls:'platformer',
   offset:{
     left:0,
     right:0,
