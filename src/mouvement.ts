@@ -22,11 +22,13 @@ export const Move = (characterConfig: CharacterConfig, engine: Engine, element: 
   INITIAL_POSSITION = characterConfig.initialPosition;
   engine.addGamingThread(() => motion(element));
   initElementStyle(element);
-  addListeners();
+  if(characterConfig.controls === 'platformer'){
+    addListenersPlatformer();
+  }
 } 
 
 
-const addListeners = (): void  => {
+const addListenersPlatformer = (): void  => {
   window.addEventListener('keydown' , (event) => {
      switch(event.key){
         case 'ArrowRight':

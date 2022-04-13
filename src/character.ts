@@ -92,7 +92,18 @@ export class Character {
           this._stateRPG = 'top';
           break;
       }
-    })
+    });
+    window.addEventListener('keyup' , (event) => {
+      console.log('[character][addListeners] keyup: ', event.key);
+       switch(event.key){
+          case 'ArrowRight':
+          case 'ArrowLeft':
+          case 'ArrowDown':
+          case 'ArrowUp':
+            this._stateRPG = 'stand';
+          break;
+       }
+    });
   }
 
   private addListenersPlatformer(component: HTMLElement): void {
