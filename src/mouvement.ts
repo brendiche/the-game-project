@@ -1,5 +1,5 @@
 import { Engine } from "./gameEngine";
-import { CharacterConfig, getPosition, setPosition, SideType } from "./helper";
+import { CharacterConfig, getPosition, setPosition, SideType, StatesRPGType } from "./helper";
 
 let INITIAL_POSSITION = {
   top: 280,
@@ -12,6 +12,7 @@ const touchCoord = {
 }
 
 let state: 'moveRight' | 'moveLeft' | 'noMove' = 'noMove';
+let stateRPG: StatesRPGType= 'stand';
 // TODO 2022-02-02 : investigate this action variable related to the commented code
 // const action: 'stand' | 'jump' | 'crawl' = 'stand';
 let jumpDirection: 'up' | 'down' = 'up';
@@ -24,9 +25,40 @@ export const Move = (characterConfig: CharacterConfig, engine: Engine, element: 
   initElementStyle(element);
   if(characterConfig.controls === 'platformer'){
     addListenersPlatformer();
+  }else {
+    addListenersRPG();
   }
 } 
 
+const addListenersRPG = (): void => {
+  window.addEventListener('keydown', (event) => {
+    switch(event.key){
+      case 'ArrowRight':
+        stateRPG = 'right';
+        break;
+      case 'ArrowLeft':
+        stateRPG = 'left';
+        break;
+      case 'ArrowDown':
+        stateRPG = 'down';
+        break;
+      case 'ArrowUp':
+        stateRPG = 'top';
+        break;
+    }
+  });
+  window.addEventListener('keyup' , (event) => {
+    console.log('[character][addListeners] keyup: ', event.key);
+     switch(event.key){
+        case 'ArrowRight':
+        case 'ArrowLeft':
+        case 'ArrowDown':
+        case 'ArrowUp':
+          stateRPG = 'stand';
+        break;
+     }
+  });
+}
 
 const addListenersPlatformer = (): void  => {
   window.addEventListener('keydown' , (event) => {
@@ -83,6 +115,31 @@ const motion = (element: HTMLElement) => {
   if(jumpInProgress){
     doJump(element, jumpDirection, 8);
     checkJump(element);
+  }
+  move(stateRPG, element);
+}
+
+const move = (direction: StatesRPGType, element: HTMLElement, step = 3) => {
+  let position = getPosition(element, 'top');
+  switch(direction){
+    case 'top':
+      position -= step;
+      setPosition(element, position, 'top');
+      break;
+      case 'down':
+      position += step;
+      setPosition(element, position, 'top');
+      break;
+      case 'right':
+        position = getPosition(element, 'left')
+        position += step;
+        setPosition(element, position, 'left');
+        break;
+      case 'left':
+        position = getPosition(element, 'left')
+        position -= step;
+      setPosition(element, position, 'left');
+      break;
   }
 }
 
