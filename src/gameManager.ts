@@ -15,8 +15,9 @@ export class GameManager{
     this.engine = engine;
     this.character = character;
     this.level = level;
-
-    // Code for debug => TODO 2022-02-08 create a class for debug
+    /**
+     * Code for debug => TODO 2022-02-08 create a class for debug
+     */
     if(conf.developement){
       const debug = document.createElement('div');
       const debugCharacter = document.createElement('div');
@@ -28,7 +29,9 @@ export class GameManager{
       debug.appendChild(debugCharacter);
       document.body.appendChild(debug);
     }
-    ///
+    /**
+     * end debug
+     */
 
     engine.addGamingThread(() => {
       this.handleTargets();
@@ -40,7 +43,10 @@ export class GameManager{
           side: this.character.side,
           state: this.character.state,
           items: this.character.items,
-          position: getPosition(this.character.element)
+          position: {
+            left:getPosition(this.character.element,'left'),
+            top: getPosition(this.character.element, 'top'),
+          }
         });
       }
     });
@@ -70,23 +76,33 @@ export class GameManager{
   }
 
   private handleLevel(): void{
-    const characterPosition = getPosition(this.character.element);
-    const levelPosition = getPosition(this.level.element, 'backgroundPositionX');
+    const characterPositionLeft = getPosition(this.character.element);
+    const characterPositionTop = getPosition(this.character.element, 'top');
+    // const levelPosition = getPosition(this.level.element, 'backgroundPositionX');
     if(
-      characterPosition === this.config.level.borderRight 
-      && this.character.side === 'right' 
-      &&  this.character.state === 'run' 
-      && levelPosition > - this.config.level.borderRight 
+      characterPositionLeft === this.config.level.borderRight 
+      &&  this.character.stateRPG === 'right' 
     ){
-      this.level.moveLevel(this.character.side);
+      console.log('move right')
+      this.level.moveLevelRPG('right')
     }
     if(
-      characterPosition === this.config.character.initialPosition.left
-      && this.character.side === 'left' 
-      &&  this.character.state === 'run' 
-      && levelPosition < this.config.level.borderLeft 
+      characterPositionLeft === this.config.level.borderLeft
+      &&  this.character.stateRPG === 'left'
     ){
-      this.level.moveLevel(this.character.side);
+      this.level.moveLevelRPG('left');
+    }
+    if(
+      characterPositionTop === this.config.level.borderTop
+      &&  this.character.stateRPG === 'top'
+    ){
+      this.level.moveLevelRPG('top');
+    }
+    if(
+      characterPositionTop === this.config.level.borderBottom
+      &&  this.character.stateRPG === 'down'
+    ){
+      this.level.moveLevelRPG('down');
     }
   }
 }

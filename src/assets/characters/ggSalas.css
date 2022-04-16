@@ -4,6 +4,7 @@
 }
 
 .ggsalas-stand {
+  transform: scale(0.75);
   height: 64px;
   background: url('./ggsalas-sprit.png'); 
   margin: auto;
@@ -11,6 +12,7 @@
 }
 
 .ggsalas-left {
+  transform: scale(0.75);
   height: 64px;
   background: url('./ggsalas-sprit.png'); 
   margin: auto;
@@ -20,6 +22,7 @@
 }
 
 .ggsalas-right {
+  transform: scale(0.75);
   height: 64px;
   background: url('./ggsalas-sprit.png'); 
   margin: auto;
@@ -29,6 +32,7 @@
 }
 
 .ggsalas-down {
+  transform: scale(0.75);
   height: 64px;
   background: url('./ggsalas-sprit.png'); 
   margin: auto;
@@ -37,6 +41,7 @@
 }
 
 .ggsalas-top {
+  transform: scale(0.75);
   height: 64px;
   background: url('./ggsalas-sprit.png'); 
   margin: auto;

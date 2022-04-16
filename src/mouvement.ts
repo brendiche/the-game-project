@@ -1,5 +1,6 @@
 import { Engine } from "./gameEngine";
 import { CharacterConfig, getPosition, setPosition, SideType, StatesRPGType } from "./helper";
+import { Level } from "./level";
 
 let INITIAL_POSSITION = {
   top: 280,
@@ -15,13 +16,13 @@ let state: 'moveRight' | 'moveLeft' | 'noMove' = 'noMove';
 let stateRPG: StatesRPGType= 'stand';
 // TODO 2022-02-02 : investigate this action variable related to the commented code
 // const action: 'stand' | 'jump' | 'crawl' = 'stand';
-let jumpDirection: 'up' | 'down' = 'up';
+// let jumpDirection: 'up' | 'down' = 'up';
 let jumpInProgress = false;
 
-export const Move = (characterConfig: CharacterConfig, engine: Engine, element: HTMLElement): void => {
+export const Move = (characterConfig: CharacterConfig, engine: Engine, element: HTMLElement, level: Level): void => {
   // TODO 2022-04-12: change the way we handle this config
   INITIAL_POSSITION = characterConfig.initialPosition;
-  engine.addGamingThread(() => motion(element));
+  engine.addGamingThread(() => motion(element, level));
   initElementStyle(element);
   if(characterConfig.controls === 'platformer'){
     addListenersPlatformer();
@@ -105,21 +106,22 @@ const addListenersPlatformer = (): void  => {
   })
 }
 
-const motion = (element: HTMLElement) => {
-  if(state === 'moveRight'){
-    moveSide(element);
-  }
-  if(state === 'moveLeft'){
-    moveSide(element, 'left');
-  }
-  if(jumpInProgress){
-    doJump(element, jumpDirection, 8);
-    checkJump(element);
-  }
-  move(stateRPG, element);
+const motion = (element: HTMLElement, level: Level) => {
+  // if(state === 'moveRight'){
+  //   moveSide(element);
+  // }
+  // if(state === 'moveLeft'){
+  //   moveSide(element, 'left');
+  // }
+  // if(jumpInProgress){
+  //   doJump(element, jumpDirection, 8);
+  //   checkJump(element);
+  // }
+  // TODO 2022-04-15 : allow moving depending on level configuration
+  if(allowedToMove(element,level,stateRPG)) move(stateRPG, element);
 }
 
-const move = (direction: StatesRPGType, element: HTMLElement, step = 3) => {
+const move = (direction: StatesRPGType, element: HTMLElement,step = 2) => {
   let position = getPosition(element, 'top');
   switch(direction){
     case 'top':
@@ -149,30 +151,52 @@ const initElementStyle = (element: HTMLElement) => {
   element.style.top = `${INITIAL_POSSITION.top}px`;
 }
 
-const moveSide = (element: HTMLElement, side: SideType = 'right',step = 10) => {
-  let position = getPosition(element);
-  position = side === 'right' ? position + step : position - step;
-  if(position <= 600 && side === 'right' || position >= INITIAL_POSSITION.left && side === 'left'){ // TODO 2022-01-27 : remove the magic number
-    setPosition(element, position);
+const allowedToMove = (element:HTMLElement, level: Level, direction: StatesRPGType): boolean => {
+  let allowed = true;
+  let poss = getPosition(element, 'left');
+  switch(direction){
+    case 'top':
+      poss = getPosition(element, 'top');
+      allowed = poss > level.config.borderTop;
+      break;
+      case 'down':
+        poss = getPosition(element, 'top');
+        allowed = poss < level.config.borderBottom;
+      break;
+      case 'right':
+        allowed = poss < level.config.borderRight;
+        break;
+      case 'left':
+        allowed = poss > level.config.borderLeft;
+      break;
   }
+  return allowed;
 }
 
-const doJump = (element: HTMLElement, direction: 'up'|'down' = 'up', step = 1) => {
-  let position = getPosition(element, 'top');
-  position = direction === 'up' ? position - step : position + step;
-  setPosition(element, position, 'top');
-}
+// const moveSide = (element: HTMLElement, side: SideType = 'right',step = 10) => {
+//   let position = getPosition(element);
+//   position = side === 'right' ? position + step : position - step;
+//   if(position <= 600 && side === 'right' || position >= INITIAL_POSSITION.left && side === 'left'){ // TODO 2022-01-27 : remove the magic number
+//     setPosition(element, position);
+//   }
+// }
 
-const checkJump = (element: HTMLElement) => {
-  const position = getPosition(element, 'top');
-  if(jumpDirection === 'up'){
-    if(position <= INITIAL_POSSITION.top - JUMP_SIZE) {
-      jumpDirection = 'down';
-    }
-  }else{
-    if(position >= INITIAL_POSSITION.top){
-      jumpDirection = 'up';
-      jumpInProgress = false;
-    }
-  }
-}
+// const doJump = (element: HTMLElement, direction: 'up'|'down' = 'up', step = 1) => {
+//   let position = getPosition(element, 'top');
+//   position = direction === 'up' ? position - step : position + step;
+//   setPosition(element, position, 'top');
+// }
+
+// const checkJump = (element: HTMLElement) => {
+//   const position = getPosition(element, 'top');
+//   if(jumpDirection === 'up'){
+//     if(position <= INITIAL_POSSITION.top - JUMP_SIZE) {
+//       jumpDirection = 'down';
+//     }
+//   }else{
+//     if(position >= INITIAL_POSSITION.top){
+//       jumpDirection = 'up';
+//       jumpInProgress = false;
+//     }
+//   }
+// }

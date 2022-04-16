@@ -33,6 +33,9 @@ export class Character {
   get state(): StateType{
     return this._state;
   }
+  get stateRPG(): StatesRPGType{
+    return this._stateRPG;
+  }
   get side(): SideType{
     return this._side;
   }

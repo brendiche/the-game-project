@@ -46,15 +46,17 @@ export interface CharacterConfig{
 export interface LevelConfig{
   borderRight: number,
   borderLeft: number,
+  borderTop: number,
+  borderBottom: number,
   scrollSpeed: number,
 }
 
-export const getPosition = (element: HTMLElement, prop: 'left'|'top'|'backgroundPositionX' = 'left'): number => {
-  const poss = element.style[prop];
+export const getPosition = (element: HTMLElement, prop: 'left'|'top'|'backgroundPositionX'|'backgroundPositionY' = 'left'): number => {
+  const poss = getComputedStyle(element)[prop];
   return parseInt(poss.replace('px', ''));
 }
 
-export const setPosition = (element: HTMLElement, newPosition: number, axis: 'left'|'top'|'backgroundPositionX' = 'left'): HTMLElement => {
+export const setPosition = (element: HTMLElement, newPosition: number, axis: 'left'|'top'|'backgroundPositionX'|'backgroundPositionY' = 'left'): HTMLElement => {
   element.style[axis] = `${newPosition}px`;
   return element;
 }

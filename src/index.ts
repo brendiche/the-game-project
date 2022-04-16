@@ -31,15 +31,17 @@ const config: GameConfig = {
     }
   },
   level: {
-    borderRight: 600,
-    borderLeft: 0,
-    scrollSpeed:10,
+    borderRight: 650,
+    borderTop: 50,
+    borderBottom: 580,
+    borderLeft: 50,
+    scrollSpeed:2,
   }
 }
 
 const character = new Character(config.character, engine, 'ggsalas');
 const level = new Level(config.level);
-Move(config.character, engine, character.element);
+Move(config.character, engine, character.element, level);
 
 const manager = new GameManager(config, engine, character, level);
 
