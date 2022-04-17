@@ -26,7 +26,8 @@ const mockConfig: CharacterConfig = {
   initialPosition: {
     top: 0,
     left: 0
-  }
+  },
+  speed:2,
 }
 const character = new Character(mockConfig, mockEngine as Engine, 'test');
 document.body.appendChild(character.element);

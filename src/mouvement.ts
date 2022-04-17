@@ -18,10 +18,12 @@ let stateRPG: StatesRPGType= 'stand';
 // const action: 'stand' | 'jump' | 'crawl' = 'stand';
 // let jumpDirection: 'up' | 'down' = 'up';
 let jumpInProgress = false;
+let step = 1;
 
 export const Move = (characterConfig: CharacterConfig, engine: Engine, element: HTMLElement, level: Level): void => {
   // TODO 2022-04-12: change the way we handle this config
   INITIAL_POSSITION = characterConfig.initialPosition;
+  step = characterConfig.speed;
   engine.addGamingThread(() => motion(element, level));
   initElementStyle(element);
   if(characterConfig.controls === 'platformer'){
@@ -121,7 +123,7 @@ const motion = (element: HTMLElement, level: Level) => {
   if(allowedToMove(element,level,stateRPG)) move(stateRPG, element);
 }
 
-const move = (direction: StatesRPGType, element: HTMLElement,step = 2) => {
+const move = (direction: StatesRPGType, element: HTMLElement) => {
   let position = getPosition(element, 'top');
   switch(direction){
     case 'top':
@@ -157,46 +159,50 @@ const allowedToMove = (element:HTMLElement, level: Level, direction: StatesRPGTy
   switch(direction){
     case 'top':
       poss = getPosition(element, 'top');
-      allowed = poss > level.config.borderTop;
+      allowed = poss > level.config.borderTop && getMappedWorldAlloawed(element, level, direction);
       break;
       case 'down':
         poss = getPosition(element, 'top');
-        allowed = poss < level.config.borderBottom;
+        allowed = poss < level.config.borderBottom && getMappedWorldAlloawed(element, level, direction);
       break;
       case 'right':
-        allowed = poss < level.config.borderRight;
+        allowed = poss < level.config.borderRight && getMappedWorldAlloawed(element, level, direction);
         break;
       case 'left':
-        allowed = poss > level.config.borderLeft;
+        allowed = poss > level.config.borderLeft && getMappedWorldAlloawed(element, level, direction);
       break;
   }
   return allowed;
 }
 
-// const moveSide = (element: HTMLElement, side: SideType = 'right',step = 10) => {
-//   let position = getPosition(element);
-//   position = side === 'right' ? position + step : position - step;
-//   if(position <= 600 && side === 'right' || position >= INITIAL_POSSITION.left && side === 'left'){ // TODO 2022-01-27 : remove the magic number
-//     setPosition(element, position);
-//   }
-// }
-
-// const doJump = (element: HTMLElement, direction: 'up'|'down' = 'up', step = 1) => {
-//   let position = getPosition(element, 'top');
-//   position = direction === 'up' ? position - step : position + step;
-//   setPosition(element, position, 'top');
-// }
-
-// const checkJump = (element: HTMLElement) => {
-//   const position = getPosition(element, 'top');
-//   if(jumpDirection === 'up'){
-//     if(position <= INITIAL_POSSITION.top - JUMP_SIZE) {
-//       jumpDirection = 'down';
-//     }
-//   }else{
-//     if(position >= INITIAL_POSSITION.top){
-//       jumpDirection = 'up';
-//       jumpInProgress = false;
-//     }
-//   }
-// }
+const getMappedWorldAlloawed = (char: HTMLElement, level: Level, direction: StatesRPGType): boolean => {
+  // investigate for the offset
+  const offset = {
+    top: level.map.init.bgY - getPosition(level.element, 'backgroundPositionY'),
+    left: level.map.init.bgX - getPosition(level.element, 'backgroundPositionX'),
+  }
+  // get the character mapped
+  const charPoss= {
+    left:0,
+    top: 0
+  }
+  switch(direction) {
+    case 'top':
+      charPoss.left = (getPosition(char,'left')+offset.left)/2;
+      charPoss.top = ((getPosition(char, 'top')+offset.top)/2) - 1;
+    break;
+    case 'down':
+      charPoss.left = (getPosition(char,'left')+offset.left)/2;
+      charPoss.top = ((getPosition(char, 'top')+offset.top)/2) + 1;
+    break;
+    case 'right':
+      charPoss.left = ((getPosition(char,'left')+offset.left)/2) + 1;
+      charPoss.top = (getPosition(char, 'top')+offset.top)/2;
+    break;
+    case 'left':
+      charPoss.left = ((getPosition(char,'left')+offset.left)/2) - 1;
+      charPoss.top = (getPosition(char, 'top')+offset.top)/2;
+    break;
+  }
+  return !!level.map.map[charPoss.top][charPoss.left];
+}

@@ -26,9 +26,10 @@ const config: GameConfig = {
       maxDistance: 500,
     }, 
     initialPosition: {
-      top: 100,
-      left: 580,
-    }
+      top: 306,
+      left: 88,
+    },
+    speed: 2,
   },
   level: {
     borderRight: 650,

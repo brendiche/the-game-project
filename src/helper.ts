@@ -41,6 +41,7 @@ export interface CharacterConfig{
     top: number,
     left: number,
   }
+  speed: number,
 }
 
 export interface LevelConfig{
@@ -63,4 +64,13 @@ export const setPosition = (element: HTMLElement, newPosition: number, axis: 'le
 
 export const getOffset = (element: HTMLElement): number => {
   return parseInt(getComputedStyle(element).width.replace('px', ''));
+}
+
+export const createMatrix = (columns: number,rows: number): string[][] => {
+  const matrixRows = Array.from('0'.repeat(rows))
+  const matrix = []
+  for (let i = 0; i < columns; i++) {
+    matrix.push(matrixRows);
+  }
+  return matrix;
 }

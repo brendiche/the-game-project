@@ -46,6 +46,14 @@ export class GameManager{
           position: {
             left:getPosition(this.character.element,'left'),
             top: getPosition(this.character.element, 'top'),
+          }, 
+          mapped: {
+            left: (getPosition(this.character.element,'left')+(this.level.map.init.bgX - getPosition(level.element, 'backgroundPositionX')))/2,
+            top: (getPosition(this.character.element,'top')+(this.level.map.init.bgY - getPosition(level.element, 'backgroundPositionY')))/2,
+          },
+          level:{
+            backgroundX: getPosition(this.level.element, 'backgroundPositionX'),
+            backgroundY: getPosition(this.level.element, 'backgroundPositionY'),
           }
         });
       }

@@ -6,10 +6,12 @@
 }
 
 .zelda{
-  height: 350px;
-  width: 450px;
+  height: 600px;
+  width: 800px;
   background: url('./zelda-map.jpeg'); 
-  background-position-y: 646px;
-  background-position-x: 600px;
-  transform: scale(2.75);
+  /* background-position-y: 1080px;
+  background-position-x: 5800px; */
+  background-position-y: 1290px;
+  background-position-x: 5700px;
+  background-size: 800%;
 }
