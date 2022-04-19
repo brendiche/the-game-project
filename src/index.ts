@@ -2,9 +2,9 @@ import {Character} from './character';
 import { Engine } from './gameEngine';
 import { Level } from './level';
 import {Move} from './mouvement';
-// import './assets/characters/Naruto.css';
+
 import './assets/characters/ggSalas.css';
-import { createControl } from './control';
+import { Control } from './control';
 import { GameManager } from './gameManager';
 import { GameConfig } from './helper';
 import Conf from '../conf/config.json';
@@ -45,9 +45,8 @@ const level = new Level(config.level);
 Move(config.character, engine, character.element, level);
 
 new GameManager(config, engine, character, level);
-
-// const control = createControl(character.element, (target) => manager.addTarget(target));
+const control = new Control();
 
 document.body.appendChild(level.element);
 document.body.appendChild(character.element);
-// document.body.appendChild(control);
+document.body.appendChild(control.element);
