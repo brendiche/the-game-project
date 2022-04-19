@@ -26,8 +26,8 @@ const config: GameConfig = {
       maxDistance: 500,
     }, 
     initialPosition: {
-      top: 306,
-      left: 88,
+      top: 190,
+      left: 606,
     },
     speed: 2,
   },
@@ -44,10 +44,10 @@ const character = new Character(config.character, engine, 'ggsalas');
 const level = new Level(config.level);
 Move(config.character, engine, character.element, level);
 
-const manager = new GameManager(config, engine, character, level);
+new GameManager(config, engine, character, level);
 
-const control = createControl(character.element, (target) => manager.addTarget(target));
+// const control = createControl(character.element, (target) => manager.addTarget(target));
 
 document.body.appendChild(level.element);
 document.body.appendChild(character.element);
-document.body.appendChild(control);
+// document.body.appendChild(control);

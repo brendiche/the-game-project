@@ -1,5 +1,5 @@
 import { Engine } from "./gameEngine";
-import { CharacterConfig, getPosition, setPosition, SideType, StatesRPGType } from "./helper";
+import { characterAllowedToMove, CharacterConfig, getPosition, setPosition, SideType, StatesRPGType } from "./helper";
 import { Level } from "./level";
 
 let INITIAL_POSSITION = {
@@ -159,50 +159,18 @@ const allowedToMove = (element:HTMLElement, level: Level, direction: StatesRPGTy
   switch(direction){
     case 'top':
       poss = getPosition(element, 'top');
-      allowed = poss > level.config.borderTop && getMappedWorldAlloawed(element, level, direction);
+      allowed = poss > level.config.borderTop && characterAllowedToMove(element, level, direction);
       break;
       case 'down':
         poss = getPosition(element, 'top');
-        allowed = poss < level.config.borderBottom && getMappedWorldAlloawed(element, level, direction);
+        allowed = poss < level.config.borderBottom && characterAllowedToMove(element, level, direction);
       break;
       case 'right':
-        allowed = poss < level.config.borderRight && getMappedWorldAlloawed(element, level, direction);
+        allowed = poss < level.config.borderRight && characterAllowedToMove(element, level, direction);
         break;
       case 'left':
-        allowed = poss > level.config.borderLeft && getMappedWorldAlloawed(element, level, direction);
+        allowed = poss > level.config.borderLeft && characterAllowedToMove(element, level, direction);
       break;
   }
   return allowed;
-}
-
-const getMappedWorldAlloawed = (char: HTMLElement, level: Level, direction: StatesRPGType): boolean => {
-  // investigate for the offset
-  const offset = {
-    top: level.map.init.bgY - getPosition(level.element, 'backgroundPositionY'),
-    left: level.map.init.bgX - getPosition(level.element, 'backgroundPositionX'),
-  }
-  // get the character mapped
-  const charPoss= {
-    left:0,
-    top: 0
-  }
-  switch(direction) {
-    case 'top':
-      charPoss.left = (getPosition(char,'left')+offset.left)/2;
-      charPoss.top = ((getPosition(char, 'top')+offset.top)/2) - 1;
-    break;
-    case 'down':
-      charPoss.left = (getPosition(char,'left')+offset.left)/2;
-      charPoss.top = ((getPosition(char, 'top')+offset.top)/2) + 1;
-    break;
-    case 'right':
-      charPoss.left = ((getPosition(char,'left')+offset.left)/2) + 1;
-      charPoss.top = (getPosition(char, 'top')+offset.top)/2;
-    break;
-    case 'left':
-      charPoss.left = ((getPosition(char,'left')+offset.left)/2) - 1;
-      charPoss.top = (getPosition(char, 'top')+offset.top)/2;
-    break;
-  }
-  return !!level.map.map[charPoss.top][charPoss.left];
 }

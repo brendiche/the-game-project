@@ -11,7 +11,7 @@ export class Level {
   constructor(config: LevelConfig) {
     this._config = config;
     this.level = document.createElement('div');
-    const matrix = createMatrix(181,290);
+    const matrix = createMatrix(181,380);
     console.log('matrix',matrix);
     this._map = this.initLevel(matrix);
     console.log('map',this._map);

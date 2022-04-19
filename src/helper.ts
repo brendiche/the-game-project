@@ -1,3 +1,5 @@
+import { Level } from "./level";
+
 export const Side = ['left', 'right'] as const;
 export type SideType = typeof Side[number];
 
@@ -73,4 +75,36 @@ export const createMatrix = (columns: number,rows: number): string[][] => {
     matrix.push(matrixRows);
   }
   return matrix;
+}
+
+export const characterAllowedToMove = (char: HTMLElement, level: Level, direction: StatesRPGType): boolean => {
+  // investigate for the offset
+  const offset = {
+    top: level.map.init.bgY - getPosition(level.element, 'backgroundPositionY'),
+    left: level.map.init.bgX - getPosition(level.element, 'backgroundPositionX'),
+  }
+  // get the character mapped
+  const charPoss= {
+    left:0,
+    top: 0
+  }
+  switch(direction) {
+    case 'top':
+      charPoss.left = (getPosition(char,'left')+offset.left)/2;
+      charPoss.top = ((getPosition(char, 'top')+offset.top)/2) - 1;
+    break;
+    case 'down':
+      charPoss.left = (getPosition(char,'left')+offset.left)/2;
+      charPoss.top = ((getPosition(char, 'top')+offset.top)/2) + 1;
+    break;
+    case 'right':
+      charPoss.left = ((getPosition(char,'left')+offset.left)/2) + 1;
+      charPoss.top = (getPosition(char, 'top')+offset.top)/2;
+    break;
+    case 'left':
+      charPoss.left = ((getPosition(char,'left')+offset.left)/2) - 1;
+      charPoss.top = (getPosition(char, 'top')+offset.top)/2;
+    break;
+  }
+  return !!level.map.map[charPoss.top][charPoss.left];
 }

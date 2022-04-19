@@ -1,6 +1,6 @@
 import { Character } from "./character";
 import { Engine } from "./gameEngine";
-import { GameConfig, getOffset, getPosition, Target } from "./helper";
+import { characterAllowedToMove, GameConfig, getOffset, getPosition, Target } from "./helper";
 import { Level } from "./level";
 
 export class GameManager{
@@ -24,7 +24,7 @@ export class GameManager{
       debugCharacter.id = 'character-debug';
       debug.style.position = 'absolute';
       debug.style.backgroundColor = '#ddd';
-      debug.style.left = '1310px';
+      debug.style.left = '813px';
       debug.id = 'debug';
       debug.appendChild(debugCharacter);
       document.body.appendChild(debug);
@@ -86,10 +86,10 @@ export class GameManager{
   private handleLevel(): void{
     const characterPositionLeft = getPosition(this.character.element);
     const characterPositionTop = getPosition(this.character.element, 'top');
-    // const levelPosition = getPosition(this.level.element, 'backgroundPositionX');
     if(
       characterPositionLeft === this.config.level.borderRight 
-      &&  this.character.stateRPG === 'right' 
+      &&  this.character.stateRPG === 'right'
+      && characterAllowedToMove(this.character.element, this.level, this.character.stateRPG)
     ){
       console.log('move right')
       this.level.moveLevelRPG('right')
@@ -97,18 +97,21 @@ export class GameManager{
     if(
       characterPositionLeft === this.config.level.borderLeft
       &&  this.character.stateRPG === 'left'
+      && characterAllowedToMove(this.character.element, this.level, this.character.stateRPG)
     ){
       this.level.moveLevelRPG('left');
     }
     if(
       characterPositionTop === this.config.level.borderTop
       &&  this.character.stateRPG === 'top'
+      && characterAllowedToMove(this.character.element, this.level, this.character.stateRPG)
     ){
       this.level.moveLevelRPG('top');
     }
     if(
       characterPositionTop === this.config.level.borderBottom
       &&  this.character.stateRPG === 'down'
+      && characterAllowedToMove(this.character.element, this.level, this.character.stateRPG)
     ){
       this.level.moveLevelRPG('down');
     }
