@@ -2,6 +2,7 @@ import { Character } from "./character";
 import { Engine } from "./gameEngine";
 import { characterAllowedToMove, GameConfig, getOffset, getPosition, Target } from "./helper";
 import { Level } from "./level";
+import { Move } from "./mouvement";
 
 export class GameManager{
   private character: Character;
@@ -15,6 +16,8 @@ export class GameManager{
     this.engine = engine;
     this.character = character;
     this.level = level;
+
+    Move(conf.character, engine, character.element, level);
     /**
      * Code for debug => TODO 2022-02-08 create a class for debug
      */
@@ -29,6 +32,7 @@ export class GameManager{
       debug.appendChild(debugCharacter);
       document.body.appendChild(debug);
     }
+
     /**
      * end debug
      */

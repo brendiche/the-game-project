@@ -26,6 +26,10 @@ export class Control{
         }
         this._isMenuOpen = !this.isMenuOpen;
       }
+      if(this.isMenuOpen && event.key === 'ArrowDown'){
+        const cursor = document.getElementById('subMenuCursor');
+        cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) + 1}`;
+      }
     });
   }
 
@@ -180,6 +184,7 @@ const getSubMenu = (): HTMLElement => {
   })
 
   const cursor = document.createElement('div');
+  cursor.id = 'subMenuCursor'
   cursor.className = 'subMenuPointer';
   cursor.style.gridRow = '2';
   cursor.style.gridColumn = '1';

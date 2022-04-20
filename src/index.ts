@@ -42,10 +42,9 @@ const config: GameConfig = {
 
 const character = new Character(config.character, engine, 'ggsalas');
 const level = new Level(config.level);
-Move(config.character, engine, character.element, level);
 
-new GameManager(config, engine, character, level);
 const control = new Control();
+new GameManager(config, engine, character, level);
 
 document.body.appendChild(level.element);
 document.body.appendChild(character.element);
