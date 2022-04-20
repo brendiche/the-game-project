@@ -6,3 +6,21 @@
   top: 8px;
   background-size: 800px 600px;
 }
+
+.avatar{
+  background: url('../characters/ggsalas-dresseur.png');
+}
+
+@font-face {
+  font-family: "ggSalasTitle";
+  src: url("../upheavtt.ttf") format("truetype"),
+  url("../upheavtt.woff") format('woff')
+ }
+
+ @font-face {
+  font-family: "ggSalasFont";
+  src: url("../Retro\ Gaming.ttf") format("truetype"),
+  url("../Retro-Gaming.woff") format('woff')
+ }
+
+
