@@ -1,3 +1,10 @@
+@keyframes annim {
+  0% { background-position-x: 0px; }
+  50% { background-position-x: 10px; }
+  100% { background-position-x: 0px; }
+}
+
+
 .menu{
   height: 600px;
   width: 800px;
@@ -9,6 +16,14 @@
 
 .avatar{
   background: url('../characters/ggsalas-dresseur.png');
+}
+
+.subMenuPointer{
+  background: url('./cursor.png');
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position-y: bottom;
+  animation: annim 700ms linear infinite;
 }
 
 @font-face {

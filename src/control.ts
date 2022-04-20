@@ -1,7 +1,7 @@
 import './assets/menu/menu.css';
 
 export class Control{
-  private isMenuOpen = false;
+  private _isMenuOpen = false;
   private htmlElement: HTMLElement;
   constructor(){
     this.htmlElement = this.createMenu();
@@ -12,6 +12,10 @@ export class Control{
     return this.htmlElement;    
   }
 
+  get isMenuOpen(): boolean{
+    return this._isMenuOpen
+  }
+
   private addListeners(){
     window.addEventListener('keydown' , (event) => { 
       if(event.key === 'Escape'){
@@ -20,7 +24,7 @@ export class Control{
         }else{
           this.htmlElement.style.display = 'grid';
         }
-        this.isMenuOpen = !this.isMenuOpen;
+        this._isMenuOpen = !this.isMenuOpen;
       }
     });
   }
@@ -28,7 +32,7 @@ export class Control{
   private createMenu(): HTMLElement{
     const main = document.createElement('div');
     main.className = 'menu';
-    main.style.display ='none'
+    main.style.display ='none';
     main.style.gridTemplateColumns ='repeat(5, 1fr)'
     main.style.gridTemplateRows ='repeat(4, 1fr)'
     // frame 
@@ -46,12 +50,7 @@ export class Control{
     stuf.style.padding = '20px';
     stuf.appendChild(frame.cloneNode());
     // sub menu area
-    const subMenu = document.createElement('div');
-    // subMenu.style.backgroundColor = 'green';
-    subMenu.style.gridColumn = '4/6';
-    subMenu.style.gridRow = '1/4';
-    subMenu.style.padding = '20px';
-    subMenu.appendChild(frame.cloneNode());
+    const subMenu = getSubMenu();
     // buttons area
     const buttons = document.createElement('div');
     buttons.style.gridColumn = '4/6';
@@ -77,6 +76,7 @@ export class Control{
     main.appendChild(stuf);
     main.appendChild(subMenu);
     main.appendChild(buttons);
+
     return main
   }
 }
@@ -146,4 +146,46 @@ const getAvatar = ():HTMLElement => {
 
     avatar.appendChild(avatarFrame);
     return avatar;
+}
+
+const getSubMenu = (): HTMLElement => {
+  const subMenu = document.createElement('div');
+  subMenu.style.gridColumn = '4/6';
+  subMenu.style.gridRow = '1/4';
+  subMenu.style.padding = '20px';
+
+  const frame = document.createElement('div');
+  frame.style.backgroundColor = 'rgba(255,255,255,0.2)';
+  frame.style.border = '3px solid white';
+  frame.style.borderRadius = '5px'
+  frame.style.height = '100%';
+  frame.style.display = 'grid';
+  frame.style.gridTemplateColumns = '1fr';
+  frame.style.gridTemplateRows = 'repeat(9, 1fr)';
+
+  const entries = ['Objets', 'Sorts', 'Quêtes', 'Equipement', 'Stats', 'Enregistrer', 'Quitter'];
+
+  entries.forEach((entrie, i) => {
+    const items = document.createElement('div');
+    items.id = `subMenu-${entrie}`;
+    items.style.gridRow = `${i+2}`;
+    items.style.gridColumn = '1';
+    items.style.fontFamily = 'ggSalasFont';
+    items.style.color = 'white';
+    items.style.paddingLeft = '70px';
+    items.style.fontSize = '20px';
+    items.style.marginTop = '15px';
+    items.appendChild(document.createTextNode(entrie))  
+    frame.appendChild(items);
+  })
+
+  const cursor = document.createElement('div');
+  cursor.className = 'subMenuPointer';
+  cursor.style.gridRow = '2';
+  cursor.style.gridColumn = '1';
+  frame.appendChild(cursor);
+
+  subMenu.appendChild(frame);
+
+  return subMenu;
 }
