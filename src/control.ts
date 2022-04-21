@@ -32,15 +32,18 @@ export class Control{
       if(this.isMenuOpen){
         const cursor = document.getElementById('subMenuCursor');
         const infos = document.getElementById('menu-info');
-        // TODO 2022-04-20 : handle the limits
         switch(event.key){
           case 'ArrowDown':
-            cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) + 1}`;
-            infos.parentElement.replaceChild(getInfos(menuEntries[parseInt(cursor.style.gridRowStart)-2]),infos);
+            if(parseInt(cursor.style.gridRowStart)-1 !== menuEntries.length){
+              cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) + 1}`;
+              infos.parentElement.replaceChild(getInfos(menuEntries[parseInt(cursor.style.gridRowStart)-2]),infos);
+            }
             break;
           case 'ArrowUp':
-            cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) - 1}`;
-            infos.parentElement.replaceChild(getInfos(menuEntries[parseInt(cursor.style.gridRowStart)-2]),infos);
+            if(parseInt(cursor.style.gridRowStart)-2 !== 0){
+              cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) - 1}`;
+              infos.parentElement.replaceChild(getInfos(menuEntries[parseInt(cursor.style.gridRowStart)-2]),infos);
+            }
             break;
         }
       }
