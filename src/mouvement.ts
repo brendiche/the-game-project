@@ -12,9 +12,7 @@ const touchCoord = {
   y:0,
 }
 
-let state: 'moveRight' | 'moveLeft' | 'noMove' = 'noMove';
 let stateRPG: StatesRPGType= 'stand';
-let jumpInProgress = false;
 let step = 1;
 
 export const Move = (characterConfig: CharacterConfig, engine: Engine, element: HTMLElement, level: Level, control: Control): void => {
@@ -61,33 +59,6 @@ const addListenersRPG = (): void => {
 }
 
 const addListenersPlatformer = (): void  => {
-  window.addEventListener('keydown' , (event) => {
-     switch(event.key){
-        case 'ArrowRight':
-            state = "moveRight";
-            break;
-          case 'ArrowLeft':
-            state = "moveLeft";
-            break;
-          case 'ArrowUp':
-            if(!jumpInProgress) jumpInProgress = true;
-            break;
-          // case 'ArrowDown':
-          //   action = 'crawl';
-          //   break;
-          case ' ':
-            state = 'noMove';
-            break;
-     }
-  });
-  window.addEventListener('keyup', (event) => {
-    if(event.key === 'ArrowRight' || event.key === 'ArrowLeft'){
-      state = 'noMove';
-    }
-    // if(event.key === 'ArrowUp' || event.key === 'ArrowDown'){
-    //   action = 'stand';
-    // }
-  });
   window.addEventListener("touchstart", (event) => {
     touchCoord.x = event.touches[0].clientX;
     touchCoord.y = event.touches[0].clientY;
@@ -95,13 +66,13 @@ const addListenersPlatformer = (): void  => {
   window.addEventListener("touchmove", (event) => {
     console.log('[character][addListeners] touchmove:',event);
     if(event.touches[0].clientX > touchCoord.x){
-      state = "moveRight";
+      // state = "moveRight";
     }else{
-      state = "moveLeft";
+      // state = "moveLeft";
     }
   });
   window.addEventListener('touchend', ()=> {
-    state = 'noMove';
+    // state = 'noMove';
   })
 }
 

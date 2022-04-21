@@ -4,6 +4,8 @@ import { getAvatar, getInfos, getSubMenu } from './menu';
 export class Control{
   private _isMenuOpen = false;
   private htmlElement: HTMLElement;
+  private entries = ['Objets', 'Sorts', 'Quêtes', 'Equipement', 'Stats', 'Enregistrer', 'Quitter'];
+
   constructor(){
     this.htmlElement = this.createMenu();
     this.addListeners();
@@ -30,13 +32,16 @@ export class Control{
       }
       if(this.isMenuOpen){
         const cursor = document.getElementById('subMenuCursor');
+        const infos = document.getElementById('menu-info');
         // TODO 2022-04-20 : handle the limits
         switch(event.key){
           case 'ArrowDown':
             cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) + 1}`;
+            infos.parentElement.replaceChild(getInfos(this.entries[parseInt(cursor.style.gridRowStart)-2]),infos);
             break;
           case 'ArrowUp':
             cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) - 1}`;
+            infos.parentElement.replaceChild(getInfos(this.entries[parseInt(cursor.style.gridRowStart)-2]),infos);
             break;
         }
       }
@@ -55,13 +60,12 @@ export class Control{
     frame.style.border = '3px solid white';
     frame.style.borderRadius = '5px'
     frame.style.height = '100%';
-    const entries = ['Objets', 'Sorts', 'Quêtes', 'Equipement', 'Stats', 'Enregistrer', 'Quitter'];
     // avatar area
     const avatar = getAvatar();
     // sub menu area
-    const subMenu = getSubMenu(entries);
+    const subMenu = getSubMenu(this.entries);
     // infos area
-    const infos = getInfos(entries[0]);
+    const infos = getInfos(this.entries[0]);
   
     // buttons area
     const buttons = document.createElement('div');

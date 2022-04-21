@@ -1,7 +1,6 @@
 import {Character} from './character';
 import { Engine } from './gameEngine';
 import { Level } from './level';
-import {Move} from './mouvement';
 
 import './assets/characters/ggSalas.css';
 import { Control } from './control';

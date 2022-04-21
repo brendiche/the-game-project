@@ -108,6 +108,7 @@ return subMenu;
 
 export const getInfos = (title: string) => {
   const infos = document.createElement('div');
+  infos.id = 'menu-info';
   infos.style.gridColumn = '1/4';
   infos.style.gridRow = '2/5';
   infos.style.padding = '20px';
