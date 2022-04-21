@@ -26,9 +26,17 @@ export class Control{
         }
         this._isMenuOpen = !this.isMenuOpen;
       }
-      if(this.isMenuOpen && event.key === 'ArrowDown'){
+      if(this.isMenuOpen){
         const cursor = document.getElementById('subMenuCursor');
-        cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) + 1}`;
+        // TODO 2022-04-20 : handle the limits
+        switch(event.key){
+          case 'ArrowDown':
+            cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) + 1}`;
+            break;
+          case 'ArrowUp':
+            cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) - 1}`;
+            break;
+        }
       }
     });
   }

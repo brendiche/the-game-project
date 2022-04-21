@@ -1,4 +1,5 @@
 import { Character } from "./character";
+import { Control } from "./control";
 import { Engine } from "./gameEngine";
 import { characterAllowedToMove, GameConfig, getOffset, getPosition, Target } from "./helper";
 import { Level } from "./level";
@@ -11,13 +12,13 @@ export class GameManager{
   private _targets: Target[] = []; 
   private readonly config: GameConfig;
 
-  constructor(conf: GameConfig, engine: Engine, character: Character, level: Level){
+  constructor(conf: GameConfig, engine: Engine, character: Character, level: Level, control: Control){
     this.config = conf;
     this.engine = engine;
     this.character = character;
     this.level = level;
 
-    Move(conf.character, engine, character.element, level);
+    Move(conf.character, engine, character.element, level, control);
     /**
      * Code for debug => TODO 2022-02-08 create a class for debug
      */

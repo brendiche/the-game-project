@@ -1,12 +1,12 @@
+import { Control } from "./control";
 import { Engine } from "./gameEngine";
-import { characterAllowedToMove, CharacterConfig, getPosition, setPosition, SideType, StatesRPGType } from "./helper";
+import { characterAllowedToMove, CharacterConfig, getPosition, setPosition, StatesRPGType } from "./helper";
 import { Level } from "./level";
 
 let INITIAL_POSSITION = {
   top: 280,
   left: 50,
 }
-const JUMP_SIZE = 110; 
 const touchCoord = {
   x:0,
   y:0,
@@ -14,17 +14,14 @@ const touchCoord = {
 
 let state: 'moveRight' | 'moveLeft' | 'noMove' = 'noMove';
 let stateRPG: StatesRPGType= 'stand';
-// TODO 2022-02-02 : investigate this action variable related to the commented code
-// const action: 'stand' | 'jump' | 'crawl' = 'stand';
-// let jumpDirection: 'up' | 'down' = 'up';
 let jumpInProgress = false;
 let step = 1;
 
-export const Move = (characterConfig: CharacterConfig, engine: Engine, element: HTMLElement, level: Level): void => {
+export const Move = (characterConfig: CharacterConfig, engine: Engine, element: HTMLElement, level: Level, control: Control): void => {
   // TODO 2022-04-12: change the way we handle this config
   INITIAL_POSSITION = characterConfig.initialPosition;
   step = characterConfig.speed;
-  engine.addGamingThread(() => motion(element, level));
+  engine.addGamingThread(() => motion(element, level, control));
   initElementStyle(element);
   if(characterConfig.controls === 'platformer'){
     addListenersPlatformer();
@@ -108,19 +105,8 @@ const addListenersPlatformer = (): void  => {
   })
 }
 
-const motion = (element: HTMLElement, level: Level) => {
-  // if(state === 'moveRight'){
-  //   moveSide(element);
-  // }
-  // if(state === 'moveLeft'){
-  //   moveSide(element, 'left');
-  // }
-  // if(jumpInProgress){
-  //   doJump(element, jumpDirection, 8);
-  //   checkJump(element);
-  // }
-  // TODO 2022-04-15 : allow moving depending on level configuration
-  if(allowedToMove(element,level,stateRPG)) move(stateRPG, element);
+const motion = (element: HTMLElement, level: Level, control: Control) => {
+  if(allowedToMove(element,level,stateRPG, control)) move(stateRPG, element);
 }
 
 const move = (direction: StatesRPGType, element: HTMLElement) => {
@@ -153,7 +139,8 @@ const initElementStyle = (element: HTMLElement) => {
   element.style.top = `${INITIAL_POSSITION.top}px`;
 }
 
-const allowedToMove = (element:HTMLElement, level: Level, direction: StatesRPGType): boolean => {
+const allowedToMove = (element:HTMLElement, level: Level, direction: StatesRPGType, control: Control): boolean => {
+  if (control.isMenuOpen) return false;
   let allowed = true;
   let poss = getPosition(element, 'left');
   switch(direction){

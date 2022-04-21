@@ -44,7 +44,7 @@ const character = new Character(config.character, engine, 'ggsalas');
 const level = new Level(config.level);
 
 const control = new Control();
-new GameManager(config, engine, character, level);
+new GameManager(config, engine, character, level, control);
 
 document.body.appendChild(level.element);
 document.body.appendChild(character.element);
