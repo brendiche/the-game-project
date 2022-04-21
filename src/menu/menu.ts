@@ -1,3 +1,24 @@
+import { entrie } from "./menu.type";
+
+export const menuEntries: entrie[] = [{
+  title: 'Objets',
+  items: ['Générateur de ref', 'Pixeliser', 'Potion'],
+},{
+  title: 'Sorts',
+  items: ['Brasier', 'Teleports'],
+},{
+  title: 'Quêtes',
+},{
+  title: 'Equipement',
+},{
+  title: 'Stats',
+},{
+  title: 'Enregistrer',
+},{
+  title: 'Quitter',
+}];
+
+
 export const getAvatar = ():HTMLElement => {
   const avatar = document.createElement('div');
   avatar.style.gridColumn = '1/4';
@@ -106,7 +127,7 @@ subMenu.appendChild(frame);
 return subMenu;
 }
 
-export const getInfos = (title: string) => {
+export const getInfos = (menuEntrie: entrie) => {
   const infos = document.createElement('div');
   infos.id = 'menu-info';
   infos.style.gridColumn = '1/4';
@@ -133,9 +154,24 @@ export const getInfos = (title: string) => {
   titleFrame.style.fontFamily = 'ggSalasFont';
   titleFrame.style.fontSize = '20px';
   titleFrame.style.paddingTop = '10px';
-  titleFrame.appendChild(document.createTextNode(title))
-
+  titleFrame.appendChild(document.createTextNode(menuEntrie.title))
   frame.appendChild(titleFrame);
+
+  if(menuEntrie.items){
+    menuEntrie.items.forEach((item, i) => {
+      const itemsFrame = document.createElement('div');
+    itemsFrame.style.gridColumn = '1';
+    itemsFrame.style.gridRow = `${i+2}`;
+    itemsFrame.style.fontFamily = 'ggSalasFont';
+    itemsFrame.style.fontSize = '20px';
+    itemsFrame.style.color = 'white';
+    itemsFrame.style.paddingTop = '15px';
+    itemsFrame.style.paddingLeft = '50px';
+    itemsFrame.appendChild(document.createTextNode(item))
+    frame.appendChild(itemsFrame);
+    })
+    
+  }
   
 
   infos.appendChild(frame);

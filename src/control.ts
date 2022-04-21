@@ -1,11 +1,10 @@
 import './assets/menu/menu.css';
-import { getAvatar, getInfos, getSubMenu } from './menu';
+import { getAvatar, getInfos, getSubMenu, menuEntries } from './menu/menu';
 
 export class Control{
   private _isMenuOpen = false;
   private htmlElement: HTMLElement;
-  private entries = ['Objets', 'Sorts', 'Quêtes', 'Equipement', 'Stats', 'Enregistrer', 'Quitter'];
-
+  
   constructor(){
     this.htmlElement = this.createMenu();
     this.addListeners();
@@ -37,11 +36,11 @@ export class Control{
         switch(event.key){
           case 'ArrowDown':
             cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) + 1}`;
-            infos.parentElement.replaceChild(getInfos(this.entries[parseInt(cursor.style.gridRowStart)-2]),infos);
+            infos.parentElement.replaceChild(getInfos(menuEntries[parseInt(cursor.style.gridRowStart)-2]),infos);
             break;
           case 'ArrowUp':
             cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) - 1}`;
-            infos.parentElement.replaceChild(getInfos(this.entries[parseInt(cursor.style.gridRowStart)-2]),infos);
+            infos.parentElement.replaceChild(getInfos(menuEntries[parseInt(cursor.style.gridRowStart)-2]),infos);
             break;
         }
       }
@@ -63,9 +62,9 @@ export class Control{
     // avatar area
     const avatar = getAvatar();
     // sub menu area
-    const subMenu = getSubMenu(this.entries);
+    const subMenu = getSubMenu(menuEntries.map(entrie => entrie.title));
     // infos area
-    const infos = getInfos(this.entries[0]);
+    const infos = getInfos(menuEntries[0]);
   
     // buttons area
     const buttons = document.createElement('div');
