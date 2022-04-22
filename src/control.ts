@@ -1,8 +1,8 @@
 import './assets/menu/menu.css';
-import { getAvatar, getInfos, getSubMenu, menuEntries } from './menu/menu';
+import { getAvatar, getInfos, getStaticInfos, getSubMenu, menuEntries } from './menu/menu';
 
 export class Control{
-  private _isMenuOpen = false;
+  private _isMenuOpen = true;
   private htmlElement: HTMLElement;
   
   constructor(){
@@ -70,25 +70,7 @@ export class Control{
     const infos = getInfos(menuEntries[0]);
   
     // buttons area
-    const buttons = document.createElement('div');
-    buttons.style.gridColumn = '4/6';
-    buttons.style.gridRow = '4';
-    buttons.style.display = 'grid';
-    buttons.style.gridTemplateColumns = '1fr'
-    buttons.style.gridTemplateRows = 'repeat(2,1fr)'
-    const buttonTop = document.createElement('div');
-    buttonTop.style.gridColumn = '1';
-    buttonTop.style.gridRow = '1';
-    buttonTop.style.padding = '5px 35px';
-    const buttonBottom = document.createElement('div');
-    buttonBottom.style.gridColumn = '1';
-    buttonBottom.style.gridRow = '2';
-    buttonBottom.style.padding = '5px 35px';
-
-    buttonTop.appendChild(frame.cloneNode());
-    buttonBottom.appendChild(frame.cloneNode());
-    buttons.appendChild(buttonTop);
-    buttons.appendChild(buttonBottom);
+    const buttons = getStaticInfos();
 
     main.appendChild(avatar);
     main.appendChild(infos);
