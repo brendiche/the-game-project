@@ -2,7 +2,8 @@ import './assets/menu/menu.css';
 import { getAvatar, getInfos, getStaticInfos, getSubMenu, menuEntries } from './menu/menu';
 
 export class Control{
-  private _isMenuOpen = true;
+  // TODO 2022-04-22 add cursor state
+  private _isMenuOpen = false;
   private htmlElement: HTMLElement;
   
   constructor(){
@@ -32,6 +33,7 @@ export class Control{
       if(this.isMenuOpen){
         const cursor = document.getElementById('subMenuCursor');
         const infos = document.getElementById('menu-info');
+        const cursorTarget = document.getElementById('cursor-target');
         switch(event.key){
           case 'ArrowDown':
             if(parseInt(cursor.style.gridRowStart)-1 !== menuEntries.length){
@@ -44,6 +46,10 @@ export class Control{
               cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) - 1}`;
               infos.parentElement.replaceChild(getInfos(menuEntries[parseInt(cursor.style.gridRowStart)-2]),infos);
             }
+            break;
+          case 'ArrowLeft':
+            cursor.style.gridRowStart = '1';
+            cursorTarget.appendChild(cursor);
             break;
         }
       }
@@ -69,13 +75,13 @@ export class Control{
     // infos area
     const infos = getInfos(menuEntries[0]);
   
-    // buttons area
-    const buttons = getStaticInfos();
+    // staticInfos area
+    const staticInfos = getStaticInfos();
 
     main.appendChild(avatar);
     main.appendChild(infos);
     main.appendChild(subMenu);
-    main.appendChild(buttons);
+    main.appendChild(staticInfos);
 
     return main
   }

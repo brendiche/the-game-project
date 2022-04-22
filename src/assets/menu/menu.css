@@ -21,7 +21,7 @@
 .subMenuPointer{
   background: url('./cursor.png');
   background-repeat: no-repeat;
-  background-size: 20%;
+  background-size: 55px;
   background-position-y: bottom;
   animation: annim 700ms linear infinite;
 }
