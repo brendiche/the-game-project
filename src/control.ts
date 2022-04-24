@@ -5,10 +5,16 @@ export class Control{
   // TODO 2022-04-22 add cursor state
   private _isMenuOpen = false;
   private htmlElement: HTMLElement;
+  private cursorState: {
+    selectedMain: boolean,
+  }
   
   constructor(){
     this.htmlElement = this.createMenu();
     this.addListeners();
+    this.cursorState = {
+      selectedMain : true,
+    }
   }
 
   get element(): HTMLElement{
@@ -36,19 +42,30 @@ export class Control{
         const cursorTarget = document.getElementById('cursor-target');
         switch(event.key){
           case 'ArrowDown':
-            if(parseInt(cursor.style.gridRowStart)-1 !== menuEntries.length){
-              cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) + 1}`;
-              infos.parentElement.replaceChild(getInfos(menuEntries[parseInt(cursor.style.gridRowStart)-2]),infos);
+            if(this.cursorState.selectedMain){
+              if(parseInt(cursor.style.gridRowStart)-1 !== menuEntries.length){
+                cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) + 1}`;
+                infos.parentElement.replaceChild(getInfos(menuEntries[parseInt(cursor.style.gridRowStart)-2]),infos);
+              }
+            }else{
+              cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart)+1}`;
             }
             break;
           case 'ArrowUp':
-            if(parseInt(cursor.style.gridRowStart)-2 !== 0){
-              cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) - 1}`;
-              infos.parentElement.replaceChild(getInfos(menuEntries[parseInt(cursor.style.gridRowStart)-2]),infos);
+            if(this.cursorState.selectedMain){
+              if(parseInt(cursor.style.gridRowStart)-2 !== 0){
+                cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) - 1}`;
+                infos.parentElement.replaceChild(getInfos(menuEntries[parseInt(cursor.style.gridRowStart)-2]),infos);
+              }
+            }else{
+              cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart)-1}`;
             }
             break;
           case 'ArrowLeft':
+            this.cursorState.selectedMain = false;
             cursor.style.gridRowStart = '1';
+            cursor.style.backgroundSize = '37px';
+            cursor.style.backgroundPositionY = '22px';
             cursorTarget.appendChild(cursor);
             break;
         }

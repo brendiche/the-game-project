@@ -1,5 +1,5 @@
 const entiresTypeValues = ['quest', 'item', 'stuf', 'spell', 'stat', 'none'] as const;
-type entiresType = typeof entiresTypeValues[number];
+export type entiresType = typeof entiresTypeValues[number];
 
 interface entrie{
   title: string;
