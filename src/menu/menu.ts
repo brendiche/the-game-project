@@ -168,6 +168,7 @@ subMenu.style.gridRow = '1/4';
 subMenu.style.padding = '20px';
 
 const frame = document.createElement('div');
+frame.id = 'subMenu';
 frame.style.backgroundColor = 'rgba(255,255,255,0.2)';
 frame.style.border = '3px solid white';
 frame.style.borderRadius = '5px'
@@ -381,7 +382,3 @@ export const getStaticInfos = () => {
   
   return buttons
 }
-
-// export const createCursor = () => {
-
-// }

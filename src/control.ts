@@ -40,6 +40,7 @@ export class Control{
         const cursor = document.getElementById('subMenuCursor');
         const infos = document.getElementById('menu-info');
         const cursorTarget = document.getElementById('cursor-target');
+        const subMenu = document.getElementById('subMenu');
         switch(event.key){
           case 'ArrowDown':
             if(this.cursorState.selectedMain){
@@ -67,6 +68,16 @@ export class Control{
             cursor.style.backgroundSize = '37px';
             cursor.style.backgroundPositionY = '22px';
             cursorTarget.appendChild(cursor);
+            break;
+            case 'ArrowRight':
+              if(!this.cursorState.selectedMain){
+                this.cursorState.selectedMain = true;
+                cursor.style.backgroundSize = '55px';
+                cursor.style.backgroundPositionY = 'bottom';
+                cursor.style.gridRowStart = '2';
+                subMenu.appendChild(cursor);
+                // TODO 2022-04-25 : add selected items 
+              }
             break;
         }
       }
