@@ -7,6 +7,7 @@ export class Control{
   private htmlElement: HTMLElement;
   private cursorState: {
     selectedMain: boolean,
+    selectedIndex: number,
   }
   
   constructor(){
@@ -14,6 +15,7 @@ export class Control{
     this.addListeners();
     this.cursorState = {
       selectedMain : true,
+      selectedIndex: 2,
     }
   }
 
@@ -46,6 +48,7 @@ export class Control{
             if(this.cursorState.selectedMain){
               if(parseInt(cursor.style.gridRowStart)-1 !== menuEntries.length){
                 cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) + 1}`;
+                this.cursorState.selectedIndex = parseInt(cursor.style.gridRowStart);
                 infos.parentElement.replaceChild(getInfos(menuEntries[parseInt(cursor.style.gridRowStart)-2]),infos);
               }
             }else{
@@ -56,6 +59,7 @@ export class Control{
             if(this.cursorState.selectedMain){
               if(parseInt(cursor.style.gridRowStart)-2 !== 0){
                 cursor.style.gridRowStart = `${parseInt(cursor.style.gridRowStart) - 1}`;
+                this.cursorState.selectedIndex = parseInt(cursor.style.gridRowStart);
                 infos.parentElement.replaceChild(getInfos(menuEntries[parseInt(cursor.style.gridRowStart)-2]),infos);
               }
             }else{
@@ -63,21 +67,23 @@ export class Control{
             }
             break;
           case 'ArrowLeft':
-            this.cursorState.selectedMain = false;
-            cursor.style.gridRowStart = '1';
-            cursor.style.backgroundSize = '37px';
-            cursor.style.backgroundPositionY = '22px';
-            cursorTarget.appendChild(cursor);
+            if([2,3].some((e) => e === this.cursorState.selectedIndex)){
+              this.cursorState.selectedMain = false;
+              cursor.style.gridRowStart = '1';
+              cursor.style.backgroundSize = '37px';
+              cursor.style.backgroundPositionY = '22px';
+              cursorTarget.appendChild(cursor);
+            }
             break;
-            case 'ArrowRight':
-              if(!this.cursorState.selectedMain){
-                this.cursorState.selectedMain = true;
-                cursor.style.backgroundSize = '55px';
-                cursor.style.backgroundPositionY = 'bottom';
-                cursor.style.gridRowStart = '2';
-                subMenu.appendChild(cursor);
-                // TODO 2022-04-25 : add selected items 
-              }
+          case 'ArrowRight':
+            if(!this.cursorState.selectedMain){
+              this.cursorState.selectedMain = true;
+              cursor.style.backgroundSize = '55px';
+              cursor.style.backgroundPositionY = 'bottom';
+              cursor.style.gridRowStart = `${this.cursorState.selectedIndex}`;
+              subMenu.appendChild(cursor);
+              // TODO 2022-04-25 : add selected items 
+            }
             break;
         }
       }

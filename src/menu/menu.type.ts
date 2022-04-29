@@ -1,8 +1,11 @@
 const entiresTypeValues = ['quest', 'item', 'stuf', 'spell', 'stat', 'none'] as const;
 export type entiresType = typeof entiresTypeValues[number];
 
+const entiresTitleValues = ['Objets', 'Sorts', 'Quêtes', 'Equipement', 'Accessoires', 'Stats', 'Enregistrer', 'Quitter'] as const;
+export type entiresTitleType = typeof entiresTitleValues[number];
+
 interface entrie{
-  title: string;
+  title: entiresTitleType;
   type: entiresType;
 }
 
@@ -53,7 +56,7 @@ export interface entrieStuf extends entrie{
 export interface entrieStat extends entrie {
   type: 'stat',
   entrieItems: {
-    value : stuf[];
+    value : (string | Stat)[];
     grid: {
       columns: number;
       rows: number;
@@ -61,7 +64,7 @@ export interface entrieStat extends entrie {
   }
 }
 
-export type menuEntrie = entrieItem | entrieSpell | entrieQuest | entrieStuf | entrie;
+export type menuEntrie = entrieItem | entrieSpell | entrieQuest | entrieStuf | entrieStat | entrie;
 
 
 type quest = {
@@ -78,6 +81,11 @@ type  stuf = {
     }
   }[]
 };
+
+export type Stat = {
+  label : itemStatsType,
+  value: number
+}
 
 export const itemStatsValue = ['Flow', 'Technique', 'Charisma'] as const;
 export type itemStatsType = typeof itemStatsValue[number];

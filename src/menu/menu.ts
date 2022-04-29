@@ -1,4 +1,4 @@
-import { entrieItem, entrieQuest, entrieSpell, entrieStuf, menuEntrie, itemStatsValue } from "./menu.type";
+import { entrieItem, entrieQuest, entrieSpell, entrieStuf, menuEntrie, itemStatsValue, entrieStat, Stat } from "./menu.type";
 
 export const menuEntries: menuEntrie[] = [{
   title: 'Objets',
@@ -84,7 +84,23 @@ export const menuEntries: menuEntrie[] = [{
   }
 },{
   title: 'Stats',
-  type: 'none',
+  type: 'stat',
+  entrieItems: {
+    grid:{
+      columns: 2,
+      rows: 7,
+    },
+    value: ['HP 210/210','MP 90/90','XP 100 pour monter un niveau', {
+      label:'Flow',
+      value: 21
+    },{
+      label: 'Technique',
+      value: 18
+    },{
+      label: 'Charisma',
+      value: 20,
+    }],
+  }
 },{
   title: 'Enregistrer',
   type: 'none',
@@ -326,6 +342,59 @@ export const getInfos = (menuEntrie: menuEntrie) => {
         stats.appendChild(document.createElement('br'));
       })
       itemsFrame.appendChild(stats);
+      break;
+    case 'stat':
+      itemsFrame.style.gridTemplateColumns = `repeat(${(menuEntrie as entrieStat).entrieItems.grid.columns}, 1fr)`;
+      itemsFrame.style.gridTemplateRows = `repeat(${(menuEntrie as entrieStat).entrieItems.grid.rows}, 1fr)`;
+      // eslint-disable-next-line no-case-declarations
+      const spell = document.createElement('div');
+      spell.style.gridColumn = '1';
+      spell.style.gridRow = '4';
+      spell.style.borderTop = '3px solid white';
+      spell.style.fontFamily = 'ggSalasFont';
+      spell.style.color = 'white';
+      spell.style.fontSize = '20px';
+      spell.style.textAlign = 'center';
+      spell.appendChild(document.createTextNode('Sorts'));
+      // eslint-disable-next-line no-case-declarations
+      const stat = document.createElement('div');
+      stat.style.gridColumn = '2';
+      stat.style.gridRow = '4';
+      stat.style.borderTop = '3px solid white';
+      stat.style.borderLeft = '3px solid white';
+      stat.style.fontFamily = 'ggSalasFont';
+      stat.style.color = 'white';
+      stat.style.fontSize = '20px';
+      stat.style.textAlign = 'center';
+      stat.appendChild(document.createTextNode('Stats'));
+
+      (menuEntrie as entrieStat).entrieItems.value.forEach((stat,i) => {
+        if(typeof stat !== 'string'){
+          const statDetail = document.createElement('div');
+          statDetail.style.gridColumn = '2';
+          statDetail.style.gridRow = `${i+2}`;
+          statDetail.style.borderLeft = '3px solid white';
+          statDetail.style.paddingLeft = '10px';
+          statDetail.style.fontFamily = 'ggSalasFont';
+          statDetail.style.color = 'white';
+          statDetail.style.fontSize = '15px';
+          statDetail.appendChild(document.createTextNode(`${stat.label}: ${stat.value}`));
+          itemsFrame.appendChild(statDetail);
+        } else {
+          const statDetail = document.createElement('div');
+          statDetail.style.gridColumn = '1/3';
+          statDetail.style.gridRow = `${i+1}`;
+          statDetail.style.fontFamily = 'ggSalasFont';
+          statDetail.style.color = 'white';
+          statDetail.style.fontSize = '15px';
+          statDetail.style.paddingLeft = '10px';
+          statDetail.appendChild(document.createTextNode(`${stat}`));
+          itemsFrame.appendChild(statDetail);
+        }
+      });
+      itemsFrame.appendChild(spell);
+      itemsFrame.appendChild(stat);
+
       break;
   }
 
