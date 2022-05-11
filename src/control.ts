@@ -67,11 +67,12 @@ export class Control{
             }
             break;
           case 'ArrowLeft':
-            if([2,3].some((e) => e === this.cursorState.selectedIndex)){
+            if([2,3,5].some((e) => e === this.cursorState.selectedIndex)){
               this.cursorState.selectedMain = false;
               cursor.style.gridRowStart = '1';
               cursor.style.backgroundSize = '37px';
               cursor.style.backgroundPositionY = '22px';
+              cursor.style.zIndex = '1';
               cursorTarget.appendChild(cursor);
             }
             break;

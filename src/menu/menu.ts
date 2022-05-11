@@ -53,27 +53,27 @@ export const menuEntries: menuEntrie[] = [{
     value: [{
       label:'Armes',
       items:[{
-        name:'test',
+        name:'Micro',
         stats:{
-          Charisma: 0,
-          Flow: 0,
-          Technique: 0,
+          Charisma: 15,
+          Flow: 7,
+          Technique: 4,
         }
       }]
     },{
       label:'Armures',
       items:[{
-        name:'test',
+        name:'Veste hipster',
         stats:{
-          Charisma: 0,
-          Flow: 0,
-          Technique: 0,
+          Charisma: 7,
+          Flow: 6,
+          Technique: 15,
         }
       }]
     },{
       label:'Accessoires',
       items:[{
-        name:'test',
+        name:'X',
         stats:{
           Charisma: 0,
           Flow: 0,
@@ -306,6 +306,7 @@ export const getInfos = (menuEntrie: menuEntrie) => {
     case 'stuf':
       itemsFrame.style.gridTemplateColumns = `repeat(${(menuEntrie as entrieStuf).entrieItems.grid.columns}, 1fr)`;
       itemsFrame.style.gridTemplateRows = `repeat(${(menuEntrie as entrieStuf).entrieItems.grid.rows}, 1fr)`;
+      itemsFrame.id = 'cursor-target';
       (menuEntrie as entrieStuf).entrieItems.value.forEach((item, i) => {
         const itemFrame = document.createElement('div');
         itemFrame.style.fontFamily = 'ggSalasFont';
@@ -315,18 +316,41 @@ export const getInfos = (menuEntrie: menuEntrie) => {
         itemFrame.style.gridColumn = '1';
         itemFrame.style.gridRow = `${i+1}`;
         itemFrame.style.position = 'relative';
-        itemFrame.style.borderRight = '2px solid white'
+        itemFrame.style.borderRight = '2px solid white';
+        itemFrame.style.paddingTop = '15px';
         const dot = document.createElement('div');
         dot.style.backgroundColor = 'white';
         dot.style.height = '15px';
         dot.style.width = '15px';
         dot.style.borderRadius = '20px';
         dot.style.position = 'absolute';
-        dot.style.top = '7px';
+        dot.style.top = '22px';
         dot.style.left = '20px';
         itemFrame.appendChild(dot);
         itemFrame.appendChild(document.createTextNode(item.label));
         itemsFrame.appendChild(itemFrame);
+
+        if(item.label === 'Armes'){
+          const assetsFrame = document.createElement('div');
+          assetsFrame.style.gridColumn = '2';
+          assetsFrame.style.gridRow = '1/3';
+          assetsFrame.style.fontFamily = 'ggSalasFont';
+          assetsFrame.style.color = 'white';
+          assetsFrame.style.fontSize = '20px';
+          assetsFrame.style.color = 'white';
+          assetsFrame.style.paddingLeft = '10px';
+          assetsFrame.style.display = 'grid';
+          assetsFrame.style.gridTemplateColumns = '1';
+          assetsFrame.style.gridTemplateRows = '4';
+          item.items.forEach((subItem,j) => {
+            const assets = document.createElement('div');
+            assets.style.gridColumn = '1';
+            assets.style.gridRow = `${j}`;
+            assets.appendChild(document.createTextNode(subItem.name));
+            assetsFrame.appendChild(assets);
+          });
+          itemsFrame.appendChild(assetsFrame);
+        }
       });
       // eslint-disable-next-line no-case-declarations
       const stats = document.createElement('div');
@@ -356,6 +380,18 @@ export const getInfos = (menuEntrie: menuEntrie) => {
       spell.style.fontSize = '20px';
       spell.style.textAlign = 'center';
       spell.appendChild(document.createTextNode('Sorts'));
+
+      getSpell(menuEntries).forEach((spell, i) => {
+        const spellItem = document.createElement('div');
+        spellItem.style.fontFamily = 'ggSalasFont';
+        spellItem.style.color = 'white';
+        spellItem.style.fontSize = '15px';
+        spellItem.style.paddingLeft = '10px';
+        spellItem.style.gridColumn = '1';
+        spellItem.style.gridRow = `${i+5}`;
+        spellItem.appendChild(document.createTextNode(spell));
+        itemsFrame.appendChild(spellItem);
+      })
       // eslint-disable-next-line no-case-declarations
       const stat = document.createElement('div');
       stat.style.gridColumn = '2';
@@ -450,4 +486,13 @@ export const getStaticInfos = () => {
   buttons.appendChild(buttonBottom);
   
   return buttons
+}
+
+const getSpell = (menuEntries: menuEntrie[]): string[] => {
+  const spells = menuEntries.find(entrie => entrie.type === 'spell')
+  if(spells){
+    return (spells as entrieSpell).entrieItems.value
+  }
+
+  return [];
 }
