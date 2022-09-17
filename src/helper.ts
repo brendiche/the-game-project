@@ -29,7 +29,6 @@ export interface GameConfig{
 }
 
 export interface CharacterConfig{
-  controls: 'platformer' | 'RPG', 
   offset : {
     top: number,
     right: number,

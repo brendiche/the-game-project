@@ -21,11 +21,7 @@ export const Move = (characterConfig: CharacterConfig, engine: Engine, element: 
   step = characterConfig.speed;
   engine.addGamingThread(() => motion(element, level, control));
   initElementStyle(element);
-  if(characterConfig.controls === 'platformer'){
-    addListenersPlatformer();
-  }else {
-    addListenersRPG();
-  }
+  addListenersRPG();
 } 
 
 const addListenersRPG = (): void => {
@@ -56,24 +52,6 @@ const addListenersRPG = (): void => {
         break;
      }
   });
-}
-
-const addListenersPlatformer = (): void  => {
-  window.addEventListener("touchstart", (event) => {
-    touchCoord.x = event.touches[0].clientX;
-    touchCoord.y = event.touches[0].clientY;
-  });
-  window.addEventListener("touchmove", (event) => {
-    console.log('[character][addListeners] touchmove:',event);
-    if(event.touches[0].clientX > touchCoord.x){
-      // state = "moveRight";
-    }else{
-      // state = "moveLeft";
-    }
-  });
-  window.addEventListener('touchend', ()=> {
-    // state = 'noMove';
-  })
 }
 
 const motion = (element: HTMLElement, level: Level, control: Control) => {

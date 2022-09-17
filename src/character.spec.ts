@@ -13,7 +13,6 @@ const mockEngine: Partial<Engine> = {
   addGamingThread: (arg:any) => callbackArray.push(arg)
 }
 const mockConfig: CharacterConfig = {
-  controls:'platformer',
   offset:{
     left:0,
     right:0,
@@ -89,7 +88,6 @@ describe('charater class', () => {
     global.Date.now = dateNowStub;
     const spaceEvent = new KeyboardEvent('keydown', {key: ' '});
     window.dispatchEvent(spaceEvent);
-    character.removeItem(1644182219302);
     checkCharacter();
   })
 })
@@ -98,5 +96,4 @@ const checkCharacter=()=> {
   expect(character.element).toMatchSnapshot();
   expect(character.side).toMatchSnapshot();
   expect(character.state).toMatchSnapshot();
-  expect(character.items).toMatchSnapshot();
 }

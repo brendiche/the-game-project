@@ -42,7 +42,6 @@ export class GameManager {
         characterDebug.innerHTML = JSON.stringify({
           side: this.character.side,
           state: this.character.state,
-          items: this.character.items,
           position: {
             left:getPosition(this.character.element,'left'),
             top: getPosition(this.character.element, 'top'),

@@ -10,7 +10,6 @@ import Conf from '../conf/config.json';
 const engine = new Engine();
 
 const characterConf: CharacterConfig = {
-  controls: 'RPG',
   offset:{
     top: 12,
     right: 55,
