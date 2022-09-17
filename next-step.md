@@ -7,8 +7,10 @@
  - [x] add some button control
  - [x] add interaction betwin components
  - [x] add colision betwin item and target
- - [ ] make a global config 
- - [ ] handle the way the game is moving in the manager
- - [ ] fix the boundary of the game
+ - [x] make a global config 
+ - [x] handle the way the game is moving in the manager
+ - [x] fix the boundary of the game
+ - [ ] finish the menu
+ - [ ] add some fighting like pokemon
  - [ ] add character choice
  - [ ] handle moblie screen

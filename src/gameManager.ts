@@ -1,20 +1,17 @@
 import { Character } from "./character";
 import { Control } from "./control";
 import { Engine } from "./gameEngine";
-import { characterAllowedToMove, GameConfig, getOffset, getPosition, Target } from "./helper";
+import { characterAllowedToMove, GameConfig, getPosition } from "./helper";
 import { Level } from "./level";
 import { Move } from "./mouvement";
 
-export class GameManager{
+export class GameManager {
   private character: Character;
-  private engine: Engine;
   private level: Level;
-  private _targets: Target[] = []; 
   private readonly config: GameConfig;
 
   constructor(conf: GameConfig, engine: Engine, character: Character, level: Level, control: Control){
     this.config = conf;
-    this.engine = engine;
     this.character = character;
     this.level = level;
 
@@ -39,9 +36,7 @@ export class GameManager{
      */
 
     engine.addGamingThread(() => {
-      this.handleTargets();
       this.handleLevel();
-      // TODO 2022-04-05 : add level mouvement
       const characterDebug = document.getElementById('character-debug');
       if(characterDebug){
         characterDebug.innerHTML = JSON.stringify({
@@ -63,29 +58,6 @@ export class GameManager{
         });
       }
     });
-  }
-
-  get targets(): Target[] {
-    return this._targets
-  }
-
-  public addTarget(target: Target){
-    this._targets.push(target);
-  }
-
-  private handleTargets():void {
-    this.targets.map((target, i) => {
-      if(this.character.items.length){
-        for(const item of this.character.items){
-          if (item.position >= target.position && item.position <= target.position + getOffset(target.element)) {
-            item.element.remove();  
-            this.character.removeItem(item.id);
-            target.element.remove();
-            this.targets.splice(i,1); // need to be very carful with this because it removes element in the array it's looping on
-          }
-        }
-      } 
-    })
   }
 
   private handleLevel(): void{
