@@ -1,498 +1,167 @@
-import { entrieItem, entrieQuest, entrieSpell, entrieStuf, menuEntrie, itemStatsValue, entrieStat, Stat } from "./menu.type";
+import { menuEntries } from "./menu.constants";
+import { entrie } from "./menu.type";
+import { AdditionalInfos } from "./menuElements/additionalInfos";
+import { CharacterInfos } from './menuElements/charaterInfos';
+import { DisplayMenuItem } from "./menuElements/displayMenuItem";
+import { MainMenu } from "./menuElements/mainMenu";
 
-export const menuEntries: menuEntrie[] = [{
-  title: 'Objets',
-  type: 'item',
-  entrieItems: {
-    value: ['Générateur de ref', 'Pixeliser', 'Potion'],
-    grid: {
-      rows: 7,
-      columns: 1,
+export class GameMenu{
+  menuEntries: entrie[];
+  element: HTMLElement;
+
+  private characterInfos: CharacterInfos;
+  private mainMenu: MainMenu;
+  private additionalInfos: AdditionalInfos;
+  private displayMenuItem: DisplayMenuItem;
+
+  constructor(){
+    this.characterInfos = new CharacterInfos();
+    this.mainMenu = new MainMenu(menuEntries);
+    this.additionalInfos = new AdditionalInfos();
+    this.displayMenuItem = new DisplayMenuItem();
+    this.element = this.createMenu();
+  }
+  get isOpen(): boolean{
+    return getComputedStyle(this.element).display !== 'none';
+  }
+
+  public toggleMenu(): void {
+    if(this.isOpen){
+      this.element.style.display = 'none';
+    }else{
+      this.element.style.display = 'grid';
     }
   }
-},{
-  title: 'Sorts',
-  type:'spell',
-  entrieItems: {
-    value:['Brasier', 'Teleports'],
-    grid: {
-      rows: 7,
-      columns: 1,
-    }
-  },
-},{
-  title: 'Quêtes',
-  type: 'quest',
-  entrieItems: {
-    value:[{
-    label: 'Premier freestyle Instagram',
-    description: 'Participe au concours de NewTone x DMT x Damn pour t’exercer en mixing et mettre un pied dans le montage vidéo',
-  },{
-    label: 'Bad mood',
-    description: 'Place un flow aérien sur une prod électronique',
-  },{
-    label: 'Hardbass preset',
-    description: 'Place un flow troll sur une prod hardbass hardstyle',
-  },{
-    label: 'Rap contest',
-    description: 'Participe au concours de DMT x Fat x Damn sur prod imposée afin de te faire connaître par le réseau',
-  }],
-  grid: {
-    rows: 4,
-    columns: 1,
-  }
-}
-},{
-  title: 'Equipement',
-  type: 'stuf',
-  entrieItems: {
-    grid:{
-      columns: 2,
-      rows: 3,
-    },
-    value: [{
-      label:'Armes',
-      items:[{
-        name:'Micro',
-        stats:{
-          Charisma: 15,
-          Flow: 7,
-          Technique: 4,
-        }
-      }]
-    },{
-      label:'Armures',
-      items:[{
-        name:'Veste hipster',
-        stats:{
-          Charisma: 7,
-          Flow: 6,
-          Technique: 15,
-        }
-      }]
-    },{
-      label:'Accessoires',
-      items:[{
-        name:'X',
-        stats:{
-          Charisma: 0,
-          Flow: 0,
-          Technique: 0,
-        }
-      }]
-    }],
-  }
-},{
-  title: 'Stats',
-  type: 'stat',
-  entrieItems: {
-    grid:{
-      columns: 2,
-      rows: 7,
-    },
-    value: ['HP 210/210','MP 90/90','XP 100 pour monter un niveau', {
-      label:'Flow',
-      value: 21
-    },{
-      label: 'Technique',
-      value: 18
-    },{
-      label: 'Charisma',
-      value: 20,
-    }],
-  }
-},{
-  title: 'Enregistrer',
-  type: 'none',
-},{
-  title: 'Quitter',
-  type: 'none',
-}];
 
+  private createMenu(): HTMLElement {
+    const main = document.createElement('div');
+    main.className = 'menu';
+    main.style.display ='none';
+    main.style.gridTemplateColumns ='repeat(5, 1fr)'
+    main.style.gridTemplateRows ='repeat(4, 1fr)'
+    // frame 
+    const frame = document.createElement('div');
+    frame.style.backgroundColor = 'rgba(255,255,255,0.2)';
+    frame.style.border = '3px solid white';
+    frame.style.borderRadius = '5px'
+    frame.style.height = '100%';
 
-export const getAvatar = ():HTMLElement => {
-  const avatar = document.createElement('div');
-  avatar.style.gridColumn = '1/4';
-  avatar.style.gridRow = '1';
-  avatar.style.padding = '20px';
-  const avatarFrame = document.createElement('div');
-  avatarFrame.style.backgroundColor = 'rgba(255,255,255,0.2)';
-  avatarFrame.style.border = '2px solid white';
-  avatarFrame.style.borderRadius = '5px'
-  avatarFrame.style.height = '100%';
-  avatarFrame.style.display = 'grid';
-  avatarFrame.style.gridTemplateColumns = 'repeat(3, 1fr)';
-  avatarFrame.style.gridTemplateRows = 'repeat(3, 1fr)';
+    main.appendChild(this.characterInfos.element);
+    main.appendChild(this.displayMenuItem.element);
+    main.appendChild(this.mainMenu.element);
+    main.appendChild(this.additionalInfos.element);
 
-  const avatarImgFrame = document.createElement('div');
-  avatarImgFrame.style.gridColumn = '1';
-  avatarImgFrame.style.gridRow = '1/4';
-  avatarImgFrame.style.backgroundColor = '#dbdbdb';
-  avatarImgFrame.style.margin = '15px 20px';
-  avatarImgFrame.style.border = '5px solid black';
-  avatarImgFrame.style.borderRadius = '5px';
-  const avatarImg = document.createElement('div');
-  avatarImg.className = 'avatar';
-  avatarImg.style.backgroundPositionX = 'center'
-  avatarImg.style.height = '100%';
-  avatarImgFrame.appendChild(avatarImg);
-
-  const pseudoBalise = document.createElement('div');
-  const pseudo = document.createTextNode("ggSalas");
-  pseudoBalise.appendChild(pseudo);
-  pseudoBalise.style.gridColumn = '2/4';
-  pseudoBalise.style.gridRow = '1';
-  pseudoBalise.style.fontFamily = 'ggSalasTitle';
-  pseudoBalise.style.fontSize = '32px'
-  pseudoBalise.style.color = '#f1cd0b';
-
-  const levelBalise = document.createElement('div');
-  const level = document.createTextNode("Niveau 11");
-  levelBalise.appendChild(level);
-  levelBalise.style.gridColumn = '2/4';
-  levelBalise.style.gridRow = '2';
-  levelBalise.style.fontFamily = 'ggSalasFont';
-  levelBalise.style.color = '#ffffff';
-
-  const progerssBar = document.createElement('div');
-  progerssBar.style.gridColumn = '2/4';
-  progerssBar.style.gridRow = '3';
-  progerssBar.style.height = '20px';
-  progerssBar.style.backgroundColor = 'white';
-  progerssBar.style.marginRight = '20%';
-  progerssBar.style.padding = '4px'
-
-  const bar = document.createElement('div');
-  bar.style.backgroundColor = '#4c4b4b';
-  bar.style.height = '20px';
-  bar.style.width = '60%';
-  progerssBar.appendChild(bar)
-
-  avatarFrame.appendChild(avatarImgFrame);
-  avatarFrame.appendChild(pseudoBalise);
-  avatarFrame.appendChild(progerssBar);
-  avatarFrame.appendChild(levelBalise);
-
-  avatar.appendChild(avatarFrame);
-  return avatar;
-}
-
-export const getSubMenu = (entries: string[]): HTMLElement => {
-const subMenu = document.createElement('div');
-subMenu.style.gridColumn = '4/6';
-subMenu.style.gridRow = '1/4';
-subMenu.style.padding = '20px';
-
-const frame = document.createElement('div');
-frame.id = 'subMenu';
-frame.style.backgroundColor = 'rgba(255,255,255,0.2)';
-frame.style.border = '3px solid white';
-frame.style.borderRadius = '5px'
-frame.style.height = '100%';
-frame.style.display = 'grid';
-frame.style.gridTemplateColumns = '1fr';
-frame.style.gridTemplateRows = 'repeat(9, 1fr)';
-
-entries.forEach((entrie, i) => {
-  const items = document.createElement('div');
-  items.id = `subMenu-${entrie}`;
-  items.style.gridRow = `${i+2}`;
-  items.style.gridColumn = '1';
-  items.style.fontFamily = 'ggSalasFont';
-  items.style.color = 'white';
-  items.style.paddingLeft = '70px';
-  items.style.fontSize = '20px';
-  items.style.marginTop = '15px';
-  items.appendChild(document.createTextNode(entrie))  
-  frame.appendChild(items);
-})
-
-const cursor = document.createElement('div');
-cursor.id = 'subMenuCursor'
-cursor.className = 'subMenuPointer';
-cursor.style.gridRow = '2';
-cursor.style.gridColumn = '1';
-frame.appendChild(cursor);
-
-subMenu.appendChild(frame);
-
-return subMenu;
-}
-
-export const getInfos = (menuEntrie: menuEntrie) => {
-  const infos = document.createElement('div');
-  infos.id = 'menu-info';
-  infos.style.gridColumn = '1/4';
-  infos.style.gridRow = '2/5';
-  infos.style.padding = '20px';
-
-  const frame = document.createElement('div');
-  frame.style.backgroundColor = 'rgba(255,255,255,0.2)';
-  frame.style.border = '3px solid white';
-  frame.style.borderRadius = '5px'
-  frame.style.height = '100%';
-  frame.style.display = 'grid';
-  frame.style.gridTemplateColumns = '1fr';
-  frame.style.gridTemplateRows = '1fr 7fr';
-  
-  const titleFrame = document.createElement('div');
-  titleFrame.style.gridColumn = '1';
-  titleFrame.style.gridRow = '1';
-  titleFrame.style.backgroundColor = '#4c4b4b';
-  titleFrame.style.borderBottom = '3px solid white';
-  titleFrame.style.borderRadius = '5px 5px 0 0';
-  titleFrame.style.textAlign = 'center';
-  titleFrame.style.color = 'white';
-  titleFrame.style.fontFamily = 'ggSalasFont';
-  titleFrame.style.fontSize = '20px';
-  titleFrame.style.paddingTop = '10px';
-  titleFrame.appendChild(document.createTextNode(menuEntrie.title))
-  frame.appendChild(titleFrame);
-
-
-  const itemsFrame = document.createElement('div');
-  itemsFrame.style.display = 'grid';
-  switch(menuEntrie.type){
-    case 'item':
-    case 'spell':
-      itemsFrame.style.gridTemplateColumns = `repeat(${(menuEntrie as entrieItem | entrieSpell).entrieItems.grid.columns}, 1fr)`;
-      itemsFrame.style.gridTemplateRows = `repeat(${(menuEntrie as entrieItem | entrieSpell).entrieItems.grid.rows}, 1fr)`;
-      itemsFrame.id = 'cursor-target';
-      (menuEntrie as entrieItem | entrieSpell).entrieItems.value.forEach((item, i) => {
-        const itemFrame = document.createElement('div');
-        itemFrame.style.fontFamily = 'ggSalasFont';
-        itemFrame.style.color = 'white';
-        itemFrame.style.fontSize = '20px';
-        itemFrame.style.paddingLeft = '50px';
-        itemFrame.style.gridColumn = '1';
-        itemFrame.style.gridRow = `${i+1}`;
-        itemFrame.style.fontFamily = 'ggSalasFont';
-        itemFrame.style.color = 'white';
-        itemFrame.style.paddingTop = '15px';
-        itemFrame.appendChild(document.createTextNode(item));
-        itemsFrame.appendChild(itemFrame);
-      })
-      break;
-    case 'quest':
-      itemsFrame.style.gridTemplateColumns = `repeat(${(menuEntrie as entrieQuest).entrieItems.grid.columns}, 1fr)`;
-      itemsFrame.style.gridTemplateRows = `repeat(${(menuEntrie as entrieQuest).entrieItems.grid.rows}, 1fr)`;
-      (menuEntrie as entrieQuest).entrieItems.value.forEach((item, i) => {
-        const itemFrame = document.createElement('div');
-        itemFrame.style.fontFamily = 'ggSalasFont';
-        itemFrame.style.color = 'white';
-        itemFrame.style.fontSize = '20px';
-        itemFrame.style.paddingLeft = '50px';
-        itemFrame.style.gridColumn = '1';
-        itemFrame.style.gridRow = `${i+1}`;
-        itemFrame.style.position = 'relative';
-        const dot = document.createElement('div');
-        dot.style.backgroundColor = 'white';
-        dot.style.height = '15px';
-        dot.style.width = '15px';
-        dot.style.borderRadius = '20px';
-        dot.style.position = 'absolute';
-        dot.style.top = '7px';
-        dot.style.left = '20px';
-        itemFrame.appendChild(dot);
-        itemFrame.appendChild(document.createTextNode(item.label));
-        itemFrame.appendChild(document.createElement('br'));
-        const span = document.createElement('span');
-        span.style.fontSize = '10px';
-        span.appendChild(document.createTextNode(item.description))
-        itemFrame.appendChild(span);
-        itemsFrame.appendChild(itemFrame);
-      });
-      break;
-    case 'stuf':
-      itemsFrame.style.gridTemplateColumns = `repeat(${(menuEntrie as entrieStuf).entrieItems.grid.columns}, 1fr)`;
-      itemsFrame.style.gridTemplateRows = `repeat(${(menuEntrie as entrieStuf).entrieItems.grid.rows}, 1fr)`;
-      itemsFrame.id = 'cursor-target';
-      (menuEntrie as entrieStuf).entrieItems.value.forEach((item, i) => {
-        const itemFrame = document.createElement('div');
-        itemFrame.style.fontFamily = 'ggSalasFont';
-        itemFrame.style.color = 'white';
-        itemFrame.style.fontSize = '20px';
-        itemFrame.style.paddingLeft = '50px';
-        itemFrame.style.gridColumn = '1';
-        itemFrame.style.gridRow = `${i+1}`;
-        itemFrame.style.position = 'relative';
-        itemFrame.style.borderRight = '2px solid white';
-        itemFrame.style.paddingTop = '15px';
-        const dot = document.createElement('div');
-        dot.style.backgroundColor = 'white';
-        dot.style.height = '15px';
-        dot.style.width = '15px';
-        dot.style.borderRadius = '20px';
-        dot.style.position = 'absolute';
-        dot.style.top = '22px';
-        dot.style.left = '20px';
-        itemFrame.appendChild(dot);
-        itemFrame.appendChild(document.createTextNode(item.label));
-        itemsFrame.appendChild(itemFrame);
-
-        if(item.label === 'Armes'){
-          const assetsFrame = document.createElement('div');
-          assetsFrame.style.gridColumn = '2';
-          assetsFrame.style.gridRow = '1/3';
-          assetsFrame.style.fontFamily = 'ggSalasFont';
-          assetsFrame.style.color = 'white';
-          assetsFrame.style.fontSize = '20px';
-          assetsFrame.style.color = 'white';
-          assetsFrame.style.paddingLeft = '10px';
-          assetsFrame.style.display = 'grid';
-          assetsFrame.style.gridTemplateColumns = '1';
-          assetsFrame.style.gridTemplateRows = '4';
-          item.items.forEach((subItem,j) => {
-            const assets = document.createElement('div');
-            assets.style.gridColumn = '1';
-            assets.style.gridRow = `${j}`;
-            assets.appendChild(document.createTextNode(subItem.name));
-            assetsFrame.appendChild(assets);
-          });
-          itemsFrame.appendChild(assetsFrame);
-        }
-      });
-      // eslint-disable-next-line no-case-declarations
-      const stats = document.createElement('div');
-      stats.style.gridColumn = '2';
-      stats.style.gridRow = '3';
-      stats.style.borderTop = '2px solid white';
-      stats.style.fontFamily = 'ggSalasFont';
-      stats.style.color = 'white';
-      stats.style.fontSize = '20px';
-      stats.style.padding = '10px 0 0 15px';
-      itemStatsValue.forEach(stat => {
-        stats.appendChild(document.createTextNode(`${stat} :`));
-        stats.appendChild(document.createElement('br'));
-      })
-      itemsFrame.appendChild(stats);
-      break;
-    case 'stat':
-      itemsFrame.style.gridTemplateColumns = `repeat(${(menuEntrie as entrieStat).entrieItems.grid.columns}, 1fr)`;
-      itemsFrame.style.gridTemplateRows = `repeat(${(menuEntrie as entrieStat).entrieItems.grid.rows}, 1fr)`;
-      // eslint-disable-next-line no-case-declarations
-      const spell = document.createElement('div');
-      spell.style.gridColumn = '1';
-      spell.style.gridRow = '4';
-      spell.style.borderTop = '3px solid white';
-      spell.style.fontFamily = 'ggSalasFont';
-      spell.style.color = 'white';
-      spell.style.fontSize = '20px';
-      spell.style.textAlign = 'center';
-      spell.appendChild(document.createTextNode('Sorts'));
-
-      getSpell(menuEntries).forEach((spell, i) => {
-        const spellItem = document.createElement('div');
-        spellItem.style.fontFamily = 'ggSalasFont';
-        spellItem.style.color = 'white';
-        spellItem.style.fontSize = '15px';
-        spellItem.style.paddingLeft = '10px';
-        spellItem.style.gridColumn = '1';
-        spellItem.style.gridRow = `${i+5}`;
-        spellItem.appendChild(document.createTextNode(spell));
-        itemsFrame.appendChild(spellItem);
-      })
-      // eslint-disable-next-line no-case-declarations
-      const stat = document.createElement('div');
-      stat.style.gridColumn = '2';
-      stat.style.gridRow = '4';
-      stat.style.borderTop = '3px solid white';
-      stat.style.borderLeft = '3px solid white';
-      stat.style.fontFamily = 'ggSalasFont';
-      stat.style.color = 'white';
-      stat.style.fontSize = '20px';
-      stat.style.textAlign = 'center';
-      stat.appendChild(document.createTextNode('Stats'));
-
-      (menuEntrie as entrieStat).entrieItems.value.forEach((stat,i) => {
-        if(typeof stat !== 'string'){
-          const statDetail = document.createElement('div');
-          statDetail.style.gridColumn = '2';
-          statDetail.style.gridRow = `${i+2}`;
-          statDetail.style.borderLeft = '3px solid white';
-          statDetail.style.paddingLeft = '10px';
-          statDetail.style.fontFamily = 'ggSalasFont';
-          statDetail.style.color = 'white';
-          statDetail.style.fontSize = '15px';
-          statDetail.appendChild(document.createTextNode(`${stat.label}: ${stat.value}`));
-          itemsFrame.appendChild(statDetail);
-        } else {
-          const statDetail = document.createElement('div');
-          statDetail.style.gridColumn = '1/3';
-          statDetail.style.gridRow = `${i+1}`;
-          statDetail.style.fontFamily = 'ggSalasFont';
-          statDetail.style.color = 'white';
-          statDetail.style.fontSize = '15px';
-          statDetail.style.paddingLeft = '10px';
-          statDetail.appendChild(document.createTextNode(`${stat}`));
-          itemsFrame.appendChild(statDetail);
-        }
-      });
-      itemsFrame.appendChild(spell);
-      itemsFrame.appendChild(stat);
-
-      break;
+    return main
   }
 
-  frame.appendChild(itemsFrame);  
-  infos.appendChild(frame);
-  
-  return infos
 }
 
-export const getStaticInfos = () => {
-  const frameGil = document.createElement('div');
-  frameGil.style.backgroundColor = 'rgba(255,255,255,0.2)';
-  frameGil.style.border = '3px solid white';
-  frameGil.style.borderRadius = '5px'
-  frameGil.style.height = '95%';
-  frameGil.style.textAlign = 'center';
-  frameGil.style.color = 'white';
-  frameGil.style.fontFamily = 'ggSalasFont';
-  frameGil.style.fontSize = '17px';
-  frameGil.style.lineHeight = '45px';
-  frameGil.appendChild(document.createTextNode('18050 Gil'));
-  
-  const frameGal = document.createElement('div');
-  frameGal.style.backgroundColor = 'rgba(255,255,255,0.2)';
-  frameGal.style.border = '3px solid white';
-  frameGal.style.borderRadius = '5px'
-  frameGal.style.height = '95%';
-  frameGal.style.textAlign = 'center';
-  frameGal.style.color = 'white';
-  frameGal.style.fontFamily = 'ggSalasFont';
-  frameGal.style.fontSize = '17px';
-  frameGal.style.lineHeight = '45px';
-  frameGal.appendChild(document.createTextNode('Galbadia'));
+// export const menuEntries: menuEntrie[] = [{
+//   title: 'Objets',
+//   type: 'item',
+//   entrieItems: {
+//     value: ['Générateur de ref', 'Pixeliser', 'Potion'],
+//     grid: {
+//       rows: 7,
+//       columns: 1,
+//     }
+//   }
+// },{
+//   title: 'Sorts',
+//   type:'spell',
+//   entrieItems: {
+//     value:['Brasier', 'Teleports'],
+//     grid: {
+//       rows: 7,
+//       columns: 1,
+//     }
+//   },
+// },{
+//   title: 'Quêtes',
+//   type: 'quest',
+//   entrieItems: {
+//     value:[{
+//     label: 'Premier freestyle Instagram',
+//     description: 'Participe au concours de NewTone x DMT x Damn pour t’exercer en mixing et mettre un pied dans le montage vidéo',
+//   },{
+//     label: 'Bad mood',
+//     description: 'Place un flow aérien sur une prod électronique',
+//   },{
+//     label: 'Hardbass preset',
+//     description: 'Place un flow troll sur une prod hardbass hardstyle',
+//   },{
+//     label: 'Rap contest',
+//     description: 'Participe au concours de DMT x Fat x Damn sur prod imposée afin de te faire connaître par le réseau',
+//   }],
+//   grid: {
+//     rows: 4,
+//     columns: 1,
+//   }
+// }
+// },{
+//   title: 'Equipement',
+//   type: 'stuf',
+//   entrieItems: {
+//     grid:{
+//       columns: 2,
+//       rows: 3,
+//     },
+//     value: [{
+//       label:'Armes',
+//       items:[{
+//         name:'Micro',
+//         stats:{
+//           Charisma: 15,
+//           Flow: 7,
+//           Technique: 4,
+//         }
+//       }]
+//     },{
+//       label:'Armures',
+//       items:[{
+//         name:'Veste hipster',
+//         stats:{
+//           Charisma: 7,
+//           Flow: 6,
+//           Technique: 15,
+//         }
+//       }]
+//     },{
+//       label:'Accessoires',
+//       items:[{
+//         name:'X',
+//         stats:{
+//           Charisma: 0,
+//           Flow: 0,
+//           Technique: 0,
+//         }
+//       }]
+//     }],
+//   }
+// },{
+//   title: 'Stats',
+//   type: 'stat',
+//   entrieItems: {
+//     grid:{
+//       columns: 2,
+//       rows: 7,
+//     },
+//     value: ['HP 210/210','MP 90/90','XP 100 pour monter un niveau', {
+//       label:'Flow',
+//       value: 21
+//     },{
+//       label: 'Technique',
+//       value: 18
+//     },{
+//       label: 'Charisma',
+//       value: 20,
+//     }],
+//   }
+// },{
+//   title: 'Enregistrer',
+//   type: 'none',
+// },{
+//   title: 'Quitter',
+//   type: 'none',
+// }];
 
-  const buttons = document.createElement('div');
-  buttons.style.gridColumn = '4/6';
-  buttons.style.gridRow = '4';
-  buttons.style.display = 'grid';
-  buttons.style.gridTemplateColumns = '1fr'
-  buttons.style.gridTemplateRows = 'repeat(2,1fr)'
-  const buttonTop = document.createElement('div');
-  buttonTop.style.gridColumn = '1';
-  buttonTop.style.gridRow = '1';
-  buttonTop.style.padding = '10px 45px';
-  const buttonBottom = document.createElement('div');
-  buttonBottom.style.gridColumn = '1';
-  buttonBottom.style.gridRow = '2';
-  buttonBottom.style.padding = '10px 45px';
-
-  buttonTop.appendChild(frameGil);
-  buttonBottom.appendChild(frameGal);
-  buttons.appendChild(buttonTop);
-  buttons.appendChild(buttonBottom);
-  
-  return buttons
-}
-
-const getSpell = (menuEntries: menuEntrie[]): string[] => {
-  const spells = menuEntries.find(entrie => entrie.type === 'spell')
-  if(spells){
-    return (spells as entrieSpell).entrieItems.value
-  }
-
-  return [];
-}
