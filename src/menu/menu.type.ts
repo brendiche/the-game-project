@@ -5,7 +5,7 @@ const entiresTitleValues = ['Objets', 'Sorts', 'Quêtes', 'Equipement', 'Accesso
 export type entiresTitleType = typeof entiresTitleValues[number];
 
 
-export type entrie = {
+export type entry = {
   title: entiresTitleType;
   element: HTMLElement;
   action: () => void;

@@ -1,11 +1,23 @@
+import { entry } from "../menu.type";
+
 export class DisplayMenuItem {
   element: HTMLElement;
+  private entry: entry;
+  private titleName: Text;
+  private content: HTMLElement;
 
-  constructor(){
+  constructor(entry: entry){
+    this.entry = entry;
     this.element = this.createTemplate();
   }
 
-  createTemplate(): HTMLElement{
+  set selectedEntry(entry: entry) {
+    this.entry = entry;
+    this.titleName.nodeValue = this.entry.title;
+  }
+
+  private createTemplate(): HTMLElement{
+    this.titleName = document.createTextNode(this.entry.title)
     const infos = document.createElement('div');
     infos.id = 'menu-info';
     infos.style.gridColumn = '1/4';
@@ -32,10 +44,12 @@ export class DisplayMenuItem {
     titleFrame.style.fontFamily = 'ggSalasFont';
     titleFrame.style.fontSize = '20px';
     titleFrame.style.paddingTop = '10px';
-    // titleFrame.appendChild(document.createTextNode('test')) /// <= menuEntrie.title
+    titleFrame.appendChild(this.titleName) /// <= menuEntrie.title
     frame.appendChild(titleFrame);
+    
+    this.content = this.entry.element;
 
-    // frame.appendChild(itemsFrame);  
+    frame.appendChild(this.content);  
     infos.appendChild(frame);
 
     return infos;

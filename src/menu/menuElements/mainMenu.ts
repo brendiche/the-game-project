@@ -1,12 +1,44 @@
-import { entrie } from "../menu.type";
-
+import { entry } from "../menu.type";
 export class MainMenu{
   element: HTMLElement;
+  _selectedEntry = 0;
+  private cursor: HTMLElement;
+  private menuLength: number;
+  private listener: (event: KeyboardEvent) => void;
+  private updateMenuCallback: () => void;
 
-  // 2022-09-17 BGO implement the handling of the cursor and the action
-  // this class should be responsible of the arraow hited by the user
-  constructor(entries: entrie[]){
+  constructor(entries: entry[], updateMenuCallback: () => void){
+    this.menuLength = entries.length;
     this.element = this.createMenu(entries.map(e => e.title));
+    this.updateMenuCallback = updateMenuCallback;
+  }
+
+  addListeners(): void{
+    this.listener = (event) => {
+      switch(event.key){
+            case 'ArrowDown':
+              this.cursorDown();
+              break;
+            case 'ArrowUp':
+              this.cursorUp();
+              break;
+            }
+            this.updateMenuCallback();
+    }
+    window.addEventListener('keydown', this.listener);
+  }
+
+  initCursor(): void{
+    this.cursor.style.gridRow = '2';
+    this.updateMenuCallback();
+  }
+
+  removeListeners(): void{
+    window.removeEventListener('keydown', this.listener);
+  }
+
+  get selectedEntry(): number{
+    return parseInt(this.cursor.style.gridRowStart) - 2;
   }
 
   private createMenu(entries: string[]): HTMLElement{
@@ -39,15 +71,27 @@ export class MainMenu{
       frame.appendChild(items);
     })
     
-    const cursor = document.createElement('div');
-    cursor.id = 'subMenuCursor'
-    cursor.className = 'subMenuPointer';
-    cursor.style.gridRow = '2';
-    cursor.style.gridColumn = '1';
-    frame.appendChild(cursor);
+    this.cursor = document.createElement('div');
+    this.cursor.id = 'subMenuCursor'
+    this.cursor.className = 'subMenuPointer';
+    this.cursor.style.gridRow = '2';
+    this.cursor.style.gridColumn = '1';
+    frame.appendChild(this.cursor);
     
     subMenu.appendChild(frame);
     
     return subMenu;
+  }
+
+  private cursorUp(){
+    if(this.cursor.style.gridRowStart > '2'){
+      this.cursor.style.gridRowStart = `${parseInt(this.cursor.style.gridRowStart) - 1}`;
+    }
+  }
+
+  private cursorDown(){
+    if(this.cursor.style.gridRowStart <= `${this.menuLength}`){
+      this.cursor.style.gridRowStart = `${parseInt(this.cursor.style.gridRowStart) + 1}`;
+    }
   }
 }

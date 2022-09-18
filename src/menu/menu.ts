@@ -1,12 +1,12 @@
 import { menuEntries } from "./menu.constants";
-import { entrie } from "./menu.type";
+import { entry } from "./menu.type";
 import { AdditionalInfos } from "./menuElements/additionalInfos";
 import { CharacterInfos } from './menuElements/charaterInfos';
 import { DisplayMenuItem } from "./menuElements/displayMenuItem";
 import { MainMenu } from "./menuElements/mainMenu";
 
 export class GameMenu{
-  menuEntries: entrie[];
+  menuEntries: entry[];
   element: HTMLElement;
 
   private characterInfos: CharacterInfos;
@@ -16,11 +16,12 @@ export class GameMenu{
 
   constructor(){
     this.characterInfos = new CharacterInfos();
-    this.mainMenu = new MainMenu(menuEntries);
+    this.mainMenu = new MainMenu(menuEntries, () => this.updateMenu());
     this.additionalInfos = new AdditionalInfos();
-    this.displayMenuItem = new DisplayMenuItem();
+    this.displayMenuItem = new DisplayMenuItem(menuEntries[this.mainMenu.selectedEntry]);
     this.element = this.createMenu();
   }
+
   get isOpen(): boolean{
     return getComputedStyle(this.element).display !== 'none';
   }
@@ -28,9 +29,16 @@ export class GameMenu{
   public toggleMenu(): void {
     if(this.isOpen){
       this.element.style.display = 'none';
+      this.mainMenu.initCursor();
+      this.mainMenu.removeListeners();
     }else{
       this.element.style.display = 'grid';
+      this.mainMenu.addListeners();
     }
+  }
+
+  private updateMenu(){
+    this.displayMenuItem.selectedEntry = menuEntries[this.mainMenu.selectedEntry];
   }
 
   private createMenu(): HTMLElement {

@@ -1,8 +1,9 @@
-import { entrie } from "./menu.type";
+import { entry } from "./menu.type";
+import {MenuItems} from './menuElements/displayMenu/items';
 
-export const menuEntries: entrie[] = [{
+export const menuEntries: entry[] = [{
   title:'Objets',
-  element: document.createElement('div'),
+  element: new MenuItems().element,
   action: () => (console.log('enter on object'))
 },{
   title:'Sorts',
