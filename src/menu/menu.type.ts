@@ -13,6 +13,7 @@ export type entry = {
 
 export interface MenuDetail {
   getDetail: () => HTMLElement
+  actionHandler: () => void
 }
 
 // export interface entrieItem extends entrie{

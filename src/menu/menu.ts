@@ -33,9 +33,11 @@ export class GameMenu{
       this.element.style.display = 'none';
       this.mainMenu.initCursor();
       this.mainMenu.removeListeners();
+      this.displayMenuItem.removeListeners();
     }else{
       this.element.style.display = 'grid';
       this.mainMenu.addListeners();
+      this.displayMenuItem.addListeners();
     }
   }
   private createMenu(): HTMLElement {

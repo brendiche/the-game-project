@@ -13,6 +13,7 @@
  - [ ] finish the menu
   - [x] add dynamic menu
   - [ ] link actions on menu
+ - [ ] type the invoentory
  - [ ] add games interaction like found items
  - [ ] add some fighting like pokemon
  - [ ] add character choice

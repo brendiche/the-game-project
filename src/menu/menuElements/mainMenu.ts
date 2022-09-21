@@ -33,6 +33,10 @@ export class MainMenu{
     window.addEventListener('keydown', this.listener);
   }
 
+  removeListeners(): void{
+    window.removeEventListener('keydown', this.listener);
+  }
+
   initCursor(): void{
     this.cursor.style.gridRow = '2';
     this.updateSelectedItem();
@@ -41,10 +45,6 @@ export class MainMenu{
   private updateSelectedItem():void{
     this.selectedEntry = this.entries[parseInt(this.cursor.style.gridRow)-2];
     this.menuService.updateSelectedItem(this.selectedEntry);
-  }
-
-  removeListeners(): void{
-    window.removeEventListener('keydown', this.listener);
   }
 
   private createMenu(entries: string[]): HTMLElement{

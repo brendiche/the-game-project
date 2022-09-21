@@ -33,12 +33,12 @@ export const menuEntries: Record<entiresType, entry> = {
   },
   save: {
     title:'Enregistrer',
-    detail: { getDetail: () => document.createElement('div')},
+    detail: { getDetail: () => document.createElement('div'), actionHandler: () => (console.log('')),},
     action: () => (console.log('enter on save'))
   },
   quit: {
     title:'Quitter',
-    detail: { getDetail: () => document.createElement('div')},
+    detail: { getDetail: () => document.createElement('div'), actionHandler: () => (console.log(''))},
     action: () => (console.log('enter on save'))
   }
 }

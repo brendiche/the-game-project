@@ -1,8 +1,6 @@
 import { MenuDetail } from "../../menu.type";
 import { game } from '../../../game/game.service';
 export class MenuItems implements MenuDetail {
-
-  // TODO 2022-09-18 BGO make the menu linked to the character
   getDetail() {
     const inventory = game.player.inventrory;
     const container = document.createElement('div');
@@ -21,6 +19,10 @@ export class MenuItems implements MenuDetail {
       container.appendChild(itemDiv);
     }
     return container;
+  }
+
+  actionHandler(){
+    console.log('i will add the cursor and the event listener');
   }
 
 }

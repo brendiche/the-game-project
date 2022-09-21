@@ -3,6 +3,7 @@ import { entry } from "../menu.type";
 
 export class DisplayMenuItem {
   element: HTMLElement;
+  private listener: (event: KeyboardEvent) => void;
   private entry: entry;
   private titleName: Text;
   private content: HTMLElement;
@@ -14,6 +15,22 @@ export class DisplayMenuItem {
     this.menuService = menuService;
     this.menuService.onUpdateSelectedItem((event) => this.selectedEntry(event.detail))
   }
+
+  addListeners(): void{
+    this.listener = (event) => {
+      switch(event.key){
+        case 'Enter':
+          this.entry.detail.actionHandler();
+          break;
+      }
+    }
+    window.addEventListener('keydown', this.listener);
+  }
+
+  removeListeners(): void{
+    window.removeEventListener('keydown', this.listener);
+  }
+
 
   private selectedEntry(entry: entry) {
     this.entry = entry;
