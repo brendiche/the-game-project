@@ -12,9 +12,9 @@ export class Level {
     this._config = config;
     this.level = document.createElement('div');
     const matrix = createMatrix(181,380);
-    console.log('matrix',matrix);
+    // console.log('matrix',matrix);
     this._map = this.initLevel(matrix);
-    console.log('map',this._map);
+    // console.log('map',this._map);
   }
 
   get element(): HTMLElement{
