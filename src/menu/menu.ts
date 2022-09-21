@@ -1,4 +1,5 @@
 import { menuEntries } from "./menu.constants";
+import { MenuService } from "./menu.service";
 import { entry } from "./menu.type";
 import { AdditionalInfos } from "./menuElements/additionalInfos";
 import { CharacterInfos } from './menuElements/charaterInfos';
@@ -13,12 +14,15 @@ export class GameMenu{
   private mainMenu: MainMenu;
   private additionalInfos: AdditionalInfos;
   private displayMenuItem: DisplayMenuItem;
+  private menuService: MenuService;
 
   constructor(){
+    menuEntries.quit.action = () => this.toggleMenu();
+    this.menuService = new MenuService();
     this.characterInfos = new CharacterInfos();
-    this.mainMenu = new MainMenu(menuEntries, () => this.updateMenu());
+    this.mainMenu = new MainMenu(Object.values(menuEntries), this.menuService);
     this.additionalInfos = new AdditionalInfos();
-    this.displayMenuItem = new DisplayMenuItem(menuEntries[this.mainMenu.selectedEntry]);
+    this.displayMenuItem = new DisplayMenuItem(menuEntries.item, this.menuService);
     this.element = this.createMenu();
   }
 
@@ -36,11 +40,6 @@ export class GameMenu{
       this.mainMenu.addListeners();
     }
   }
-
-  private updateMenu(){
-    this.displayMenuItem.selectedEntry = menuEntries[this.mainMenu.selectedEntry];
-  }
-
   private createMenu(): HTMLElement {
     const main = document.createElement('div');
     main.className = 'menu';

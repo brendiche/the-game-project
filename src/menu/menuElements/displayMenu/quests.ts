@@ -1,4 +1,4 @@
-export class MenuItems {
+export class MenuQuests{
   element: HTMLElement
 
   constructor(){
@@ -9,7 +9,7 @@ export class MenuItems {
   private createElement(): HTMLElement {
     const container = document.createElement('div');
     container.style.display = 'grid';
-    container.style.backgroundColor ="red"
+    container.style.backgroundColor ="orange"
     return container;
   }
 }

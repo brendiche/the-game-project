@@ -1,7 +1,7 @@
-const entiresTypeValues = ['quest', 'item', 'stuf', 'spell', 'stat', 'none'] as const;
+const entiresTypeValues = ['quest', 'item', 'stuf', 'spell', 'stat', 'save', 'quit'] as const;
 export type entiresType = typeof entiresTypeValues[number];
 
-const entiresTitleValues = ['Objets', 'Sorts', 'Quêtes', 'Equipement', 'Accessoires', 'Stats', 'Enregistrer', 'Quitter'] as const;
+const entiresTitleValues = ['Objets', 'Sorts', 'Quêtes', 'Equipement', 'Stats', 'Enregistrer', 'Quitter'] as const;
 export type entiresTitleType = typeof entiresTitleValues[number];
 
 

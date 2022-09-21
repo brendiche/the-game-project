@@ -11,6 +11,9 @@
  - [x] handle the way the game is moving in the manager
  - [x] fix the boundary of the game
  - [ ] finish the menu
+  - [x] add dynamic menu
+  - [ ] link actions on menu
+ - [ ] add games interaction like found items
  - [ ] add some fighting like pokemon
  - [ ] add character choice
  - [ ] handle moblie screen

@@ -1,16 +1,17 @@
+import { MenuService } from "../menu.service";
 import { entry } from "../menu.type";
 export class MainMenu{
   element: HTMLElement;
   _selectedEntry = 0;
   private cursor: HTMLElement;
-  private menuLength: number;
+  private entries: entry[];
   private listener: (event: KeyboardEvent) => void;
-  private updateMenuCallback: () => void;
+  private menuService: MenuService;
 
-  constructor(entries: entry[], updateMenuCallback: () => void){
-    this.menuLength = entries.length;
+  constructor(entries: entry[], menuService: MenuService){
+    this.entries = entries;
     this.element = this.createMenu(entries.map(e => e.title));
-    this.updateMenuCallback = updateMenuCallback;
+    this.menuService = menuService;
   }
 
   addListeners(): void{
@@ -23,14 +24,14 @@ export class MainMenu{
               this.cursorUp();
               break;
             }
-            this.updateMenuCallback();
+            this.menuService.updateSelectedItem(this.entries[this.selectedEntry])
     }
     window.addEventListener('keydown', this.listener);
   }
 
   initCursor(): void{
     this.cursor.style.gridRow = '2';
-    this.updateMenuCallback();
+    this.menuService.updateSelectedItem(this.entries[this.selectedEntry]);
   }
 
   removeListeners(): void{
@@ -90,7 +91,7 @@ export class MainMenu{
   }
 
   private cursorDown(){
-    if(this.cursor.style.gridRowStart <= `${this.menuLength}`){
+    if(this.cursor.style.gridRowStart <= `${this.entries.length}`){
       this.cursor.style.gridRowStart = `${parseInt(this.cursor.style.gridRowStart) + 1}`;
     }
   }

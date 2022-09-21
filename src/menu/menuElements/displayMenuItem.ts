@@ -1,3 +1,4 @@
+import { MenuService } from "../menu.service";
 import { entry } from "../menu.type";
 
 export class DisplayMenuItem {
@@ -5,15 +6,19 @@ export class DisplayMenuItem {
   private entry: entry;
   private titleName: Text;
   private content: HTMLElement;
+  private menuService: MenuService
 
-  constructor(entry: entry){
+  constructor(entry: entry, menuService: MenuService){
     this.entry = entry;
     this.element = this.createTemplate();
+    this.menuService = menuService;
+    this.menuService.onUpdateSelectedItem((event) => this.selectedEntry(event.detail))
   }
 
-  set selectedEntry(entry: entry) {
+  private selectedEntry(entry: entry) {
     this.entry = entry;
     this.titleName.nodeValue = this.entry.title;
+    this.content.firstChild.replaceWith(this.entry.element);
   }
 
   private createTemplate(): HTMLElement{
@@ -46,8 +51,10 @@ export class DisplayMenuItem {
     titleFrame.style.paddingTop = '10px';
     titleFrame.appendChild(this.titleName) /// <= menuEntrie.title
     frame.appendChild(titleFrame);
-    
-    this.content = this.entry.element;
+
+    this.content = document.createElement('div');
+    this.content.style.display = 'grid';
+    this.content.appendChild(this.entry.element);
 
     frame.appendChild(this.content);  
     infos.appendChild(frame);
