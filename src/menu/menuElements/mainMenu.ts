@@ -37,7 +37,13 @@ export class MainMenu{
     window.removeEventListener('keydown', this.listener);
   }
 
+  removeCursor(): void{
+    this.cursor.remove();
+  }
+
   initCursor(): void{
+    if(!this.cursor) this.createCursor();
+    document.getElementById('subMenu').appendChild(this.cursor);
     this.cursor.style.gridRow = '2';
     this.updateSelectedItem();
   }
@@ -77,16 +83,17 @@ export class MainMenu{
       frame.appendChild(items);
     })
     
+    subMenu.appendChild(frame);
+    
+    return subMenu;
+  }
+
+  private createCursor(): void{
     this.cursor = document.createElement('div');
     this.cursor.id = 'subMenuCursor'
     this.cursor.className = 'subMenuPointer';
     this.cursor.style.gridRow = '2';
     this.cursor.style.gridColumn = '1';
-    frame.appendChild(this.cursor);
-    
-    subMenu.appendChild(frame);
-    
-    return subMenu;
   }
 
   private cursorUp(){

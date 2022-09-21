@@ -18,6 +18,15 @@
   background: url('../characters/ggsalas-dresseur.png');
 }
 
+.itemMenuPointer{
+  background: url('./cursor.png');
+  background-repeat: no-repeat;
+  background-size: 40px;
+  margin-top: 7px;
+  margin-left: -50px;
+  animation: annim 700ms linear infinite;
+}
+
 .subMenuPointer{
   background: url('./cursor.png');
   background-repeat: no-repeat;

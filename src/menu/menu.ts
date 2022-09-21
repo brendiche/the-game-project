@@ -15,13 +15,17 @@ export class GameMenu{
   private menuService: MenuService;
 
   constructor(){
-    menuEntries.quit.action = () => this.toggleMenu();
     this.menuService = new MenuService();
     this.characterInfos = new CharacterInfos();
     this.mainMenu = new MainMenu(Object.values(menuEntries), this.menuService);
     this.additionalInfos = new AdditionalInfos();
     this.displayMenuItem = new DisplayMenuItem(menuEntries.item, this.menuService);
     this.element = this.createMenu();
+    menuEntries.quit.action = () => this.toggleMenu();
+    menuEntries.item.action = () => {
+      this.mainMenu.removeCursor();
+      this.mainMenu.removeListeners();
+    }
   }
 
   get isOpen(): boolean{
@@ -31,10 +35,10 @@ export class GameMenu{
   public toggleMenu(): void {
     if(this.isOpen){
       this.element.style.display = 'none';
-      this.mainMenu.initCursor();
       this.mainMenu.removeListeners();
       this.displayMenuItem.removeListeners();
     }else{
+      this.mainMenu.initCursor();
       this.element.style.display = 'grid';
       this.mainMenu.addListeners();
       this.displayMenuItem.addListeners();

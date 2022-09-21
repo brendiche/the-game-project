@@ -12,7 +12,8 @@
  - [x] fix the boundary of the game
  - [ ] finish the menu
   - [x] add dynamic menu
-  - [ ] link actions on menu
+  - [x] link actions on menu
+  - [ ] reset detail to main menu
  - [ ] type the invoentory
  - [ ] add games interaction like found items
  - [ ] add some fighting like pokemon
