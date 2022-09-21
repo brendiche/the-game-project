@@ -1,15 +1,10 @@
-export class MenuSpells{
-  element: HTMLElement
+import { MenuDetail } from "../../menu.type";
 
-  constructor(){
-    this.element = this.createElement();
-  }
-
-  // TODO 2022-09-18 BGO make the menu linked to the character
-  private createElement(): HTMLElement {
+export class MenuSpells implements MenuDetail {
+  getDetail() {
     const container = document.createElement('div');
     container.style.display = 'grid';
     container.style.backgroundColor ="blue"
     return container;
-  }
+  } 
 }

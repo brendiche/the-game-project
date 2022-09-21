@@ -18,7 +18,7 @@ export class DisplayMenuItem {
   private selectedEntry(entry: entry) {
     this.entry = entry;
     this.titleName.nodeValue = this.entry.title;
-    this.content.firstChild.replaceWith(this.entry.element);
+    this.content.firstChild.replaceWith(this.entry.detail.getDetail());
   }
 
   private createTemplate(): HTMLElement{
@@ -54,7 +54,7 @@ export class DisplayMenuItem {
 
     this.content = document.createElement('div');
     this.content.style.display = 'grid';
-    this.content.appendChild(this.entry.element);
+    this.content.appendChild(this.entry.detail.getDetail());
 
     frame.appendChild(this.content);  
     infos.appendChild(frame);

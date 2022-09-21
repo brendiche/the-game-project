@@ -8,37 +8,37 @@ import { MenuStuff } from "./menuElements/displayMenu/stuff";
 export const menuEntries: Record<entiresType, entry> = {
   item: {
     title: 'Objets',
-    element: new MenuItems().element,
+    detail: new MenuItems(),
     action: () => (console.log('select item'))
   },
   spell: {
     title:'Sorts',
-    element: new MenuSpells().element,
+    detail: new MenuSpells(),
     action: () => (console.log('enter on sorts'))
   },
   quest: {
     title:'Quêtes',
-    element: new MenuQuests().element,
+    detail: new MenuQuests(),
     action: () => (console.log('enter on quest'))
   },
   stuf:{
     title:'Equipement',
-    element: new MenuStuff().element,
+    detail: new MenuStuff(),
     action: () => (console.log('enter on items'))
   },
   stat: {
     title:'Stats',
-    element: new MenuStats().element,
+    detail: new MenuStats(),
     action: () => (console.log('enter on stats'))
   },
   save: {
     title:'Enregistrer',
-    element: document.createElement('div'),
+    detail: { getDetail: () => document.createElement('div')},
     action: () => (console.log('enter on save'))
   },
   quit: {
     title:'Quitter',
-    element: document.createElement('div'),
+    detail: { getDetail: () => document.createElement('div')},
     action: () => (console.log('enter on save'))
   }
 }

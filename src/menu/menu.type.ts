@@ -7,8 +7,12 @@ export type entiresTitleType = typeof entiresTitleValues[number];
 
 export type entry = {
   title: entiresTitleType;
-  element: HTMLElement;
+  detail: MenuDetail;
   action: () => void;
+}
+
+export interface MenuDetail {
+  getDetail: () => HTMLElement
 }
 
 // export interface entrieItem extends entrie{

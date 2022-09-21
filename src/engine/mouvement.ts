@@ -1,4 +1,4 @@
-import { Control } from "./control";
+import { Control } from "../control";
 import { Engine } from "./gameEngine";
 import { characterAllowedToMove, CharacterConfig, getPosition, setPosition, StatesRPGType } from "./helper";
 import { Level } from "./level";

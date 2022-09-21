@@ -1,5 +1,5 @@
 import { createMatrix, getPosition, LevelConfig, setPosition, SideType, StatesRPGType } from './helper';
-import './assets/levels/level.css'
+import '../assets/levels/level.css'
 
 
 

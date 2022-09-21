@@ -1,9 +1,9 @@
-import { Character } from "./character";
+import { Character } from "./engine/character";
 import { Control } from "./control";
-import { Engine } from "./gameEngine";
-import { characterAllowedToMove, GameConfig, getPosition } from "./helper";
-import { Level } from "./level";
-import { Move } from "./mouvement";
+import { Engine } from "./engine/gameEngine";
+import { characterAllowedToMove, GameConfig, getPosition } from "./engine/helper";
+import { Level } from "./engine/level";
+import { Move } from "./engine/mouvement";
 
 export class GameManager {
   private character: Character;

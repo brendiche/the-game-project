@@ -1,11 +1,11 @@
-import {Character} from './character';
-import { Engine } from './gameEngine';
-import { Level } from './level';
+import {Character} from './engine/character';
+import { Engine } from './engine/gameEngine';
+import { Level } from './engine/level';
 
 import './assets/characters/ggSalas.css';
 import { Control } from './control';
 import { GameManager } from './gameManager';
-import { CharacterConfig, GameConfig } from './helper';
+import { CharacterConfig, GameConfig } from './engine/helper';
 import Conf from '../conf/config.json';
 const engine = new Engine();
 

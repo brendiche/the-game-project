@@ -1,13 +1,11 @@
 import { menuEntries } from "./menu.constants";
 import { MenuService } from "./menu.service";
-import { entry } from "./menu.type";
 import { AdditionalInfos } from "./menuElements/additionalInfos";
 import { CharacterInfos } from './menuElements/charaterInfos';
 import { DisplayMenuItem } from "./menuElements/displayMenuItem";
 import { MainMenu } from "./menuElements/mainMenu";
 
 export class GameMenu{
-  menuEntries: entry[];
   element: HTMLElement;
 
   private characterInfos: CharacterInfos;
