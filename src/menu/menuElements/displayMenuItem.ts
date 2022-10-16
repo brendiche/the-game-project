@@ -13,7 +13,7 @@ export class DisplayMenuItem {
     this.entry = entry;
     this.element = this.createTemplate();
     this.menuService = menuService;
-    this.menuService.onUpdateSelectedItem((event) => this.selectedEntry(event.detail))
+    this.menuService.updateSelectedItem.subscribe((event: CustomEvent<entry>) => this.selectedEntry(event.detail))
   }
 
   addListeners(): void{

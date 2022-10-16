@@ -1,10 +1,9 @@
 import { menuEntries } from "./menu.constants";
-import { MenuService } from "./menu.service";
 import { AdditionalInfos } from "./menuElements/additionalInfos";
 import { CharacterInfos } from './menuElements/charaterInfos';
 import { DisplayMenuItem } from "./menuElements/displayMenuItem";
 import { MainMenu } from "./menuElements/mainMenu";
-
+import { menuService } from './menu.service';
 export class GameMenu{
   element: HTMLElement;
 
@@ -12,20 +11,19 @@ export class GameMenu{
   private mainMenu: MainMenu;
   private additionalInfos: AdditionalInfos;
   private displayMenuItem: DisplayMenuItem;
-  private menuService: MenuService;
 
   constructor(){
-    this.menuService = new MenuService();
     this.characterInfos = new CharacterInfos();
-    this.mainMenu = new MainMenu(Object.values(menuEntries), this.menuService);
+    this.mainMenu = new MainMenu(Object.values(menuEntries), menuService);
     this.additionalInfos = new AdditionalInfos();
-    this.displayMenuItem = new DisplayMenuItem(menuEntries.item, this.menuService);
+    this.displayMenuItem = new DisplayMenuItem(menuEntries.item, menuService);
     this.element = this.createMenu();
     menuEntries.quit.action = () => this.toggleMenu();
     menuEntries.item.action = () => {
       this.mainMenu.removeCursor();
       this.mainMenu.removeListeners();
     }
+    menuService.backToMainMenu.subscribe(() => {this.mainMenu.initCursor()})
   }
 
   get isOpen(): boolean{
@@ -44,6 +42,7 @@ export class GameMenu{
       this.displayMenuItem.addListeners();
     }
   }
+
   private createMenu(): HTMLElement {
     const main = document.createElement('div');
     main.className = 'menu';

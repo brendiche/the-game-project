@@ -1,14 +1,21 @@
+import { Observable } from "../helpers/observables";
 import { entry } from "./menu.type";
 
 export class MenuService {
   private readonly MenuUpdateSelectedItemEventType = 'Menu.UpdateSelectedItem';
+  private readonly BackToMainMenuEventType = 'Menu.BackToMain';
 
-  updateSelectedItem(item: entry): void{
-    const event = new CustomEvent<entry>(this.MenuUpdateSelectedItemEventType, {detail: item});
-    window.dispatchEvent(event)
-  }
+  updateSelectedItem = new Observable<entry>(this.MenuUpdateSelectedItemEventType);
+  backToMainMenu = new Observable(this.BackToMainMenuEventType);
 
-  onUpdateSelectedItem(callback: (e: CustomEvent<entry>) => void) {
-    window.addEventListener(this.MenuUpdateSelectedItemEventType, callback);
-  }
+  // backToMainMenu(): void{
+  //   window.dispatchEvent(new CustomEvent(this.BackToMainMenuEventType));
+  // }
+
+  // onBackToMainMenu(callback: (e: CustomEvent) => void) {
+  //   window.addEventListener(this.BackToMainMenuEventType, callback);
+  // }
+
 }
+
+export const menuService = new MenuService();

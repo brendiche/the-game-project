@@ -1,5 +1,6 @@
 import { MenuDetail } from "../../menu.type";
 import { game } from '../../../game/game.service';
+import { menuService } from "../../menu.service";
 export class MenuItems implements MenuDetail {
   items: any[];
   container: HTMLElement;
@@ -13,7 +14,6 @@ export class MenuItems implements MenuDetail {
   getDetail() {
     this.container = document.createElement('div');
     this.container.style.display = 'grid';
-    // container.style.backgroundColor ="red"
     this.container.style.fontFamily = 'ggSalasFont';
     this.container.style.color = 'white';
     this.container.style.fontSize = '20px';
@@ -54,6 +54,7 @@ export class MenuItems implements MenuDetail {
         case 'Backspace':
           this.removeListeners();
           this.cursor.remove();
+          menuService.backToMainMenu.next();
           break;
       }
     }

@@ -50,7 +50,7 @@ export class MainMenu{
 
   private updateSelectedItem():void{
     this.selectedEntry = this.entries[parseInt(this.cursor.style.gridRow)-2];
-    this.menuService.updateSelectedItem(this.selectedEntry);
+    this.menuService.updateSelectedItem.next(this.selectedEntry);
   }
 
   private createMenu(entries: string[]): HTMLElement{
