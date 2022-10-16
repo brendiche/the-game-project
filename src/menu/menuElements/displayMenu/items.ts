@@ -59,6 +59,10 @@ export class MenuItems implements MenuDetail {
           this.cursor.remove();
           menuService.backToMainMenu.next();
           break;
+        case 'Enter': 
+          console.log(`use item ${this.items[parseInt(this.cursor.style.gridRow) - 1].name
+          }`)
+          break;
       }
     }
     window.addEventListener('keydown', this.listener);
