@@ -3,7 +3,7 @@ import { game } from '../../../game/game.service';
 import { menuService } from "../../menu.service";
 export class MenuItems implements MenuDetail {
   items: any[];
-  container: HTMLElement;
+  container!: HTMLElement;
   cursor: HTMLElement;
   private listener: (event: KeyboardEvent) => void;
 
@@ -12,19 +12,22 @@ export class MenuItems implements MenuDetail {
   }
 
   getDetail() {
-    this.container = document.createElement('div');
-    this.container.style.display = 'grid';
-    this.container.style.fontFamily = 'ggSalasFont';
-    this.container.style.color = 'white';
-    this.container.style.fontSize = '20px';
-    this.container.style.paddingLeft = '50px';
+    if(!this.container){
+      this.container = document.createElement('div');
+      this.container.id = 'menu-item-container';
+      this.container.style.display = 'grid';
+      this.container.style.fontFamily = 'ggSalasFont';
+      this.container.style.color = 'white';
+      this.container.style.fontSize = '20px';
+      this.container.style.paddingLeft = '50px';
 
-    for (let i = 0; i < 7; i++) {
-      const itemDiv = document.createElement('div');
-      itemDiv.style.gridColumn = '1';
-      itemDiv.style.gridRow = `${i+1}`;
-      itemDiv.appendChild(document.createTextNode(this.items[i]?.name ?? ''));
-      this.container.appendChild(itemDiv);
+      for (let i = 0; i < 7; i++) {
+        const itemDiv = document.createElement('div');
+        itemDiv.style.gridColumn = '1';
+        itemDiv.style.gridRow = `${i+1}`;
+        itemDiv.appendChild(document.createTextNode(this.items[i]?.name ?? ''));
+        this.container.appendChild(itemDiv);
+      }
     }
     return this.container;
   }

@@ -18,12 +18,23 @@ export class GameMenu{
     this.additionalInfos = new AdditionalInfos();
     this.displayMenuItem = new DisplayMenuItem(menuEntries.item, menuService);
     this.element = this.createMenu();
+    // Menu entries actions
     menuEntries.quit.action = () => this.toggleMenu();
     menuEntries.item.action = () => {
       this.mainMenu.removeCursor();
       this.mainMenu.removeListeners();
+      menuEntries.item.detail.actionHandler();
+      menuService.updateSelectedItem.next(menuEntries.item); // this is an ugly way to update menu detail
     }
-    menuService.backToMainMenu.subscribe(() => {this.mainMenu.initCursor()})
+
+    // Service subscribers
+    menuService.backToMainMenu.subscribe(() => {
+      this.mainMenu.initCursor();
+      this.mainMenu.addListeners();
+    });
+    menuService.mainMenuAction.subscribe(({detail: entry}) => {
+      entry.action();
+    })
   }
 
   get isOpen(): boolean{
@@ -34,12 +45,10 @@ export class GameMenu{
     if(this.isOpen){
       this.element.style.display = 'none';
       this.mainMenu.removeListeners();
-      this.displayMenuItem.removeListeners();
     }else{
       this.mainMenu.initCursor();
       this.element.style.display = 'grid';
       this.mainMenu.addListeners();
-      this.displayMenuItem.addListeners();
     }
   }
 

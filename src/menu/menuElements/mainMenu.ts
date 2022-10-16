@@ -25,7 +25,7 @@ export class MainMenu{
           this.cursorUp();
           break;
         case 'Enter':
-          this.selectedEntry.action();
+          this.menuService.mainMenuAction.next(this.selectedEntry);
           break;
       }
       this.updateSelectedItem();

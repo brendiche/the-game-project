@@ -16,29 +16,13 @@ export class DisplayMenuItem {
     this.menuService.updateSelectedItem.subscribe((event: CustomEvent<entry>) => this.selectedEntry(event.detail))
   }
 
-  addListeners(): void{
-    this.listener = (event) => {
-      switch(event.key){
-        case 'Enter':
-          this.entry.detail.actionHandler();
-          break;
-      }
-    }
-    window.addEventListener('keydown', this.listener);
-  }
-
-  removeListeners(): void{
-    window.removeEventListener('keydown', this.listener);
-  }
-
-
   private selectedEntry(entry: entry) {
     this.entry = entry;
     this.titleName.nodeValue = this.entry.title;
     this.content.firstChild.replaceWith(this.entry.detail.getDetail());
   }
 
-  private createTemplate(): HTMLElement{
+  private createTemplate(): HTMLElement {
     this.titleName = document.createTextNode(this.entry.title)
     const infos = document.createElement('div');
     infos.id = 'menu-info';

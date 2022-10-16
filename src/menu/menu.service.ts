@@ -4,18 +4,11 @@ import { entry } from "./menu.type";
 export class MenuService {
   private readonly MenuUpdateSelectedItemEventType = 'Menu.UpdateSelectedItem';
   private readonly BackToMainMenuEventType = 'Menu.BackToMain';
+  private readonly ActionEntryMainMenuEventType = 'Menu.ActionEntry';
 
   updateSelectedItem = new Observable<entry>(this.MenuUpdateSelectedItemEventType);
   backToMainMenu = new Observable(this.BackToMainMenuEventType);
-
-  // backToMainMenu(): void{
-  //   window.dispatchEvent(new CustomEvent(this.BackToMainMenuEventType));
-  // }
-
-  // onBackToMainMenu(callback: (e: CustomEvent) => void) {
-  //   window.addEventListener(this.BackToMainMenuEventType, callback);
-  // }
-
+  mainMenuAction = new Observable<entry>(this.ActionEntryMainMenuEventType);
 }
 
 export const menuService = new MenuService();
