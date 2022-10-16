@@ -49,3 +49,16 @@
   animation: run 500ms steps(4) infinite;
   background-position-y: 64px; 
 }
+
+
+/**
+here waiting for a better place
+*/
+.fightScreen{
+  height: 600px;
+  width: 800px;
+  background: url('./fight.jpg'); 
+  position: absolute;
+  top: 8px;
+  background-size: 800px 600px;
+}

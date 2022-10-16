@@ -7,6 +7,7 @@ import { Control } from './control';
 import { GameManager } from './gameManager';
 import { CharacterConfig, GameConfig } from './engine/helper';
 import Conf from '../conf/config.json';
+import { Fight } from './game/fight';
 const engine = new Engine();
 
 const characterConf: CharacterConfig = {
@@ -39,6 +40,11 @@ const config: GameConfig = {
   level: levelConf,
 }
 
+/**
+ * add fight mode here for dev pourpose
+ */
+const fight = new Fight();
+
 const character = new Character(config.character, engine, 'ggsalas');
 const level = new Level(config.level);
 
@@ -48,3 +54,4 @@ new GameManager(config, engine, character, level, control);
 document.body.appendChild(level.element);
 document.body.appendChild(character.element);
 document.body.appendChild(control.element);
+document.body.appendChild(fight.element);

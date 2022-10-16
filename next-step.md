@@ -13,9 +13,9 @@
  - [ ] finish the menu
   - [x] add dynamic menu
   - [x] link actions on menu
-  - [ ] reset detail to main menu
+  - [x] reset detail to main menu
+ - [ ] add some fighting like pokemon
  - [ ] type the invoentory
  - [ ] add games interaction like found items
- - [ ] add some fighting like pokemon
  - [ ] add character choice
  - [ ] handle moblie screen

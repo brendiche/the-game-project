@@ -4,6 +4,7 @@ import { Engine } from "./engine/gameEngine";
 import { characterAllowedToMove, GameConfig, getPosition } from "./engine/helper";
 import { Level } from "./engine/level";
 import { Move } from "./engine/mouvement";
+import { Fight } from "./game/fight";
 
 export class GameManager {
   private character: Character;
